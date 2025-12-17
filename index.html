@@ -5,40 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arjan AI</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 20px; }
-        #chatbox { width: 100%; max-width: 500px; height: 350px; border: 1px solid #333; overflow-y: auto; padding: 10px; margin: 0 auto 10px; background: #1e1e1e; border-radius: 10px; text-align: left; }
-        input { width: 70%; padding: 10px; border-radius: 5px; border: none; color: black; }
-        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .user-msg { color: #00ffcc; margin: 5px 0; text-align: right; }
-        .ai-msg { color: #ffffff; margin: 5px 0; background: #333; padding: 8px; border-radius: 5px; }
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 20px; margin: 0; }
+        #chatbox { width: 90%; max-width: 500px; height: 400px; border: 1px solid #333; overflow-y: auto; padding: 15px; margin: 20px auto; background: #1e1e1e; border-radius: 10px; text-align: left; display: flex; flex-direction: column; }
+        .input-area { display: flex; max-width: 500px; margin: 0 auto; gap: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 5px; border: none; outline: none; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #0056b3; }
+        .user-msg { color: #00ffcc; margin: 8px 0; align-self: flex-end; background: #2a2a2a; padding: 8px 12px; border-radius: 15px 15px 0 15px; max-width: 80%; }
+        .ai-msg { color: #ffffff; margin: 8px 0; background: #333; padding: 10px 12px; border-radius: 15px 15px 15px 0; align-self: flex-start; max-width: 80%; line-height: 1.5; }
+        .error-msg { color: #ff4444; font-size: 0.9em; margin-top: 5px; }
     </style>
 </head>
 <body>
-    <h2>Arjan AI Assistant</h2>
+    <h2 style="margin-top: 30px;">Arjan AI Assistant</h2>
     <div id="chatbox"></div>
-    <div>
-        <input type="text" id="userInput" placeholder="نامەیەکێ بنڤیسە...">
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="نامەیەک بنڤیسە..." onkeypress="if(event.key === 'Enter') sendMessage()">
         <button onclick="sendMessage()">ناردن</button>
     </div>
+
     <script>
+        // ئەڤە لێنکێ سێرڤەری تە یە ل سەر Vercel
         const API_URL = "https://arjan-backend.vercel.app/api/chat";
+
         async function sendMessage() {
             const input = document.getElementById("userInput");
             const chatbox = document.getElementById("chatbox");
-            if (!input.value) return;
-            chatbox.innerHTML += `<div class="user-msg">تۆ: ${input.value}</div>`;
-            const userText = input.value;
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            // نیشاندانا نامەیا تە
+            chatbox.innerHTML += `<div class="user-msg">${text}</div>`;
             input.value = "";
+            chatbox.scrollTop = chatbox.scrollHeight;
+
             try {
                 const response = await fetch(API_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: userText })
+                    body: JSON.stringify({ message: text })
                 });
+
                 const data = await response.json();
-                chatbox.innerHTML += `<div class="ai-msg">AI: ${data.response}</div>`;
+
+                if (data.response) {
+                    chatbox.innerHTML += `<div class="ai-msg">${data.response}</div>`;
+                } else if (data.error) {
+                    chatbox.innerHTML += `<div class="error-msg">خەتە: ${data.error}</div>`;
+                }
             } catch (error) {
-                chatbox.innerHTML += `<div style="color:red">خەتە: پەیوەندی ب سێرڤەری نەکرا!</div>`;
+                chatbox.innerHTML += `<div class="error-msg">!خەتە: پەیوەندی ب سێرڤەری نەکرا. دڵنیابە سێرڤەر Ready یە.</div>`;
             }
             chatbox.scrollTop = chatbox.scrollHeight;
         }
