@@ -88,30 +88,30 @@
 
     <div id="chat-container">
         <div class="ai-group">
-            <div class="msg ai-msg">ب خێر بێی برا! ئەز پڕۆفیسۆر ئارجانم. چەوا دشێم هاریکارییا تە بکەم؟</div>
-            <button class="speaker-btn" onclick="speak('ب خێر بێی برا! ئەز پڕۆفیسۆر ئارجانم. چەوا دشێم هاریکارییا تە بکەم؟')">
+            <div class="msg ai-msg">سڵاو برا! ئەز پڕۆفیسۆر ئارجانم. هەر پسیارەکا تە هەبیت ل سەر هەر بابەتەکی، ئەز یێ بەرهەڤم بەرسڤێ بدەم.</div>
+            <button class="speaker-btn" onclick="speak(this.previousElementSibling.innerText)">
                 <i class="fas fa-volume-up"></i>
             </button>
         </div>
     </div>
 
     <div class="input-area">
-        <input type="text" id="user-input" placeholder="پسیار بکە..." onkeypress="if(event.key==='Enter') askAI()">
+        <input type="text" id="user-input" placeholder="پسیارا خۆ لێرە بنڤێسە..." onkeypress="if(event.key==='Enter') askAI()">
         <button class="send-btn" onclick="askAI()">PIRS</button>
     </div>
 
     <script>
-        // فەنکشنا دەنگی یا پڕۆفیشناڵ
+        // فەنکشنا دەنگی: دەنگێ کوڕێ ۱٨ سالی
         function speak(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'ar-SA'; // زمانێ نێزیک ب بادینی
-            utterance.pitch = 1.0;
-            utterance.rate = 0.9;
+            utterance.lang = 'ar-SA'; 
+            utterance.pitch = 1.2; // بۆ ئەوەی دەنگەکە گەنجانە بێت
+            utterance.rate = 1.0; 
             window.speechSynthesis.speak(utterance);
         }
 
-        // مێشکێ AI کو ب ئینتەرنێتێ ڤە گرێدایە
+        // مێشکێ AI کو ب ئینتەرنێتێ ڤە گرێدایە (Gemini Engine)
         async function askAI() {
             const input = document.getElementById('user-input');
             const container = document.getElementById('chat-container');
@@ -126,7 +126,7 @@
             container.scrollTop = container.scrollHeight;
 
             try {
-                // پەیوەندی ب Backend یێ تە ل سەر Vercel دا مێشکێ Gemini کار بکەت
+                // لێنکێ مێشکێ تە ل سەر Vercel
                 const response = await fetch('https://arjan-backend.vercel.app/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -134,7 +134,7 @@
                 });
                 
                 const data = await response.json();
-                const aiRes = data.reply || "ببوورە برا، مێشکێ من نوکە یێ مژوولە.";
+                const aiRes = data.reply || "ببوورە برا، نوکە مێشکێ من یێ مژوولە.";
 
                 document.getElementById(loadingId).outerHTML = `
                     <div class="ai-group">
