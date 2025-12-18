@@ -25,7 +25,6 @@
             position: relative;
         }
 
-        /* دوگمەیا BACK ل گۆشەیا چەپێ */
         .back-btn {
             position: absolute;
             top: 20px;
@@ -37,9 +36,7 @@
             align-items: center;
             gap: 8px;
             z-index: 100;
-            transition: 0.3s;
         }
-        .back-btn:hover { transform: translateX(-5px); }
 
         header { text-align: center; padding: 40px 20px; }
         .gold-name { color: var(--gold); font-size: 2.5rem; font-weight: 900; letter-spacing: 8px; margin: 0; text-transform: uppercase; }
@@ -74,9 +71,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.3s;
         }
-        .speaker-btn:hover { background: var(--gold); color: white; }
 
         .input-area { width: 85%; max-width: 650px; margin: 20px 0; display: flex; gap: 10px; }
         input { flex: 1; padding: 12px 20px; border-radius: 25px; border: 1px solid #CCC; outline: none; }
@@ -85,9 +80,7 @@
 </head>
 <body>
 
-    <a href="index.html" class="back-btn">
-        <i class="fas fa-arrow-left"></i> BACK
-    </a>
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
 
     <header>
         <h1 class="gold-name">ARJAN</h1>
@@ -96,7 +89,7 @@
     <div id="chat-container">
         <div class="ai-group">
             <div class="msg ai-msg">ب خێر بێی برا! ئەز پڕۆفیسۆر ئارجانم. چەوا دشێم هاریکارییا تە بکەم؟</div>
-            <button class="speaker-btn" onclick="speak(this.previousElementSibling.innerText)">
+            <button class="speaker-btn" onclick="speak('ب خێر بێی برا! ئەز پڕۆفیسۆر ئارجانم. چەوا دشێم هاریکارییا تە بکەم؟')">
                 <i class="fas fa-volume-up"></i>
             </button>
         </div>
@@ -108,24 +101,32 @@
     </div>
 
     <script>
-        // گرێدان دگەل مێشکێ جێمنی ب ڕێکا Backend ل سەر Vercel
+        // فەنکشنا دەنگی یا پڕۆفیشناڵ
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA'; // زمانێ نێزیک ب بادینی
+            utterance.pitch = 1.0;
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // مێشکێ AI کو ب ئینتەرنێتێ ڤە گرێدایە
         async function askAI() {
             const input = document.getElementById('user-input');
             const container = document.getElementById('chat-container');
             const text = input.value.trim();
             if (!text) return;
 
-            // نیشاندانا پەیاما تە
             container.innerHTML += `<div class="msg user-msg">${text}</div>`;
             input.value = "";
             
-            // نیشاندانا باری چاڤەڕێبوونێ
             const loadingId = "ai-" + Date.now();
             container.innerHTML += `<div id="${loadingId}" class="msg ai-msg">Arjan AI بیر دکەتەوە...</div>`;
             container.scrollTop = container.scrollHeight;
 
             try {
-                // هەناردەکرن بۆ سێرڤەرێ Vercel کو مێشکێ جێمنی تێدایە
+                // پەیوەندی ب Backend یێ تە ل سەر Vercel دا مێشکێ Gemini کار بکەت
                 const response = await fetch('https://arjan-backend.vercel.app/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -133,9 +134,8 @@
                 });
                 
                 const data = await response.json();
-                const aiRes = data.reply || "ببوورە برا، نوکە مێشکێ من یێ مژوولە.";
+                const aiRes = data.reply || "ببوورە برا، مێشکێ من نوکە یێ مژوولە.";
 
-                // نیشاندانا بەرسڤا تەمام دگەل سماعێ
                 document.getElementById(loadingId).outerHTML = `
                     <div class="ai-group">
                         <div class="msg ai-msg">${aiRes}</div>
@@ -145,18 +145,9 @@
                     </div>`;
 
             } catch (err) {
-                document.getElementById(loadingId).innerText = "پەیوەندییا ئینتەرنێتێ تێکچوو برا.";
+                document.getElementById(loadingId).innerText = "کێشەیەک د پەیوەندیێ دا هەبوو برا.";
             }
             container.scrollTop = container.scrollHeight;
-        }
-
-        // فەنکشنا خوێندنەوا ب دەنگ
-        function speak(text) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'ar-SA'; 
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
