@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARJAN LOGIN - Security Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; --white: #FFFFFF; --black: #111; }
+        body { background: var(--white); font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .box { width: 90%; max-width: 400px; padding: 40px; border-radius: 30px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); border: 1px solid #eee; text-align: center; }
+        h2 { color: var(--gold); letter-spacing: 3px; margin-bottom: 30px; }
+        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; text-align: right; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; background: var(--gold); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        .links { margin-top: 20px; font-size: 0.9rem; color: #666; }
+        .links a { color: var(--gold); text-decoration: none; font-weight: bold; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="box" id="login-form">
+    <h2>ARJAN LOGIN</h2>
+    <input type="email" placeholder="ئیمەیل">
+    <input type="password" placeholder="پاسوورد">
+    <button class="btn" onclick="window.location.href='premium.html'">چوونەژوورێ</button>
+    <div class="links">
+        <a href="#">پاسوورد ژ بیر کرییە؟</a><br><br>
+        ئەکاونت نینە؟ <a href="#" onclick="toggle()">دروست بکە</a>
+    </div>
+</div>
+
+<div class="box hidden" id="signup-form">
+    <h2>NEW ACCOUNT</h2>
+    <input type="text" placeholder="ناڤێ تەمام">
+    <input type="email" placeholder="ئیمەیل">
+    <input type="tel" placeholder="رقمێ مۆبایلێ">
+    <input type="password" placeholder="پاسوورد">
+    <input type="password" placeholder="دوبارەکرنا پاسووردی">
+    <button class="btn" onclick="toggle()">تۆمارکرن</button>
+    <div class="links">تە ئەکاونت یێ هەی؟ <a href="#" onclick="toggle()">بچۆ ژوورێ</a></div>
+</div>
+
+<script>
+    function toggle() {
+        document.getElementById('login-form').classList.toggle('hidden');
+        document.getElementById('signup-form').classList.toggle('hidden');
+    }
+</script>
+</body>
+</html>
