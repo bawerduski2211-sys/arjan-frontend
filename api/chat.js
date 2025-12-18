@@ -1,8 +1,9 @@
-export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
-    
+const fetch = require('node-fetch');
+
+module.exports = async (req, res) => {
+    if (req.method !== 'POST') return res.status(405).json({ reply: "تەنێ POST قبوولە" });
+
     const { message } = req.body;
-    // کلیل لێرە یا ڤەشارتییە و دپارێزراوە
     const API_KEY = "AIzaSyDPTihtZN9L2ltSmwEZ0i-Wrt9HWXw9N-k"; 
 
     try {
@@ -10,19 +11,14 @@ export default async function handler(req, res) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: "تۆ ئارجانی، برایێ ئارکانی یی. وەک ژیرییەکا دەستکرد یا پڕۆفیشناڵ ب زمانێ بادینی بەرسڤێ بدە و بێژە ئەز بۆ هەر هاریکاریەکا تەکنەلۆژی یێ بەرهەڤم: " + message }] }]
+                contents: [{ parts: [{ text: "تۆ ئارجان دۆسکی یی، برایێ ئارکانی یی. ب زمانێ بادینی بەرسڤێ بدە: " + message }] }]
             })
         });
 
         const data = await response.json();
-        
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-            const aiReply = data.candidates[0].content.parts[0].text;
-            res.status(200).json({ reply: aiReply });
-        } else {
-            res.status(500).json({ reply: "ببوورە برا، مێشکێ من نوکە یێ مژوولە." });
-        }
+        const aiReply = data.candidates[0].content.parts[0].text;
+        res.status(200).json({ reply: aiReply });
     } catch (error) {
-        res.status(500).json({ reply: "کێشەیەکا تەکنیکی د سێرڤەری دا هەیە." });
+        res.status(500).json({ reply: "کێشە د پەیوەندییا مێشکی دا هەیە." });
     }
-}
+};
