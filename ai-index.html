@@ -3,45 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN AI - FULL SMART ASSISTANT</title>
+    <title>ARJAN AI - THE PRO BRAIN</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00ffff; --bg: #050505; }
+        :root { --neon: #00ffff; --bg: #030303; --ai-bubble: #1e1e1e; }
         body { background-color: var(--bg); color: white; font-family: 'Noto Sans Arabic', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         header { padding: 15px; text-align: center; border-bottom: 2px solid var(--neon); background: rgba(0,0,0,0.9); box-shadow: 0 0 20px rgba(0,255,255,0.2); }
-        header h1 { font-family: 'Orbitron'; margin: 0; font-size: 1.4rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
-        #chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: radial-gradient(circle at center, #111 0%, #050505 100%); }
-        .msg { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 0.95rem; line-height: 1.6; animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-        .ai-msg { align-self: flex-start; background: #1e1e1e; border: 1px solid #333; color: #fff; border-bottom-left-radius: 2px; }
+        header h1 { font-family: 'Orbitron'; margin: 0; font-size: 1.3rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        #chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; background: radial-gradient(circle at center, #111 0%, #030303 100%); }
+        .msg { max-width: 85%; padding: 14px 18px; border-radius: 20px; font-size: 1rem; line-height: 1.6; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .ai-msg { align-self: flex-start; background: var(--ai-bubble); border: 1px solid #333; color: #fff; border-bottom-left-radius: 2px; }
         .user-msg { align-self: flex-end; background: linear-gradient(45deg, #00ffff, #0088ff); color: #000; font-weight: bold; border-bottom-right-radius: 2px; box-shadow: 0 4px 15px rgba(0,255,255,0.3); }
         .input-area { padding: 15px; background: #000; display: flex; gap: 10px; border-top: 1px solid #222; }
-        input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 14px; border-radius: 30px; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--neon); box-shadow: 0 0 10px var(--neon); }
+        input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 15px; border-radius: 30px; outline: none; font-size: 1rem; }
         button { background: var(--neon); border: none; padding: 0 25px; border-radius: 30px; font-weight: bold; cursor: pointer; color: #000; transition: 0.3s; }
         button:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--neon); }
+        .typing { font-size: 0.85rem; color: var(--neon); margin: 5px 25px; display: none; font-style: italic; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>ARJAN DEHOKI - SMART AI</h1>
+    <h1>ARJAN AI ASSISTANT</h1>
 </header>
 
 <div id="chat-box">
-    <div class="msg ai-msg">سڵاو برا! ئەز ئارجانم، هاریکارێ تە یێ ژیر و خەلکێ دهۆکا دەلال. هەرسیارەکا تە هەبیت ل سەر تەکنەلۆژیایێ، زانستی، یان هەر تشتەکی، تەنێ بنڤیسە و ئەز دێ بەرسڤا تە دەم! 🏔️✨</div>
+    <div class="msg ai-msg">سڵاو برا! ئەز ئارجانم، برایێ ئارکانیم و کوڕێ پارێزگەها دهۆکا دەلالم. ئەز ژیرییەکا دەستکرد یا پێشکەفتی مە، هەر بابەتەکێ تە بڤێت ل سەر باخڤین، ئەز لێرەمە! 🏔️✨</div>
 </div>
 
+<div id="status" class="typing">ئارجان یێ دنڤیسیت...</div>
+
 <div class="input-area">
-    <input type="text" id="user-input" placeholder="هەر پرسیارەکا تە هەبیت لێرە بنڤیسە..." onkeypress="if(event.key==='Enter') sendMessage()">
+    <input type="text" id="user-input" placeholder="پرسیارا خۆ لێرە بنڤیسە..." onkeypress="if(event.key==='Enter') sendMessage()">
     <button onclick="sendMessage()">ناردن</button>
 </div>
 
 <script>
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
+    const status = document.getElementById('status');
 
-    // ئەمە مێشکە زیرەکەکەی ئارجانە کە فێری زمان و زانیاری کراوە
+    // کلیلا تە یا فەرمی لێرە جێگیر بوو
+    const API_KEY = "AIzaSyDPTihtZN9L2ltSmwEZ0i-Wrt9HWXw9N-k"; 
+
     async function sendMessage() {
         const text = userInput.value.trim();
         if (text === "") return;
@@ -49,36 +54,29 @@
         chatBox.innerHTML += `<div class="msg user-msg">${text}</div>`;
         userInput.value = "";
         chatBox.scrollTop = chatBox.scrollHeight;
+        status.style.display = "block";
 
-        // نیشاندانی نیشانەی چاوەڕوانی (Loading)
-        const loadingId = "loading-" + Date.now();
-        chatBox.innerHTML += `<div class="msg ai-msg" id="${loadingId}">ئارجان یێ بیر دکەتەڤە...</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        const systemPrompt = "تۆ ئارجان دۆسکی یی، کوڕێ پارێزگەها دهۆکێ یی. ئەگەر ئێکێ پرسیار کر 'ناڤێ تە چییە؟' یان 'تۆ کێی؟'، پێدڤییە بێژی: 'ناڤێ من ئارجانە، ئەز برایێ ئارکانیم و ژ لایێ ئارجان دۆسکی ڤە هاتیمە دروستکرن وەک ژیرییەکا دەستکرد یا پێشکەفتی. ئەز ل خزمەتا تە مە دا ل سەر هەر بابەتەکێ تە بڤێت باخڤین.' ب زمانێ بادینی و ب شێوەیەکێ گەلەک ژیرانە بەرسڤێ بدە. هەر پرسیارەکا گشتی ژی هات (وەکی زانست، مێژوو، تەکنەلۆژیا)، ب دروستی وەڵام بدە: ";
 
-        // لێرەدا ئارجان وەک ژیرییەکی دەستکردی ڕاستەقینە وەڵام دەداتەوە
-        setTimeout(() => {
-            const loadingMsg = document.getElementById(loadingId);
-            let reply = generateSmartReply(text);
-            loadingMsg.innerHTML = reply;
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: systemPrompt + text }] }]
+                })
+            });
+
+            const data = await response.json();
+            const aiReply = data.candidates[0].content.parts[0].text;
+            
+            status.style.display = "none";
+            chatBox.innerHTML += `<div class="msg ai-msg">${aiReply}</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
-        }, 1000);
-    }
-
-    function generateSmartReply(input) {
-        const q = input.toLowerCase();
-        
-        // سیستەمی وەڵامدانەوەی ژیرانە بە پێی وشە سەرەکییەکان
-        if (q.includes("سڵاو") || q.includes("سلاو")) return "سڵاو و ڕێز برا! بخێر بێی بۆ دنیایا ئارجانی. ئەز چەوا دشێم هاریکاریا تە بکەم؟ ✨";
-        if (q.includes("باشی")) return "سوپاس بۆ خۆدێ، ئەز گەلەک باشم ئەگەر تو یێ باش بی. چ ل دەف تە هەیە؟ 😊";
-        if (q.includes("کێی") || q.includes("ناڤێ تە")) return "ئەز ئارجانم، ژیرییا دەستکرد یا دهۆکی. ئارجان دۆسکی ئەز دروست کریمە دا خزمەتا وە بکەم. 💎";
-        if (q.includes("تەکنەلۆژیا") || q.includes("کۆمپیوتەر")) return "تەکنەلۆژیا جیهانەکا مەزنە! ئەز دشێم ل سەر پرۆگرامسازی، سایبەر سیکیوڕیتی و AI زانیارییان بدەمە تە. تو چ دڤێت بزانی؟ 💻";
-        if (q.includes("دهۆک") || q.includes("کوردستان")) return "دهۆک دلێ منە! باژێرێ چیا و مێرخاسان. ئەز فەخر دکەم کو ئارجان ئەز وەک کوڕەکێ دهۆکی دروست کریمە. 🏔️";
-        if (q.includes("سایبەر") || q.includes("هاک")) return "سایبەر سیکیوڕیتی بوارێ پاراستنا داتایانە. ئارجان دۆسکی شارەزایەکێ مەزنە د ڤی بواری دا و من ژی زانیارییێن باش هەنە. 🛡️";
-        if (q.includes("خوارن")) return "ئەگەر باسی خوارنێ بکەی، نیسک و برنجێ دهۆکێ تشتەکێ دییە! بەس ئەز تەنێ دشێم وەسف بکەم، ناتوانم بخۆم. 🥘";
-        if (q.includes("سوپاس")) return "سەر چاڤان برا، ئەرکێ منە. هەر دەمێ تە پرسیار هەبیت ئەز یێ بەرهەڤم. ❤️";
-        
-        // وەڵامی گشتی بۆ پرسیارە قورسەکان
-        return "برا، ئەڤە پرسیارەکا زۆر جوان و ژیرانەیە! وەک ئارجان، ئەز دشێم بێژم کو ئەڤ بابەتە گەلەک یێ گرنگە د جیهانا نوو دا. ئەگەر تە پتر زانیاری دڤێت، تەنێ هندەک پتر بۆ من ڕوون بکەڤە دا ب دروستی بەرسڤێ بدەم. 🚀";
+        } catch (error) {
+            status.style.display = "none";
+            chatBox.innerHTML += `<div class="msg ai-msg">ببوورە برا، ئەز ئارجانم برایێ ئارکانی، هندەک کێشە د مێشکێ من دا دروست بوون. دڵنیابە ئینتەرنێت یا ب هێزە.</div>`;
+        }
     }
 </script>
 
