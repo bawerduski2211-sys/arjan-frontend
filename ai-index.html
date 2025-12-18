@@ -1,51 +1,170 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-    <title>ARJAN AI PROFESSOR</title>
+    <title>ARJAN AI - Gold Edition</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <style>
+        :root {
+            --gold: #D4AF37;
+            --white: #FFFFFF;
+            --black: #000000;
+            --gray: #F5F5F5;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        .header h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: var(--black);
+            font-weight: 300;
+            margin-top: 10px;
+        }
+
         #chat-container {
-            width: 100%; height: 520px; border: 2px solid var(--color-primary);
-            margin: 20px 0; border-radius: 20px; padding: 20px;
-            overflow-y: auto; background: rgba(0, 0, 0, 0.95);
-            display: flex; flex-direction: column; gap: 15px;
+            width: 90%;
+            max-width: 700px;
+            height: 500px;
+            background: var(--gray);
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        .ai-response-wrapper { display: flex; align-items: flex-start; gap: 12px; width: 100%; }
+
+        .ai-response-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .msg {
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 80%;
+        }
+
+        .ai-msg {
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid #eee;
+            text-align: right;
+            border-bottom-right-radius: 5px;
+        }
+
+        .user-msg {
+            background: var(--gold);
+            color: var(--white);
+            align-self: flex-end;
+            text-align: left;
+            border-bottom-left-radius: 5px;
+        }
+
         .speaker-btn {
-            background: rgba(0, 255, 255, 0.1); border: 1px solid var(--color-primary);
-            color: var(--color-primary); border-radius: 50%; width: 38px; height: 38px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            background: var(--white);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .msg { padding: 14px 20px; border-radius: 18px; max-width: 85%; font-size: 1rem; line-height: 1.7; }
-        .user-msg { background: var(--color-primary); color: #000; align-self: flex-end; font-weight: bold; }
-        .ai-msg { background: #111; color: #fff; border-left: 5px solid var(--color-primary); text-align: right; }
+
+        .speaker-btn:hover {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .input-area {
+            width: 90%;
+            max-width: 700px;
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        .send-btn {
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            padding: 0 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
-<body class="neon-active">
-    <main>
-        <div class="header">
-            <h1>ARJAN AI PROFESSOR</h1>
-            <p>ژیرییا دەستکرد یا جیهانی ب دەنگێ ئارجانی</p>
-        </div>
+<body>
 
-        <div id="chat-container">
-            <div class="ai-response-wrapper">
-                <div class="msg ai-msg">ب خێر بێی برا! تو دشێی ب دەنگ یان نڤیسین هەر تشتەکێ بڤێت هاريكاريا ته بكه م.</div>
-                <button class="speaker-btn" onclick="speak('ب خێر بێی برا تو دشێی ب دەنگ یان نڤیسین هەر تشتەکێ بڤێت هاريكاريا ته بكه م')">
-                    <i class="fas fa-volume-up"></i>
-                </button>
-            </div>
-        </div>
+    <div class="header">
+        <h1>ARJAN</h1>
+        <p>ژیرییا دەستکرد ب دیزاینەکێ شاهانە</p>
+    </div>
 
-        <div class="contact-form" style="border:none; width:100%;">
-            <input type="text" id="user-input" placeholder="پسیارا خۆ بکه..." style="text-align:right;">
-            <button onclick="askProfessorAI()" class="js-test-button" style="width:100%;">PIRS BIKE</button>
+    <div id="chat-container">
+        <div class="ai-response-wrapper">
+            <div class="msg ai-msg">ب خێر بێی برا! ئەز پڕۆفیسۆر ARJAN AI مە، چەوا دشێم ئەڤڕۆ هاریکارییا تە بکەم؟</div>
+            <button class="speaker-btn" onclick="speak('ب خێر بێی برا! ئەز پڕۆفیسۆر ARJAN AI مە، چەوا دشێم ئەڤڕۆ هاریکارییا تە بکەم؟')">
+                <i class="fas fa-volume-up"></i>
+            </button>
         </div>
-        <a href="index.html" style="color:var(--color-primary); text-decoration:none; margin-top:20px; display:block;">← BACK TO HOME</a>
-    </main>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="پسیارا خۆ بنڤێسە...">
+        <button class="send-btn" onclick="askProfessorAI()">PIRS BIKE</button>
+    </div>
 
     <script>
         async function askProfessorAI() {
@@ -56,12 +175,13 @@
 
             container.innerHTML += `<div class="msg user-msg">${text}</div>`;
             input.value = "";
+            
             const loadingId = "ai-" + Date.now();
-            container.innerHTML += `<div id="${loadingId}" class="msg ai-msg">پڕۆفیسۆر Arjan AI بیر دکەتەوە...</div>`;
+            container.innerHTML += `<div id="${loadingId}" class="msg ai-msg">Arjan AI بیر دکەتەوە...</div>`;
             container.scrollTop = container.scrollHeight;
 
             try {
-                // پەیوەندی ب Backend یێ تە ل سەر Vercel
+                // پەیوەندی ب Backend یێ تە
                 const response = await fetch('https://arjan-backend.vercel.app/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -69,7 +189,7 @@
                 });
                 
                 const data = await response.json();
-                let aiRes = data.reply || "وەک پڕۆفیسۆر Arjan AI، ئەز تێگه‌هشتم کو تو پسیارێ ل سەر (" + text + ") دکەی. بابەتەکێ پڕۆفیشناڵە.";
+                let aiRes = data.reply || "وەک پڕۆفیسۆر Arjan AI، من ل پسیارا تە کۆڵینەوە کر و ئەڤە وەڵامە.";
 
                 document.getElementById(loadingId).outerHTML = `
                     <div class="ai-response-wrapper">
@@ -80,15 +200,7 @@
                     </div>`;
 
             } catch (err) {
-                // ئەگەر Backend کار نەکەت، ئەڤ بەرسڤە وەک جێگر کار دکەت
-                let backupRes = "وەک Arjan AI، من تێبینی کر کو (" + text + ") بابەتەکێ پڕۆفیشناڵە. چەوا دشێم پتر هاریکارییا تە بکەم؟";
-                document.getElementById(loadingId).outerHTML = `
-                    <div class="ai-response-wrapper">
-                        <div class="msg ai-msg">${backupRes}</div>
-                        <button class="speaker-btn" onclick="speak('${backupRes}')">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                    </div>`;
+                document.getElementById(loadingId).innerText = "کێشەیەک هەبوو برا، دڵنیا ببە Backend یێ تە یێ سەیڤە.";
             }
             container.scrollTop = container.scrollHeight;
         }
@@ -96,7 +208,9 @@
         function speak(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'ar-SA'; utterance.pitch = 0.55; utterance.rate = 0.85;
+            utterance.lang = 'ar-SA';
+            utterance.pitch = 0.55; // دەنگێ پیاوانە و گران
+            utterance.rate = 0.85;
             window.speechSynthesis.speak(utterance);
         }
     </script>
