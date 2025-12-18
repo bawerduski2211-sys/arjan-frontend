@@ -1,44 +1,150 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond AI - Premium Access</title>
-    <link rel="stylesheet" href="premium-style.css">
+    <title>ARJAN PREMIUM - Global AI Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --diamond: #b9f2ff;
+            --gold: #BF953F;
+            --dark-bg: #030303;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* باکگراوندێکی جوڵاو بۆ دیزاینێکی فول کوالێتی */
+        .bg-animate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            z-index: -1;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .premium-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--diamond), #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(185, 242, 255, 0.5);
+            margin: 0;
+        }
+
+        .diamond-container {
+            width: 120px; height: 120px;
+            margin: 20px auto;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--diamond)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px var(--diamond)); }
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(185, 242, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .feature i { color: var(--diamond); font-size: 1.2rem; }
+
+        /* دوگمەی فول کوالێتی */
+        .unlock-btn {
+            display: block;
+            width: 80%;
+            max-width: 300px;
+            padding: 20px;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
+            transition: 0.4s;
+            border: 2px solid rgba(255,255,255,0.2);
+            margin-top: 20px;
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.6);
+        }
+
+        footer { margin-top: auto; padding: 20px; font-size: 0.8rem; color: #555; }
+    </style>
 </head>
 <body>
-    <div class="auth-container">
-        <div id="login-form" class="auth-card">
-            <div class="diamond-icon">💎</div>
-            <h2>Diamond Login</h2>
-            <input type="email" id="log-user" placeholder="ئیمەیڵ" required>
-            <input type="password" id="log-pass" placeholder="پاسۆرد" required>
-            <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p class="switch-text">ئەکاونتێ تە نینە؟ <span onclick="toggleAuth()">دروست بکە</span></p>
+
+    <div class="bg-animate"></div>
+
+    <header>
+        <div class="diamond-container">
+            <i class="fas fa-gem" style="font-size: 5rem; color: var(--diamond);"></i>
+        </div>
+        <h1 class="premium-title">ARJAN PREMIUM</h1>
+        <p style="color: #888; font-family: 'Orbitron'; letter-spacing: 2px;">ULTIMATE AI EXPERIENCE</p>
+    </header>
+
+    <div class="info-card">
+        <h2 style="color: var(--diamond); margin-top: 0;">تایبەتمەندییێن ئەڵماسی</h2>
+        
+        <div class="feature">
+            <i class="fas fa-brain"></i>
+            <span>ژیریی دەستکردی تەمام (Full AI Brain) کو ل سەر هەمی بابەتان دئاخڤیت.</span>
+        </div>
+        <div class="feature">
+            <i class="fas fa-bolt"></i>
+            <span>خێراییەکا بێ وێنە د بەرسڤدانێ دا ب زمانێ بادینی.</span>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <span>پاراستنا سایتێ تە ب نووترین تەکنەلۆژیایێن سایبەر سیکیوڕیتی.</span>
+        </div>
+        <div class="feature">
+            <i class="fas fa-infinity"></i>
+            <span>دەستگەهشتن بۆ هەمی زانیارییێن جیهانی بێ سنوور.</span>
         </div>
 
-        <div id="signup-form" class="auth-card hidden">
-            <div class="diamond-icon">🚀</div>
-            <h2>Create New Account</h2>
-            <div id="step-1">
-                <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
-                <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
-                <input type="password" id="new-pass" placeholder="پاسۆرد" required>
-                <input type="password" id="confirm-pass" placeholder="دووبارەکرنا پاسۆردی" required>
-                <button onclick="sendOTP()" class="btn-diamond">SEND CODE (6 DIGITS)</button>
-            </div>
-            <div id="otp-section" class="hidden">
-                <p style="font-size: 13px; color: #00d2ff; margin-bottom: 10px;">کۆد بۆ ئیمەیڵێ تە هاتە ناردن 📩</p>
-                <input type="number" id="otp-input" placeholder="------" required>
-                <div class="otp-actions">
-                    <button onclick="handleSignUp()" class="btn-diamond">VERIFY & REGISTER</button>
-                    <p class="resend-text" onclick="sendOTP()">Resend Code</p>
-                    <p class="back-text" onclick="backToSignUp()">زڤڕین و گوهۆڕینا زانیاریان</p>
-                </div>
-            </div>
-            <p class="switch-text">ئەکاونتێ تە یێ هەین؟ <span onclick="toggleAuth()">بچۆ ژۆر</span></p>
-        </div>
+        <a href="https://wa.me/9647501234567" class="unlock-btn">UNLOCK FULL ACCESS</a>
     </div>
-    <script src="Premium.Script.js"></script>
+
+    <footer style="text-align: center;">
+        <p>Copyright © 2025 ARJAN DUSKÎ. هه‌می ماف پاراستینه‌.</p>
+    </footer>
+
 </body>
 </html>
