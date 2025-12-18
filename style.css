@@ -1,0 +1,206 @@
+/* -- 1. VARIABLES & COLORS -- */
+:root {
+    --color-background: #050505; 
+    --color-text: #E0E0E0; 
+    --color-primary: #00FFFF; /* CYAN */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Noto Sans Arabic', sans-serif;
+}
+
+/* مۆدا نێئۆن یا مۆر */
+.neon-active {
+    --color-primary: #ff00ff;
+}
+
+/* -- 2. NEON BORDER ANIMATION (زڤڕینا نێئۆنێ ل دەورێ مۆبایلێ) -- */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(transparent, var(--color-primary), transparent 40%);
+    animation: rotateNeon 6s linear infinite;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 5px;
+    background: #050505;
+    z-index: -1;
+    border-radius: 15px;
+}
+
+@keyframes rotateNeon {
+    100% { transform: rotate(360deg); }
+}
+
+/* -- 3. GLOBAL STYLES (نێوەندی کرنا هەمی تشتان) -- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    transition: 0.5s;
+    text-align: center; /* نێوەندی کرنا نڤیسینان */
+}
+
+main {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* نێوەندی کرنا توخمان */
+    margin-top: 60px !important; 
+}
+
+/* -- 4. HEADER & NAME (ARJAN DUSKÎ) -- */
+.header h1 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-shadow: 0 0 15px var(--color-primary);
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.header h2 {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* -- 5. PROFILE IMAGE -- */
+.profile-container {
+    width: 160px;
+    height: 160px;
+    margin: 20px 0;
+    border-radius: 50%;
+    border: 3px solid var(--color-primary);
+    box-shadow: 0 0 20px var(--color-primary);
+    overflow: hidden;
+}
+
+.profile-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* -- 6. SAET & NEON BUTTON -- */
+.saet-container {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin: 15px 0;
+    text-shadow: 0 0 10px var(--color-primary);
+}
+
+.js-test-button {
+    background: var(--color-primary);
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 25px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 10px var(--color-primary);
+}
+
+/* -- 7. MAIN ACTION BUTTONS (ARKAN & ARJAN) -- */
+.main-project-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.main-project-button {
+    padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.main-project-button:nth-child(1) {
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.main-project-button:nth-child(2) {
+    background: linear-gradient(45deg, #00ffff, #0088ff);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+/* -- 8. CONTACT FORM (ستاندارد و نێوەندی) -- */
+.contact-form {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--color-primary);
+}
+
+.contact-form h3 {
+    margin-bottom: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0;
+    border-radius: 10px;
+    border: 1px solid var(--color-primary);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff !important;
+    text-align: center; /* نڤیسینا ناڤ خانەیان دکەتە نێوەندی */
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+}
+
+.contact-form input[type="submit"] {
+    background: var(--color-primary);
+    color: #000;
+    font-weight: bold;
+    padding: 15px;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+}
+
+/* -- 9. SOCIAL ICONS (بچووک و نازک) -- */
+.social-icons {
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.social-icons a {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    transition: 0.3s;
+}
+
+footer p {
+    font-size: 0.75rem;
+    opacity: 0.5;
+}
