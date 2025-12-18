@@ -1,62 +1,106 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
+    <title>ARJAN DUSKÎ - NEON BORDER EXPERIENCE</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN AI 💎</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
+        :root { --neon: #00ffff; }
+        .purple-mode { --neon: #ff00ff; }
+
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: radial-gradient(circle, #0f172a 0%, #020617 100%); 
-            color: white; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; height: 100vh;
+            background: #050505; color: white; 
+            font-family: 'Noto Sans Arabic', sans-serif; 
+            text-align: center; margin: 0; padding: 20px;
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow-x: hidden;
+            transition: 0.5s;
         }
-        .header h1 {
-            font-size: 2.8rem; font-weight: 900; text-transform: uppercase;
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 8px rgba(212, 175, 55, 0.4));
+
+        /* ڕوناهیا بازنەیی کو ل هەمی لاپەڕەی دزڤریت */
+        body::before {
+            content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--neon), transparent 30%);
+            animation: rotateFull 6s linear infinite; z-index: -1;
         }
-        #chatbox { 
-            width: 100%; max-width: 500px; height: 60vh; background: rgba(30, 41, 59, 0.5); 
-            backdrop-filter: blur(12px); border-radius: 25px; overflow-y: auto; padding: 20px; 
-            margin-bottom: 15px; border: 1px solid rgba(212, 175, 55, 0.3);
+        body::after {
+            content: ""; position: fixed; inset: 5px; background: #050505; z-index: -1; border-radius: 15px;
         }
-        .user-msg { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; align-self: flex-start; margin-right: auto; padding: 12px; border-radius: 15px; margin-bottom: 10px; max-width: 80%; }
-        .ai-msg { background: #1e293b; color: #f1f5f9; align-self: flex-end; margin-left: auto; padding: 12px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); margin-bottom: 10px; max-width: 80%; }
-        .input-area { width: 100%; max-width: 500px; display: flex; gap: 10px; }
-        input { flex: 1; padding: 14px; border-radius: 15px; border: none; background: #020617; color: white; }
-        button { padding: 10px 25px; background: linear-gradient(to right, #aa771c, #d4af37); color: #020617; border-radius: 15px; font-weight: 800; cursor: pointer; }
+        @keyframes rotateFull { 100% { transform: rotate(360deg); } }
+
+        .header h1 { font-family: 'Orbitron'; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
+
+        /* وێنەیێ مدور */
+        .profile-container img {
+            width: 150px; height: 150px; border-radius: 50%;
+            border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);
+            margin: 15px 0; object-fit: cover;
+        }
+
+        .saet-container { font-family: 'Orbitron'; font-size: 2.2rem; color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 15px 0; }
+
+        /* دوگمەیا گۆهۆڕینا ڕەنگی */
+        .neon-btn {
+            padding: 10px 20px; background: transparent; border: 2px solid var(--neon);
+            color: var(--neon); border-radius: 30px; cursor: pointer;
+            font-family: 'Orbitron'; font-weight: bold; box-shadow: 0 0 10px var(--neon);
+            margin-bottom: 25px; transition: 0.3s;
+        }
+
+        .button-group { display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 360px; }
+        .main-btn { padding: 16px; border-radius: 12px; text-decoration: none; font-family: 'Orbitron'; font-weight: 900; color: #000; }
+        .gold { background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728); box-shadow: 0 0 15px rgba(212,175,55,0.5); }
+        .diamond { background: linear-gradient(45deg, #b9f2ff, #ffffff, #00d2ff); box-shadow: 0 0 15px rgba(185,242,255,0.6); }
+
+        /* پشکا نامەیێ */
+        .contact-form {
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px;
+            width: 90%; max-width: 360px; margin-top: 30px; border: 1px solid #333;
+        }
+        input, textarea { width: 100%; padding: 10px; margin: 5px 0; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        .send-btn { width: 100%; padding: 12px; background: var(--neon); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
-<body>
+<body id="body">
+
     <div class="header">
-        <h1>ARJAN AI 💎</h1>
-        <p>ئارجان ئەی ئای گەل تە یه چ پرسیار هەیە؟ ✨</p>
+        <h1>ARJAN DUSKÎ</h1>
     </div>
-    <div id="chatbox" style="display: flex; flex-direction: column;"></div>
-    <div class="input-area">
-        <input type="text" id="userInput" placeholder="تشتەکێ بنڤیسە..." onkeypress="if(event.key === 'Enter') sendMessage()">
-        <button onclick="sendMessage()">ناردن 🚀</button>
+
+    <div class="profile-container">
+        <img src="profile.jpg" alt="Arjan">
     </div>
+
+    <div class="saet-container" id="saet">00:00:00</div>
+
+    <button class="neon-btn" onclick="toggleNeon()">SWITCH ATMOSPHERE</button>
+
+    <div class="button-group">
+        <a href="ai-index.html" class="main-btn gold">AI TRANSLATOR</a>
+        <a href="premium.html" class="main-btn diamond">PREMIUM ACCESS</a>
+    </div>
+
+    <div class="contact-form">
+        <form action="https://formspree.io/f/xbjnvnve" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Message" rows="2" required></textarea>
+            <button type="submit" class="send-btn">SEND</button>
+        </form>
+    </div>
+
     <script>
-        const API_URL = "https://arjan-backend.vercel.app/api/chat";
-        async function sendMessage() {
-            const input = document.getElementById("userInput");
-            const chatbox = document.getElementById("chatbox");
-            if (!input.value.trim()) return;
-            chatbox.innerHTML += `<div class="user-msg">👤 ${input.value}</div>`;
-            const text = input.value; input.value = "";
-            try {
-                const response = await fetch(API_URL, {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: text })
-                });
-                const data = await response.json();
-                chatbox.innerHTML += `<div class="ai-msg">💎 ${data.response}</div>`;
-            } catch {
-                chatbox.innerHTML += `<div class="ai-msg" style="color: red;">❌ خەتە ل سێرڤەری!</div>`;
-            }
-            chatbox.scrollTop = chatbox.scrollHeight;
+        function updateClock() {
+            document.getElementById('saet').textContent = new Date().toLocaleTimeString('en-GB');
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function toggleNeon() {
+            document.getElementById('body').classList.toggle('purple-mode');
         }
     </script>
 </body>

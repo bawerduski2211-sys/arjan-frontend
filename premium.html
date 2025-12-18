@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond AI - Premium Access</title>
+    <link rel="stylesheet" href="premium-style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div id="login-form" class="auth-card">
+            <div class="diamond-icon">💎</div>
+            <h2>Diamond Login</h2>
+            <input type="email" id="log-user" placeholder="ئیمەیڵ" required>
+            <input type="password" id="log-pass" placeholder="پاسۆرد" required>
+            <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
+            <p class="switch-text">ئەکاونتێ تە نینە؟ <span onclick="toggleAuth()">دروست بکە</span></p>
+        </div>
+
+        <div id="signup-form" class="auth-card hidden">
+            <div class="diamond-icon">🚀</div>
+            <h2>Create New Account</h2>
+            <div id="step-1">
+                <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
+                <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
+                <input type="password" id="new-pass" placeholder="پاسۆرد" required>
+                <input type="password" id="confirm-pass" placeholder="دووبارەکرنا پاسۆردی" required>
+                <button onclick="sendOTP()" class="btn-diamond">SEND CODE (6 DIGITS)</button>
+            </div>
+            <div id="otp-section" class="hidden">
+                <p style="font-size: 13px; color: #00d2ff; margin-bottom: 10px;">کۆد بۆ ئیمەیڵێ تە هاتە ناردن 📩</p>
+                <input type="number" id="otp-input" placeholder="------" required>
+                <div class="otp-actions">
+                    <button onclick="handleSignUp()" class="btn-diamond">VERIFY & REGISTER</button>
+                    <p class="resend-text" onclick="sendOTP()">Resend Code</p>
+                    <p class="back-text" onclick="backToSignUp()">زڤڕین و گوهۆڕینا زانیاریان</p>
+                </div>
+            </div>
+            <p class="switch-text">ئەکاونتێ تە یێ هەین؟ <span onclick="toggleAuth()">بچۆ ژۆر</span></p>
+        </div>
+    </div>
+    <script src="Premium.Script.js"></script>
+</body>
+</html>
