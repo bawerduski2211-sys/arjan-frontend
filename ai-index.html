@@ -1,71 +1,115 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-    <title>ARJAN AI GENERATOR</title>
+    <title>ARJAN AI - Full Voice Experience</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
         #chat-container {
-            width: 100%; height: 400px;
+            width: 100%; height: 450px;
             border: 2px solid var(--color-primary);
-            margin: 20px 0; border-radius: 12px;
-            padding: 15px; overflow-y: auto;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex; flex-direction: column; gap: 10px;
+            margin: 20px 0; border-radius: 20px;
+            padding: 20px; overflow-y: auto;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex; flex-direction: column; gap: 15px;
         }
-        .msg { padding: 8px 12px; border-radius: 8px; max-width: 80%; }
-        .user-msg { background: var(--color-primary); color: #000; align-self: flex-end; }
-        .ai-msg { background: #333; color: #fff; align-self: flex-start; border: 1px solid var(--color-primary); }
+        .msg { padding: 12px 18px; border-radius: 15px; max-width: 85%; font-size: 0.95rem; line-height: 1.6; }
+        .user-msg { background: var(--color-primary); color: #000; align-self: flex-end; font-weight: bold; }
+        .ai-msg { background: #111; color: #fff; align-self: flex-start; border-left: 4px solid var(--color-primary); }
+        
+        .voice-controls {
+            display: flex; gap: 10px; width: 100%; margin-top: 10px;
+        }
+        .mic-btn {
+            background: #ff0000; color: white; border: none; padding: 15px;
+            border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        .mic-active { animation: pulse-red 1.5s infinite; }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
     </style>
 </head>
 <body class="neon-active">
     <main>
         <div class="header">
             <h1>ARJAN AI</h1>
-            <p>Sîstema ژیرییا دەستکرد</p>
+            <p>ژیرییا دەستکرد ب دەنگ و نڤیسین (بادینی)</p>
         </div>
 
         <div id="chat-container">
-            <div class="msg ai-msg">سڵاو برا، ئەز ARJAN AI مە. چەوان دشێم هاریکارییا تە بکەم؟</div>
+            <div class="msg ai-msg">ب خێر بێی برا! ئەز ARJAN AI مە. تو دشێی ب دەنگ یان نڤیسین هەر تشتەکێ بڤێت ژ من بپسیری.</div>
         </div>
 
         <div class="contact-form" style="border:none; width:100%;">
-            <input type="text" id="user-input" placeholder="نڤیسین لێرە..." style="text-align:right;">
-            <button onclick="askAI()" class="js-test-button" style="width:100%;">پسیار بکە</button>
+            <input type="text" id="user-input" placeholder="نڤیسین یان مایکێ داگره..." style="text-align:right;">
+            <div class="voice-controls">
+                <button onclick="startListening()" id="mic-btn" class="mic-btn"><i class="fas fa-microphone"></i></button>
+                <button onclick="askAI()" id="send-btn" class="js-test-button" style="flex:1; margin-bottom:0;">Pirs Bike</button>
+            </div>
         </div>
 
-        <a href="index.html" style="color:var(--color-primary); text-decoration:none; margin-top:20px; font-weight:bold;">← زڤڕین بۆ سەرەکی</a>
+        <a href="index.html" style="color:var(--color-primary); text-decoration:none; margin-top:20px; font-weight:bold;">← BACK TO HOME</a>
     </main>
 
     <script>
-        function askAI() {
-            const input = document.getElementById('user-input');
+        // ١. سیستەمێ ناسینەوا دەنگی (Speech to Text)
+        const micBtn = document.getElementById('mic-btn');
+        const userInput = document.getElementById('user-input');
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'ku-IQ'; // یان 'ar-IQ' بۆ تێگەهشتنا پاشبنەمایا دەنگی
+            
+            recognition.onstart = () => micBtn.classList.add('mic-active');
+            recognition.onend = () => micBtn.classList.remove('mic-active');
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                userInput.value = transcript;
+                askAI(); // هەما ئێکسەر پسیارێ بکە پشتی ئاخفتنێ
+            };
+
+            function startListening() { recognition.start(); }
+        } else {
+            micBtn.style.display = "none";
+            console.log("Browser doesn't support speech recognition.");
+        }
+
+        // ٢. فەنکشنا سەرەکییا بەرسڤدانێ
+        async function askAI() {
             const container = document.getElementById('chat-container');
-            
-            if (input.value.trim() === "") return;
+            const text = userInput.value.trim();
+            if (!text) return;
 
-            // ١. زێدەکرنا پەیاما تە
-            container.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
-            
-            const userText = input.value.toLowerCase();
-            input.value = ""; // پاقژکرنا خانەیێ
+            container.innerHTML += `<div class="msg user-msg">${text}</div>`;
+            userInput.value = "";
+            container.scrollTop = container.scrollHeight;
 
-            // ٢. بەرسڤدانا AI (ب شێوەیەکێ دەستپێکی یان ب API)
+            // هندەک بەرسڤێن نموونەیی ب بادینی
             setTimeout(() => {
-                let aiResponse = "ببوورە برا، ئەز هێشتا ل سەر ڤێ پسیارێ ڕاهێنانێ دکەم. تشتەکێ دی بێژە!";
+                let response = "ببوورە برا، ئەز هێشتا ل سەر ڤی بابەتی فێر دبم. پسیارەکا دی بکە!";
                 
-                if (userText.includes("سڵاو") || userText.includes("slaw")) {
-                    aiResponse = "سڵاو ل تە بیت برا، کەیفا من ب دیتنا تە هات!";
-                } else if (userText.includes("ناڤێ تە") || userText.includes("ki ye")) {
-                    aiResponse = "ناڤێ من ARJAN AI یە، ئەز ژ لایێ Arjan Duski ڤە هاتیمە دروستکرن.";
-                } else if (userText.includes("باشی")) {
-                    aiResponse = "سوپاس بۆ خودێ ئەز گەلەک باشم، تو چەوانی؟";
-                }
+                if(text.includes("چەوانی")) response = "سوپاس بۆ خودێ، ئەز گەلەک باشم برا، تو چەوانی؟ کەیفا من ب تە هات.";
+                if(text.includes("ناڤێ تە")) response = "ناڤێ من ARJAN AI یە، پڕۆژەیەکێ زیرەک یێ Arjan Duski مە.";
+                if(text.includes("باشی")) response = "هەر ساخبی برا، سوپاس بۆ خودێ هەمی تشت ڕێک و پێکە.";
 
-                container.innerHTML += `<div class="msg ai-msg">${aiResponse}</div>`;
-                container.scrollTop = container.scrollHeight; // زڤڕین بۆ خوارێ
-            }, 1000);
+                container.innerHTML += `<div class="msg ai-msg">${response}</div>`;
+                container.scrollTop = container.scrollHeight;
+                
+                // خویندنا بەرسڤێ ب دەنگ
+                speak(response);
+            }, 800);
+        }
+
+        // ٣. سیستەمێ خویندنا ب دەنگ (Text to Speech)
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA'; // عەرەبی هەرە نێزیکە ژ تەنەفوزێ کوردی
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
