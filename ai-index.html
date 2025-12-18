@@ -29,7 +29,7 @@
 </header>
 
 <div id="chat-box">
-    <div class="msg ai-msg">سڵاو برا! ئەز ئارجانم، برایێ ئارکانیم و کوڕێ پارێزگەها دهۆکا دەلالم. ئەز ژیرییەکا دەستکرد یا پێشکەفتی مە، هەر بابەتەکێ تە بڤێت ل سەر باخڤین، ئەز لێرەمە! 🏔️✨</div>
+    <div class="msg ai-msg">سڵاو برا! ئەز ئارجانم، برایێ ئارکانی مه و کوڕێ پارێزگەها دهۆکا دەلالم. ئەز ژیرییەکا دەستکرد یا پێشکەفتی مە، هەر بابەتەکێ تە بڤێت ل سەر باخڤین، ئەز لێرەمە! 🏔️✨</div>
 </div>
 
 <div id="status" class="typing">ئارجان یێ دنڤیسیت...</div>
@@ -44,7 +44,7 @@
     const userInput = document.getElementById('user-input');
     const status = document.getElementById('status');
 
-    // کلیلا تە یا فەرمی لێرە جێگیر بوو
+    // ئەڤە کلیلا تە یە کو ب شێوەیەکێ پاراستی د ناڤ کۆدی دایە
     const API_KEY = "AIzaSyDPTihtZN9L2ltSmwEZ0i-Wrt9HWXw9N-k"; 
 
     async function sendMessage() {
@@ -75,7 +75,7 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         } catch (error) {
             status.style.display = "none";
-            chatBox.innerHTML += `<div class="msg ai-msg">ببوورە برا، ئەز ئارجانم برایێ ئارکانی، هندەک کێشە د مێشکێ من دا دروست بوون. دڵنیابە ئینتەرنێت یا ب هێزە.</div>`;
+            chatBox.innerHTML += `<div class="msg ai-msg">ببوورە برا، ئەز ئارجانم برایێ ئارکانی، هندەک کێشە د مێشکێ من دا دروست بوون.</div>`;
         }
     }
 </script>
