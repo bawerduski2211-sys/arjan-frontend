@@ -1,106 +1,80 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-    <title>ARJAN DUSKÎ - NEON BORDER EXPERIENCE</title>
+    <title>Profîla Arjan DUSKÎ - AI & Cyber Security</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <style>
-        :root { --neon: #00ffff; }
-        .purple-mode { --neon: #ff00ff; }
-
-        body { 
-            background: #050505; color: white; 
-            font-family: 'Noto Sans Arabic', sans-serif; 
-            text-align: center; margin: 0; padding: 20px;
-            min-height: 100vh; display: flex; flex-direction: column; align-items: center;
-            position: relative; overflow-x: hidden;
-            transition: 0.5s;
-        }
-
-        /* ڕوناهیا بازنەیی کو ل هەمی لاپەڕەی دزڤریت */
-        body::before {
-            content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent, var(--neon), transparent 30%);
-            animation: rotateFull 6s linear infinite; z-index: -1;
-        }
-        body::after {
-            content: ""; position: fixed; inset: 5px; background: #050505; z-index: -1; border-radius: 15px;
-        }
-        @keyframes rotateFull { 100% { transform: rotate(360deg); } }
-
-        .header h1 { font-family: 'Orbitron'; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
-
-        /* وێنەیێ مدور */
-        .profile-container img {
-            width: 150px; height: 150px; border-radius: 50%;
-            border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon);
-            margin: 15px 0; object-fit: cover;
-        }
-
-        .saet-container { font-family: 'Orbitron'; font-size: 2.2rem; color: var(--neon); text-shadow: 0 0 20px var(--neon); margin: 15px 0; }
-
-        /* دوگمەیا گۆهۆڕینا ڕەنگی */
-        .neon-btn {
-            padding: 10px 20px; background: transparent; border: 2px solid var(--neon);
-            color: var(--neon); border-radius: 30px; cursor: pointer;
-            font-family: 'Orbitron'; font-weight: bold; box-shadow: 0 0 10px var(--neon);
-            margin-bottom: 25px; transition: 0.3s;
-        }
-
-        .button-group { display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 360px; }
-        .main-btn { padding: 16px; border-radius: 12px; text-decoration: none; font-family: 'Orbitron'; font-weight: 900; color: #000; }
-        .gold { background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728); box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-        .diamond { background: linear-gradient(45deg, #b9f2ff, #ffffff, #00d2ff); box-shadow: 0 0 15px rgba(185,242,255,0.6); }
-
-        /* پشکا نامەیێ */
-        .contact-form {
-            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px;
-            width: 90%; max-width: 360px; margin-top: 30px; border: 1px solid #333;
-        }
-        input, textarea { width: 100%; padding: 10px; margin: 5px 0; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        .send-btn { width: 100%; padding: 12px; background: var(--neon); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" href="style.css"> 
 </head>
-<body id="body">
+<body id="main-body">
 
-    <div class="header">
-        <h1>ARJAN DUSKÎ</h1>
-    </div>
+    <main>
+        <div class="header">
+            <h1 id="navê-serok">ARJAN DUSKÎ</h1>
+            <h2>AI & Cyber Security Specialist</h2>
+        </div>
 
-    <div class="profile-container">
-        <img src="profile.jpg" alt="Arjan">
-    </div>
+        <div class="profile-container" onclick="imageClickGlow()">
+            <img src="profile.jpg" alt="Profîla Arjan DUSKÎ">
+        </div>
 
-    <div class="saet-container" id="saet">00:00:00</div>
+        <p class="moto-text">
+            Steering Towards an Advanced Future (AI Powered).
+        </p>
 
-    <button class="neon-btn" onclick="toggleNeon()">SWITCH ATMOSPHERE</button>
+        <div class="saet-container">
+            <span id="saet">--:--:--</span>
+        </div>
 
-    <div class="button-group">
-        <a href="ai-index.html" class="main-btn gold">AI TRANSLATOR</a>
-        <a href="premium.html" class="main-btn diamond">PREMIUM ACCESS</a>
-    </div>
+        <button onclick="toggleNeonMode()" class="js-test-button">
+            ACTIVATE NEON MODE
+        </button>
+        
+        <div class="main-project-button-container">
+            <a href="premium.html" class="main-project-button">
+                <i class="fas fa-crown"></i> ARKAN VIP ACCESS
+            </a>
+            <a href="ai-index.html" class="main-project-button">
+                <i class="fas fa-robot"></i> ARJAN AI GENERATOR
+            </a>
+        </div>
 
-    <div class="contact-form">
-        <form action="https://formspree.io/f/xbjnvnve" method="POST">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <textarea name="message" placeholder="Message" rows="2" required></textarea>
-            <button type="submit" class="send-btn">SEND</button>
-        </form>
-    </div>
+        <div class="contact-form">
+            <h3><i class="fas fa-handshake"></i> Connect With Me</h3>
+            <form action="https://formspree.io/f/xbjnvnve" method="POST">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="tel" name="phone" placeholder="Phone Number (0750...)" required>
+                <textarea name="message" placeholder="Write Your Message Here..." required></textarea>
+                <input type="submit" value="Send Message">
+            </form>
+        </div>
+
+        <footer>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-snapchat"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <p>Copyright © 2025 ARJAN DUSKÎ. هه‌می ماف پاراستینه‌.</p>
+        </footer>
+    </main>
 
     <script>
         function updateClock() {
-            document.getElementById('saet').textContent = new Date().toLocaleTimeString('en-GB');
+            const now = new Date();
+            document.getElementById('saet').textContent = now.toLocaleTimeString('en-GB');
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        function toggleNeon() {
-            document.getElementById('body').classList.toggle('purple-mode');
+        function toggleNeonMode() {
+            document.body.classList.toggle('neon-active');
         }
     </script>
 </body>
