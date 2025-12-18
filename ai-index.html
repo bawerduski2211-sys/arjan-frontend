@@ -7,61 +7,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #00ffff; --bg: #050505; }
-        body { background-color: var(--bg); color: white; font-family: 'Noto Sans Arabic', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        header { padding: 8px; text-align: center; border-bottom: 1px solid var(--neon); background: #000; z-index: 10; }
+        body { background: var(--bg); color: white; font-family: 'Noto Sans Arabic', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { padding: 8px; text-align: center; border-bottom: 1px solid var(--neon); background: #000; }
         header h1 { font-family: 'Orbitron'; margin: 0; font-size: 1rem; color: var(--neon); }
-        #chat-box { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 80px; }
-        .msg { max-width: 85%; padding: 8px 12px; border-radius: 15px; font-size: 0.85rem; line-height: 1.4; }
+        
+        #chat-box { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 70px; }
+        
+        /* قەبارێ نامەیان بچووک و ڕێکخستی کر */
+        .msg { max-width: 82%; padding: 8px 12px; border-radius: 15px; font-size: 0.85rem; line-height: 1.4; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
         .ai-msg { align-self: flex-start; background: #1a1a1a; border: 1px solid #333; border-bottom-left-radius: 2px; }
         .user-msg { align-self: flex-end; background: linear-gradient(135deg, #00ffff, #0088ff); color: #000; font-weight: bold; border-bottom-right-radius: 2px; }
+
         .input-area { position: fixed; bottom: 0; left: 0; right: 0; padding: 8px; background: #000; display: flex; gap: 6px; border-top: 1px solid #222; align-items: center; }
         input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 10px 14px; border-radius: 20px; outline: none; font-size: 0.85rem; min-width: 0; }
         button { background: var(--neon); border: none; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; color: #000; font-size: 0.8rem; white-space: nowrap; }
+        
         .status { font-size: 0.7rem; color: var(--neon); margin: 2px 15px; display: none; }
     </style>
 </head>
 <body>
     <header><h1>ARJAN AI ASSISTANT</h1></header>
+
     <div id="chat-box">
         <div class="msg ai-msg">سڵاو برا! ئەز ئارجانم، برایێ ئارکانیم. هەر هاریكاریه‌كا ته‌كنه‌لۆجی یا هه‌بیت ئەز یێ لێرەمە. 🏔️</div>
     </div>
+
     <div id="status" class="status">ئارجان یێ دنڤیسیت...</div>
+
     <div class="input-area">
-        <input type="text" id="user-input" placeholder="پرسیارەکێ بنڤیسە..." onkeypress="if(event.key==='Enter') sendMessage()">
+        <input type="text" id="user-input" placeholder="بنڤیسە..." onkeypress="if(event.key==='Enter') sendMessage()">
         <button onclick="sendMessage()">ناردن</button>
     </div>
 
-<script>
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    const status = document.getElementById('status');
-    // دڵنیابە کلیل ب دروستی هاتییە کۆپی کرن
-    const API_KEY = "AIzaSyDPTihtZN9L2ltSmwEZ0i-Wrt9HWXw9N-k"; 
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const status = document.getElementById('status');
 
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (text === "") return;
-        chatBox.innerHTML += `<div class="msg user-msg">${text}</div>`;
-        userInput.value = "";
-        chatBox.scrollTop = chatBox.scrollHeight;
-        status.style.display = "block";
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (text === "") return;
 
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: "تو ئارجان دۆسکی یی، برایێ ئارکانی یی. ب زمانێ بادینی بەرسڤێ بدە و بێژە ئەز بۆ هەر هاریکاریەکا تەکنەلۆژی یێ بەرهەڤم: " + text }] }] })
-            });
-            const data = await response.json();
-            const aiReply = data.candidates[0].content.parts[0].text;
-            status.style.display = "none";
-            chatBox.innerHTML += `<div class="msg ai-msg">${aiReply}</div>`;
+            chatBox.innerHTML += `<div class="msg user-msg">${text}</div>`;
+            userInput.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
-        } catch (error) {
-            status.style.display = "none";
-            chatBox.innerHTML += `<div class="msg ai-msg">ببوورە برا، کێشەیەک د کلیلێ دا هەیە. دڵنیابە API Key دروستە.</div>`;
+            status.style.display = "block";
+
+            try {
+                // ئەڤە لایەنێ Backend بانگ دکەت دا کلیل یا ڤەشارتی بیت
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await response.json();
+                status.style.display = "none";
+                chatBox.innerHTML += `<div class="msg ai-msg">${data.reply}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                status.style.display = "none";
+                chatBox.innerHTML += `<div class="msg ai-msg">ببوورە برا، کێشەیەکا تەکنیکی هەبوو.</div>`;
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
