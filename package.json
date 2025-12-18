@@ -1,0 +1,9 @@
+{
+  "name": "arjan-ai-full",
+  "version": "1.0.0",
+  "description": "Arjan AI with Gemini 1.5 Pro",
+  "main": "api/chat.js",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}
