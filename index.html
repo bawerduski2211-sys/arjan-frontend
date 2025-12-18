@@ -1,81 +1,39 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-    <title>Profîla Arjan DUSKÎ - AI & Cyber Security</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> 
+    <title>ARJAN DUSKÎ - System Entry</title>
+    <style>
+        :root { --gold: #D4AF37; --white: #FFFFFF; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--white); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; }
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+        .content { position: relative; z-index: 10; text-align: center; }
+        h1 { color: var(--gold); font-size: 4rem; letter-spacing: 15px; margin: 0; text-transform: uppercase; text-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
+        .btn-enter { margin-top: 40px; padding: 20px 60px; background: var(--gold); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.2rem; display: inline-block; transition: 0.5s; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4); border: none; cursor: pointer; }
+        .btn-enter:hover { transform: scale(1.1); background: white; color: var(--gold); border: 2px solid var(--gold); }
+    </style>
 </head>
-<body id="main-body">
-
-    <main>
-        <div class="header">
-            <h1 id="navê-serok">ARJAN DUSKÎ</h1>
-            <h2>AI & Cyber Security Specialist</h2>
-        </div>
-
-        <div class="profile-container" onclick="imageClickGlow()">
-            <img src="profile.jpg" alt="Profîla Arjan DUSKÎ">
-        </div>
-
-        <p class="moto-text">
-            Steering Towards an Advanced Future (AI Powered).
-        </p>
-
-        <div class="saet-container">
-            <span id="saet">--:--:--</span>
-        </div>
-
-        <button onclick="toggleNeonMode()" class="js-test-button">
-            ACTIVATE NEON MODE
-        </button>
-        
-        <div class="main-project-button-container">
-            <a href="premium.html" class="main-project-button">
-                <i class="fas fa-crown"></i> ARKAN VIP ACCESS
-            </a>
-            <a href="ai-index.html" class="main-project-button">
-                <i class="fas fa-robot"></i> ARJAN AI GENERATOR
-            </a>
-        </div>
-
-        <div class="contact-form">
-            <h3><i class="fas fa-handshake"></i> Connect With Me</h3>
-            <form action="https://formspree.io/f/xbjnvnve" method="POST">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="email" name="email" placeholder="Email Address" required>
-                <input type="tel" name="phone" placeholder="Phone Number (0750...)" required>
-                <textarea name="message" placeholder="Write Your Message Here..." required></textarea>
-                <input type="submit" value="Send Message">
-            </form>
-        </div>
-
-        <footer>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-                <a href="#"><i class="fab fa-snapchat"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-            </div>
-            <p>Copyright © 2025 ARJAN DUSKÎ. هه‌می ماف پاراستینه‌.</p>
-        </footer>
-    </main>
-
+<body>
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1>ARJAN</h1>
+        <p style="color: #555; letter-spacing: 5px;">AI & CYBER SECURITY SYSTEM</p>
+        <a href="profile.html" class="btn-enter">ACTIVATE SYSTEM</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('saet').textContent = now.toLocaleTimeString('en-GB');
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        function toggleNeonMode() {
-            document.body.classList.toggle('neon-active');
-        }
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#D4AF37" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#D4AF37", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 3 }
+            }
+        });
     </script>
 </body>
 </html>
