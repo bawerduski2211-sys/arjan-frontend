@@ -1,4 +1,4 @@
-// 1. Digital Clock - سەعەتا دیجیتال ب کاتی هەولێر و دهۆک
+// 1. Digital Clock - کارکرنا سەعەتێ ب کاتی دهۆک و هەولێر
 function updateClock() {
     const saetElement = document.getElementById('saet');
     if (saetElement) {
@@ -10,25 +10,27 @@ function updateClock() {
             hour12: false, 
             timeZone: 'Asia/Baghdad' 
         };
-        const timeString = new Intl.DateTimeFormat('en-GB', options).format(now);
-        saetElement.textContent = timeString;
+        // نیشاندانا دەمی ب شێوازێ ستاندارد
+        saetElement.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
     }
 }
 
-// 2. Neon Mode Toggle - گوهۆڕینا ڕەنگی بۆ مۆر و شین
+// 2. Neon Mode Toggle - کارکرنا دوگمەیا گۆهۆڕینا ڕەنگی (نێئۆن)
 function toggleNeonMode() {
-    // گوهۆڕین ل سەر ئاستێ Body دا ستایل کارتێکرنێ لێ بکەت
+    // چالاککرنا کلاسا نێئۆن ل سەر Body دا هەمی سایت ڕەنگ بگۆهۆڕیت
     document.body.classList.toggle('neon-active');
     
     const button = document.querySelector('.js-test-button');
-    if (document.body.classList.contains('neon-active')) {
-        button.textContent = 'DEACTIVATE NEON';
-    } else {
-        button.textContent = 'ACTIVATE NEON MODE';
+    if (button) {
+        if (document.body.classList.contains('neon-active')) {
+            button.textContent = 'DEACTIVATE NEON';
+        } else {
+            button.textContent = 'ACTIVATE NEON MODE';
+        }
     }
 }
 
-// 3. Image Click Effect - ئەنیمەیشنا گەشبوونا وێنەی
+// 3. Image Click Effect - ئەنیمەیشنا گەشبوونا وێنەی دەمێ کلیک لێ دهێتە کرن
 function imageClickGlow() {
     const profileContainer = document.querySelector('.profile-container');
     if (profileContainer) {
@@ -41,6 +43,6 @@ function imageClickGlow() {
     }
 }
 
-// دەستپێکرنا سەعەتێ
+// دەستپێکرنا سەعەتێ هەما ل دەسپێکێ
 updateClock(); 
 setInterval(updateClock, 1000);
