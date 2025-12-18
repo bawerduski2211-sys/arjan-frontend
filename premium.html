@@ -3,148 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN PREMIUM - Global AI Access</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <title>ARJAN PREMIUM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --diamond: #b9f2ff;
-            --gold: #BF953F;
-            --dark-bg: #030303;
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Noto Sans Arabic', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* باکگراوندێکی جوڵاو بۆ دیزاینێکی فول کوالێتی */
-        .bg-animate {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
-            z-index: -1;
-        }
-
-        header {
-            padding: 40px 20px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .premium-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, var(--diamond), #fff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(185, 242, 255, 0.5);
-            margin: 0;
-        }
-
-        .diamond-container {
-            width: 120px; height: 120px;
-            margin: 20px auto;
-            animation: pulse 2s infinite ease-in-out;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--diamond)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px var(--diamond)); }
-        }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(185, 242, 255, 0.2);
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            margin-bottom: 30px;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-            text-align: right;
-            direction: rtl;
-        }
-
-        .feature i { color: var(--diamond); font-size: 1.2rem; }
-
-        /* دوگمەی فول کوالێتی */
-        .unlock-btn {
-            display: block;
-            width: 80%;
-            max-width: 300px;
-            padding: 20px;
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            color: white;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
-            transition: 0.4s;
-            border: 2px solid rgba(255,255,255,0.2);
-            margin-top: 20px;
-        }
-
-        .unlock-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.6);
-        }
-
-        footer { margin-top: auto; padding: 20px; font-size: 0.8rem; color: #555; }
+        :root { --gold: #D4AF37; --white: #FFFFFF; --black: #111; }
+        body { background: var(--white); color: var(--black); font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; }
+        header { text-align: center; padding: 60px 20px; }
+        .title { color: var(--gold); font-size: 3.5rem; font-weight: 900; letter-spacing: 10px; margin: 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 90%; max-width: 1100px; margin-bottom: 50px; }
+        .card { background: #F9F9F9; border: 1px solid #EEE; padding: 40px 20px; border-radius: 25px; text-align: center; transition: 0.4s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(212,175,55,0.1); }
+        .card i { font-size: 3.5rem; color: var(--gold); margin-bottom: 20px; }
+        .btn { display: inline-block; margin-top: 20px; padding: 12px 35px; background: var(--gold); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <div class="bg-animate"></div>
-
     <header>
-        <div class="diamond-container">
-            <i class="fas fa-gem" style="font-size: 5rem; color: var(--diamond);"></i>
-        </div>
-        <h1 class="premium-title">ARJAN PREMIUM</h1>
-        <p style="color: #888; font-family: 'Orbitron'; letter-spacing: 2px;">ULTIMATE AI EXPERIENCE</p>
+        <h1 class="title">ARJAN</h1>
+        <p style="letter-spacing: 3px; color: #666;">PREMIUM SERVICES CENTER</p>
     </header>
-
-    <div class="info-card">
-        <h2 style="color: var(--diamond); margin-top: 0;">تایبەتمەندییێن ئەڵماسی</h2>
-        
-        <div class="feature">
-            <i class="fas fa-brain"></i>
-            <span>ژیریی دەستکردی تەمام (Full AI Brain) کو ل سەر هەمی بابەتان دئاخڤیت.</span>
+    <div class="grid">
+        <div class="card">
+            <i class="fas fa-robot"></i>
+            <h3>AI CHAT</h3>
+            <p>مێشکێ زیرەک و پڕۆفیسۆر بۆ جابدانێ.</p>
+            <a href="ai-index.html" class="btn">دەستپێبکە</a>
         </div>
-        <div class="feature">
-            <i class="fas fa-bolt"></i>
-            <span>خێراییەکا بێ وێنە د بەرسڤدانێ دا ب زمانێ بادینی.</span>
+        <div class="card">
+            <i class="fas fa-magic"></i>
+            <h3>IMAGE GEN</h3>
+            <p>دروستکرنا وێنێن زیرەک ب AI.</p>
+            <a href="#" class="btn">دروست بکە</a>
         </div>
-        <div class="feature">
-            <i class="fas fa-shield-alt"></i>
-            <span>پاراستنا سایتێ تە ب نووترین تەکنەلۆژیایێن سایبەر سیکیوڕیتی.</span>
+        <div class="card">
+            <i class="fas fa-gamepad"></i>
+            <h3>GAME HUB</h3>
+            <p>باشترین و خۆشترین یارییێن جیهانی.</p>
+            <a href="#" class="btn">یاری بکە</a>
         </div>
-        <div class="feature">
-            <i class="fas fa-infinity"></i>
-            <span>دەستگەهشتن بۆ هەمی زانیارییێن جیهانی بێ سنوور.</span>
-        </div>
-
-        <a href="https://wa.me/9647501234567" class="unlock-btn">UNLOCK FULL ACCESS</a>
     </div>
-
-    <footer style="text-align: center;">
-        <p>Copyright © 2025 ARJAN DUSKÎ. هه‌می ماف پاراستینه‌.</p>
-    </footer>
-
+    <footer style="padding: 30px; color: #AAA;">Copyright © 2025 ARJAN DUSKÎ</footer>
 </body>
 </html>
