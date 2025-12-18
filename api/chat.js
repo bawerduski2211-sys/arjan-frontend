@@ -1,35 +1,28 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 module.exports = async (req, res) => {
-    // ڕێپێدان ب CORS بۆ ئەوەی Frontend بشێت پەیوەندیێ پێ بکەت
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') return res.status(200).end();
-    if (req.method !== 'POST') return res.status(405).json({ reply: "تەنێ POST قبوولە" });
 
     const { message } = req.body;
-    const API_KEY = "AIzaSyDPTihtZN9L2ltSmwEZ0i-Wrt9HWXw9N-k"; 
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: "تۆ ئارجان دۆسکی یی، برایێ ئارکانی یی. ب زمانێ بادینی بەرسڤێ بدە. هەر پسیارەکا هاتە کرن ب شێوەیەکێ زانستی و پڕۆفیسۆرانە بەرسڤێ بدە: " + message }] }]
-            })
-        });
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-        const data = await response.json();
-        
-        if (data.candidates && data.candidates[0].content) {
-            const aiReply = data.candidates[0].content.parts[0].text;
-            res.status(200).json({ reply: aiReply });
-        } else {
-            res.status(200).json({ reply: "ببوورە برا، مێشکێ من نوکە یێ مژوولە، کێمەکا دی تاقی بکەڤە." });
-        }
+        // رێنمایی بۆ ئەوەی هەموو زمانەکان بزانێت و بە ڕێزەوە وەک پڕۆفیسۆر وەڵام بدات
+        const prompt = `تۆ "پڕۆفیسۆر ئارجان"ی. زۆر زیرەکی و هەموو زمانەکانی جیهان دەزانیت. 
+        وەڵامی بەکارهێنەر بدەوە بەو زمانەی کە پێی نووسیویت، بەڵام بە شێوەیەکی کورت و پڕۆفیشناڵ. 
+        ئەگەر بە کوردی بوو، بە شێوەزاری بادینی وەڵام بدەوە. 
+        ئەمە نامەکەیە: ${message}`;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        res.status(200).json({ reply: response.text() });
     } catch (error) {
-        res.status(500).json({ reply: "کێشە د پەیوەندییا مێشکی دا هەیە." });
+        res.status(500).json({ reply: "Connection error برا." });
     }
 };
