@@ -140,15 +140,17 @@
             const text = input.value.trim();
             if (!text) return;
 
+            // نیشاندانا نامەیا بەکارهێنەری
             container.innerHTML += `<div class="msg user-msg">${text}</div>`;
             input.value = "";
             
+            // نیشاندانا لۆدینگێ
             const loadingId = "ai-" + Date.now();
             container.innerHTML += `<div id="${loadingId}" class="msg ai-msg">Arjan AI بیر دکەتەوە...</div>`;
             container.scrollTop = container.scrollHeight;
 
             try {
-                // لینکا سێرڤەرێ تە یێ ڕاستەقینە ل سەر Vercel
+                // پەیوندی دگەل سێرڤەرێ تە
                 const response = await fetch('https://arjan-backend.vercel.app/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -158,6 +160,7 @@
                 const data = await response.json();
                 const aiRes = data.reply || "ببوورە برا، مێشکێ من نوکە یێ مژوولە.";
 
+                // گوهۆڕینا لۆدینگێ ب بەرسڤا دروست
                 document.getElementById(loadingId).outerHTML = `
                     <div class="ai-group">
                         <div class="msg ai-msg">${aiRes}</div>
