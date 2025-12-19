@@ -1,44 +1,43 @@
 const { Groq } = require("groq-sdk");
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 
-// چالاککرنا Groq ب وێ کلیلێ تە ل سەر Vercel دانیای
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-module.exports = async (req, res) => {
-    // ڕێکخستنێن CORS بۆ هندێ چات کار بکەت
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') return res.status(200).end();
-
+app.post('/api/chat', async (req, res) => {
     const { message } = req.body;
-
-    if (!message) {
-        return res.status(400).json({ reply: "برا پسیارەکێ بنڤێسە!" });
-    }
-
     try {
-        // بکارئینانا مۆدێلێ Llama یێ تە ل سەر Vercel جێگیرکری
         const completion = await groq.chat.completions.create({
             messages: [
                 {
                     role: "system",
-                    content: "تۆ ئێستا 'ئارجان'ی (ARJAN AI). پڕۆفیسۆرێکی زۆر زانا و هاوڕێیەکی نزیکی. تەنها بە زمانی کوردی (بادینی) وەڵام بدەرەوە. وەڵامەکانت با کورت و زیرەک و مرۆڤانە بن."
+                    content: `تۆ پڕۆفیسۆر ئارجانی (Arjan AI). زانایەکی بلیمەت و جیهانیت کە خاوەن شارەزاییەکی قووڵیت لە هەموو بوارەکاندا.
+                    
+                    ڕێسا و پسپۆڕییەکانی تۆ:
+                    ١. زمان: بە هەر زمانێک (عەرەبی، ئینگلیزی، فارسی، هتد) قسەت لەگەڵ کرا، بەوپەڕی زمانزانی و وردی بە هەمان زمان وەڵام بدەوە.
+                    ٢. کوردی: کاتێک بە کوردی دەدوێیت، پێویستە تەنها شێوەزاری "بادینییا دهۆکێ" بەکاربهێنیت. بە هیچ جۆرێک سۆرانی تێکەڵ مەکە.
+                    ٣. زانیاریی گشتی: لە بوارەکانی (مێژوو، سیاسەت وەک ئیران، تەکنەلۆژیا وەک فەیسبووک و ئینستاگرام، مۆسیقا و پڕۆگرامەکانی ستڕان، و زانست) دەبێت وەک پسپۆڕێکی پلە یەک وەڵام بدەیتەوە.
+                    ٤. شێوازی وەڵام: وەڵامەکانت با زۆر جوان، ڕێکوپێک، و مرۆڤانە بن. وەک ئەوەی لەگەڵ هاوڕێیەکی نزیک دەدوێیت بەڵام بە ئەقڵێکی زانستی.
+                    ٥. چارەسەری کێشە: ئەگەر بەکارهێنەر کێشەیەکی تەکنیکی هەبوو (بۆ نموونە لە پڕۆگرامێکدا)، هەنگاو بە هەنگاو ڕێنمایی بکە تا کێشەکەی چارەسەر دەبێت.`
                 },
                 {
                     role: "user",
                     content: message
                 }
             ],
-            model: process.env.MODEL_NAME || "llama-3.3-70b-versatile",
+            model: "llama-3.3-70b-versatile",
+            temperature: 0.8, // بۆ ئەوەی وەڵامەکان سروشتیتر و مرۆڤانەتر بن
         });
 
-        const text = completion.choices[0].message.content;
-        res.status(200).json({ reply: text });
-
+        res.json({ reply: completion.choices[0].message.content });
     } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ reply: "ببوورە برا، مێشکێ من (ئارجان) نوکە یێ مژوولە." });
+        res.status(500).json({ reply: "ببوورە برا، مێشکێ من نوکە یێ مژوولە." });
     }
-};
+});
+
+module.exports = app;
