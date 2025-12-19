@@ -123,7 +123,7 @@
     </div>
 
     <script>
-        // ١. سیستەمێ ئاخفتنێ یێ بادینی (دەنگێ کوڕێ ۱٨ ساڵی)
+        // ١. سیستەمێ ئاخفتنێ یێ بادینی
         function speak(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
@@ -133,14 +133,13 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // ٢. مێشکێ AI یێ گرێدای ب Gemini ڕاستەقینە
+        // ٢. مێشکێ AI یێ گرێدای ب سێرڤەرێ تە یێ Vercel
         async function askAI() {
             const input = document.getElementById('user-input');
             const container = document.getElementById('chat-container');
             const text = input.value.trim();
             if (!text) return;
 
-            // نیشاندانا نامەیا تە
             container.innerHTML += `<div class="msg user-msg">${text}</div>`;
             input.value = "";
             
@@ -149,7 +148,7 @@
             container.scrollTop = container.scrollHeight;
 
             try {
-                // لێنکێ ۱۰۰٪ درست بۆ Backend یێ تە ل سەر Vercel
+                // لینکا سێرڤەرێ تە یێ ڕاستەقینە ل سەر Vercel
                 const response = await fetch('https://arjan-backend.vercel.app/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -157,8 +156,6 @@
                 });
                 
                 const data = await response.json();
-                
-                // وەرگرتنا بەرسڤا ڕاستەقینە ژ Gemini
                 const aiRes = data.reply || "ببوورە برا، مێشکێ من نوکە یێ مژوولە.";
 
                 document.getElementById(loadingId).outerHTML = `
@@ -175,7 +172,6 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // دڵنیا بوون ژ بارکرنا دەنگی د مۆبایلێ دا
         window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
     </script>
 </body>
