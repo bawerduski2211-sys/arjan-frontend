@@ -1,17 +1,21 @@
+/* ARJAN PREMIUM SYSTEM - ULTIMATE GOLD STYLE */
+
 :root {
-    --gold: #D4AF37;
-    --gold-light: #fcf6ba;
+    --gold-primary: #D4AF37;
+    --gold-secondary: #FBF5B7;
+    --gold-dark: #AA892F;
     --white: #ffffff;
+    --bg-color: #f4f7f6;
 }
 
 body {
-    background: #f4f7f6;
+    background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .auth-container {
@@ -24,19 +28,36 @@ body {
     background: var(--white);
     padding: 40px 30px;
     border-radius: 25px;
-    border: 2px solid var(--gold);
+    border: 2px solid var(--gold-primary);
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.diamond-icon {
+    font-size: 50px;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-
-.diamond-icon { font-size: 50px; margin-bottom: 5px; }
-
-h2 { color: #333; margin-bottom: 20px; font-size: 1.8rem; }
-
-.input-group { width: 100%; display: flex; flex-direction: column; gap: 15px; }
 
 input {
     width: 100%;
@@ -47,14 +68,52 @@ input {
     text-align: center;
     box-sizing: border-box;
     font-size: 16px;
+    transition: 0.3s;
 }
 
-input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+input:focus {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
 
-/* ستایلێ نوو یێ "پاسۆرد ژ بیر کرییە" */
+/* ستایلێ دوگمەیا زێڕین یا عەجایێب */
+.btn-diamond {
+    width: 100%;
+    padding: 18px;
+    /* لێرە تێکەڵبوونا ڕەنگێن زێڕین یێن درەوشاوە */
+    background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary), var(--gold-primary));
+    background-size: 200% auto;
+    color: #000;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.5s;
+    animation: shineEffect 3s linear infinite, pulseEffect 2s infinite;
+}
+
+/* ئەنیمەیشنا زڤڕینا ڕەنگێ زێڕین */
+@keyframes shineEffect {
+    to { background-position: 200% center; }
+}
+
+/* ئەنیمەیشنا لەرینا هێمن */
+@keyframes pulseEffect {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
+    70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+.btn-diamond:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+}
+
+/* ستایلێ نڤێسینا "پاسۆرد ژ بیر کرییە" */
 .forgot-btn {
     font-size: 14px;
-    color: var(--gold);
+    color: var(--gold-primary);
     cursor: pointer;
     text-align: right;
     width: 100%;
@@ -64,27 +123,28 @@ input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.
     margin-top: -5px;
 }
 
-.forgot-btn:hover { color: #b8952e; text-decoration: underline; }
+.forgot-btn:hover {
+    color: var(--gold-dark);
+    text-decoration: underline;
+}
 
-.btn-diamond {
-    width: 100%;
-    padding: 17px;
-    background: linear-gradient(45deg, var(--gold), var(--gold-light));
-    border: none;
-    border-radius: 12px;
+.hidden {
+    display: none !important;
+}
+
+.switch-text {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #555;
+}
+
+.switch-text span {
+    color: var(--gold-primary);
     font-weight: bold;
-    font-size: 16px;
     cursor: pointer;
-    animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
-    70% { box-shadow: 0 0 0 12px rgba(212,175,55,0); }
-    100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+.switch-text span:hover {
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
-
-.hidden { display: none !important; }
-
-.switch-text { margin-top: 20px; font-size: 15px; }
-.switch-text span { color: var(--gold); font-weight: bold; cursor: pointer; }
+٧
