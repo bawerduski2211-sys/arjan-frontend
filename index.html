@@ -3,68 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN | DIAMOND RED LOGIN</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ARJAN | AI SYSTEM</title>
     <style>
-        :root { --red-neon: #ff0000; --white: #FFFFFF; --dark-bg: #050505; --card-bg: #111; }
-        body { background: var(--dark-bg); font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: white; overflow-x: hidden; }
-        
-        /* حەرەکەت و دیزاینێ سندوقێ */
-        .box { width: 90%; max-width: 400px; padding: 40px; border-radius: 30px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); border: 1px solid #300; text-align: center; background: var(--card-bg); animation: fadeIn 1s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --gold: #D4AF37; --dark: #050505; --soft-red: rgba(255, 0, 0, 0.1); }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
 
-        h2 { color: var(--red-neon); letter-spacing: 3px; margin-bottom: 30px; font-size: 1.8rem; text-shadow: 0 0 10px var(--red-neon); }
-        
-        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #222; background: #000; color: white; text-align: right; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--red-neon); box-shadow: 0 0 10px var(--red-neon); transform: scale(1.02); }
-        
-        .btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #800000, #ff0000); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 1rem; text-transform: uppercase; transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--red-neon); }
-        
-        .links { margin-top: 20px; font-size: 0.9rem; color: #888; }
-        .links a { color: var(--red-neon); text-decoration: none; font-weight: bold; }
-        .hidden { display: none; }
+        /* ئەنیمەیشنا سێبەرا لڤۆک بۆ ناڤێ ARJAN */
+        .brand-container { text-align: center; animation: floating 4s infinite ease-in-out; }
+        h1 { 
+            font-size: 3.5rem; color: var(--gold); letter-spacing: 12px; margin: 0; 
+            text-transform: uppercase; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* تیشکا سۆر یا زۆر خەفیف ل پشت ناڤی */
+        .bg-glow {
+            position: absolute; width: 300px; height: 300px;
+            background: radial-gradient(circle, var(--soft-red) 0%, transparent 70%);
+            z-index: -1; filter: blur(30px); animation: pulseGlow 6s infinite;
+        }
+        @keyframes pulseGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+
+        p { color: #888; letter-spacing: 4px; font-size: 0.8rem; margin-top: 10px; text-transform: uppercase; }
+
+        /* دوگمەیا دەربازبوونێ */
+        .enter-btn {
+            margin-top: 50px; background: transparent; color: var(--gold);
+            border: 1px solid var(--gold); padding: 15px 40px; border-radius: 50px;
+            font-weight: bold; cursor: pointer; letter-spacing: 2px;
+            transition: 0.5s; box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+        .enter-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-<div class="box" id="login-form">
-    <h2>DIAMOND LOGIN</h2>
-    <input type="email" id="login-email" placeholder="ئیمەیل">
-    <input type="password" id="login-pass" placeholder="پاسوورد">
-    <button class="btn" onclick="handleLogin()">پشکنینا ئەمنی</button>
-    <div class="links">
-        <a href="#" onclick="alert('پەیوەندیێ ب Arjan AI بکە بۆ گوهۆڕینا پاسووردی')">پاسوورد ژ بیر کرییە؟</a><br><br>
-        ئەکاونت نینە؟ <a href="#" onclick="toggle()">دروست بکە</a>
+    <div class="bg-glow"></div>
+
+    <div class="brand-container">
+        <h1>ARJAN</h1>
+        <p>AI & Cyber Security System</p>
     </div>
-</div>
 
-<div class="box hidden" id="signup-form">
-    <h2>NEW DIAMOND</h2>
-    <input type="text" placeholder="ناڤێ تەمام">
-    <input type="email" id="reg-email" placeholder="ئیمەیل">
-    <input type="tel" placeholder="رقمێ مۆبایلێ">
-    <input type="password" id="reg-pass" placeholder="پاسوورد">
-    <button class="btn" onclick="handleSignup()">تۆمارکرن و وەرگرتنا کۆدی</button>
-    <div class="links">تە ئەکاونت یێ هەی؟ <a href="#" onclick="toggle()">بچۆ ژوورێ</a></div>
-</div>
+    <button class="enter-btn" onclick="location.href='profile.html'">ACTIVATE SYSTEM</button>
 
-<script>
-    function toggle() {
-        document.getElementById('login-form').classList.toggle('hidden');
-        document.getElementById('signup-form').classList.toggle('hidden');
-    }
-
-    // گرێدان ب لاپەڕێ OTP ڤە
-    function handleLogin() {
-        // پشکنینا پاسووردی ل ڤێرێ دهێتە کرن
-        window.location.href = 'otp-verify.html'; 
-    }
-
-    function handleSignup() {
-        // سەیڤکرن د داتابەیسێ دا و فرێکرن بۆ OTP
-        window.location.href = 'otp-verify.html';
-    }
-</script>
 </body>
 </html>
