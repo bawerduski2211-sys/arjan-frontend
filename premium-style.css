@@ -1,57 +1,90 @@
-/* چارەسەرکرنا درێژبوونا لاپەرەی و ڕێکخستنا ناڤان */
+/* ARJAN ULTIMATE DIAMOND STYLE - RESTORED */
+:root {
+    --gold: #D4AF37;
+    --gold-gradient: linear-gradient(45deg, #D4AF37, #fcf6ba, #D4AF37);
+    --white: #ffffff;
+}
+
 body {
-    background-color: #f4f7f6;
+    background-color: #f8f9fa;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* تنی قەبارێ شاشێ */
+    height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    overflow: hidden; /* ناهێلیت لاپەرە بچیتە خوارێ */
+    overflow: hidden;
 }
 
-.auth-container {
-    width: 100%;
-    max-width: 380px;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+/* تیشکا زێڕین یا خەفیف ل دەسپێکێ */
+.gold-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+    z-index: 9999;
+    pointer-events: none;
+    animation: fadeOutGold 2s forwards;
 }
+
+@keyframes fadeOutGold {
+    0% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1); }
+}
+
+.auth-container { width: 100%; max-width: 400px; padding: 20px; display: flex; justify-content: center; align-items: center; }
 
 .auth-card {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 20px;
-    border: 2px solid #D4AF37;
+    background: var(--white);
+    padding: 45px 35px;
+    border-radius: 30px;
+    border: 2px solid var(--gold);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    gap: 12px; /* بۆشاییا د ناڤبەرا خانەیێن ناڤ و پاسۆردێ */
+    gap: 15px;
     width: 100%;
-    animation: fadeIn 0.4s ease-out;
+    animation: slideUp 0.5s ease-out;
 }
 
-/* بۆ هندێ فۆڕمێن بەرزە جهێ زێدە نەگرن */
-.hidden {
-    display: none !important;
-}
-
-/* قەبارێ خانەیێن ناڤ و ئیمەیڵێ */
-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    outline: none;
-    text-align: center;
-    box-sizing: border-box;
-    font-size: 15px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.diamond-icon { font-size: 60px; margin-bottom: 10px; }
+
+h2 { color: #222; margin-bottom: 20px; font-size: 1.9rem; font-weight: bold; }
+
+input {
+    width: 100%; padding: 16px; border-radius: 15px; border: 1px solid #eee;
+    outline: none; text-align: center; box-sizing: border-box; font-size: 16px;
+    background: #fafafa; transition: 0.3s;
+}
+
+input:focus { border-color: var(--gold); background: #fff; box-shadow: 0 0 10px rgba(212,175,55,0.1); }
+
+/* زڤڕاندنا دوگمەیا زێڕین یا ڕاستەقینە */
+.btn-diamond {
+    width: 100%; padding: 18px;
+    background: var(--gold-gradient);
+    background-size: 200% auto;
+    color: #000; border: none; border-radius: 15px;
+    font-weight: bold; font-size: 18px; cursor: pointer;
+    animation: shine 3s linear infinite, pulse 2s infinite;
+    transition: 0.4s;
+}
+
+@keyframes shine { to { background-position: 200% center; } }
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+.forgot-btn { font-size: 14px; color: var(--gold); cursor: pointer; text-align: right; font-weight: bold; }
+
+.switch-text { margin-top: 15px; font-size: 15px; color: #555; }
+.switch-text span { color: var(--gold); font-weight: bold; cursor: pointer; }
+
+.hidden { display: none !important; }
