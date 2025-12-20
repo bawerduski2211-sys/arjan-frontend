@@ -2,67 +2,24 @@
 <html lang="ku">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN | DIAMOND RED LOGIN</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>VIP Login - ARJAN</title>
     <style>
-        :root { --red-neon: #ff0000; --white: #FFFFFF; --dark-bg: #050505; --card-bg: #111; }
-        body { background: var(--dark-bg); font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: white; }
-        
-        /* دیزاینێ سنوقا Diamond Red */
-        .box { width: 90%; max-width: 400px; padding: 40px; border-radius: 30px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); border: 1px solid #300; text-align: center; background: var(--card-bg); }
-        h2 { color: var(--red-neon); letter-spacing: 3px; margin-bottom: 30px; font-size: 1.8rem; text-shadow: 0 0 10px var(--red-neon); }
-        
-        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #222; background: #000; color: white; text-align: right; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--red-neon); box-shadow: 0 0 10px var(--red-neon); }
-        
-        .btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #800000, #ff0000); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 1rem; text-transform: uppercase; }
-        .btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--red-neon); }
-        
-        .links { margin-top: 20px; font-size: 0.9rem; color: #888; }
-        .links a { color: var(--red-neon); text-decoration: none; font-weight: bold; }
-        .hidden { display: none; }
+        :root { --gold: #D4AF37; }
+        body { background: #fff; font-family: 'Orbitron', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .box { border: 2px solid var(--gold); padding: 40px; border-radius: 20px; text-align: center; width: 320px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #eee; border-radius: 10px; text-align: center; }
+        .btn { background: var(--gold); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
-
-<div class="box" id="login-form">
-    <h2>DIAMOND LOGIN</h2>
-    <input type="email" id="login-email" placeholder="ئیمەیل">
-    <input type="password" id="login-pass" placeholder="پاسوورد">
-    <button class="btn" onclick="handleLogin()">پشکنینا ئەمنی</button>
-    <div class="links">
-        <a href="#" onclick="alert('پەیوەندیێ ب Arjan AI بکە بۆ گوهۆڕینا پاسووردی')">پاسوورد ژ بیر کرییە؟</a><br><br>
-        ئەکاونت نینە؟ <a href="#" onclick="toggle()">دروست بکە</a>
+    <div class="box">
+        <h2 style="color: var(--gold);">VIP LOGIN</h2>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="password" id="pass" placeholder="Password" required>
+        <button class="btn">LOGIN</button>
+        <p style="font-size: 0.8rem; margin-top: 15px;">
+            Don't have account? <a href="signup.html" style="color: var(--gold); text-decoration: none; font-weight: bold;">Create VIP Account</a>
+        </p>
     </div>
-</div>
-
-<div class="box hidden" id="signup-form">
-    <h2>NEW DIAMOND</h2>
-    <input type="text" id="reg-name" placeholder="ناڤێ تەمام">
-    <input type="email" id="reg-email" placeholder="ئیمەیل">
-    <input type="tel" id="reg-phone" placeholder="رقمێ مۆبایلێ">
-    <input type="password" id="reg-pass" placeholder="پاسوورد">
-    <button class="btn" onclick="handleSignup()">تۆمارکرن و وەرگرتنا کۆدی</button>
-    <div class="links">تە ئەکاونت یێ هەی؟ <a href="#" onclick="toggle()">بچۆ ژوورێ</a></div>
-</div>
-
-<script>
-    function toggle() {
-        document.getElementById('login-form').classList.toggle('hidden');
-        document.getElementById('signup-form').classList.toggle('hidden');
-    }
-
-    // هه‌ر دوو فه‌نكشن چێكرینه‌ كو بچنه‌ سه‌ر OTP
-    function handleLogin() {
-        // ل ڤێرێ بڕیارا "Full Security" دهێته‌ دان
-        window.location.href = 'otp-verify.html'; 
-    }
-
-    function handleSignup() {
-        // پشتی توماركرنێ، ئێكسه‌ر دێ چیت بۆ قوفڵا ٦ ژماره‌یی
-        window.location.href = 'otp-verify.html';
-    }
-</script>
 </body>
 </html>
