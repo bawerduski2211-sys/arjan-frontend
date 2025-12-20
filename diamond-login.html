@@ -15,6 +15,7 @@
                 <input type="email" id="log-user" placeholder="ئیمەیڵ" required>
                 <input type="password" id="log-pass" placeholder="پاسۆرد" required>
             </div>
+            <p class="forgot-link" onclick="showForgotForm()">پاسۆرد ژ بیر کرییە؟</p>
             <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
             <p class="switch-text">ئەکاونتێ تە نینە؟ <span onclick="toggleAuth()">دروست بکە</span></p>
         </div>
@@ -25,18 +26,28 @@
             <div id="step-1" class="input-group">
                 <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
                 <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
+                <input type="tel" id="sign-phone" placeholder="ژمارا مۆبایلێ" required>
                 <input type="password" id="new-pass" placeholder="پاسۆرد" required>
-                <input type="password" id="confirm-pass" placeholder="دووبارە پاسۆرد" required>
                 <button onclick="sendOTP()" class="btn-diamond">SEND CODE (6 DIGITS)</button>
             </div>
             
             <div id="otp-section" class="input-group hidden">
-                <p style="color: #2196F3; margin-bottom: 10px;">کۆد بۆ ئیمەیڵێ تە هات 📩</p>
+                <p style="color: #2196F3;">کۆد بۆ مۆبایل و ئیمەیڵا تە هات 📩</p>
                 <input type="number" id="otp-input" placeholder="------" required>
                 <button onclick="handleSignUp()" class="btn-diamond">VERIFY & REGISTER</button>
-                <p onclick="backToSignUp()" style="color: red; cursor: pointer; margin-top: 10px; font-size: 14px;">زڤڕین بۆ پاش</p>
+                <p onclick="backToSignUp()" style="color: red; cursor: pointer; font-size: 13px;">زڤڕین بۆ پاش</p>
             </div>
             <p class="switch-text">ئەکاونتێ تە هەین؟ <span onclick="toggleAuth()">بچۆ ژۆر</span></p>
+        </div>
+
+        <div id="forgot-form" class="auth-card hidden">
+            <div class="diamond-icon">🔑</div>
+            <h2>Reset Password</h2>
+            <div class="input-group">
+                <input type="email" id="reset-email" placeholder="ئیمەیڵا خۆ بنڤیسە" required>
+                <button onclick="sendResetCode()" class="btn-diamond">SEND RESET LINK</button>
+            </div>
+            <p class="switch-text"><span onclick="toggleAuth()">زڤڕین بۆ چوونەژۆر</span></p>
         </div>
     </div>
     <script src="Premium.Script.js"></script>
