@@ -3,52 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN | AI SYSTEM</title>
+    <title>ARJAN DUSKÎ - System Entry</title>
     <style>
-        :root { --gold: #D4AF37; --dark: #050505; --soft-red: rgba(255, 0, 0, 0.1); }
-        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
-
-        /* ئەنیمەیشنا سێبەرا لڤۆک بۆ ناڤێ ARJAN */
-        .brand-container { text-align: center; animation: floating 4s infinite ease-in-out; }
+        :root { --gold: #D4AF37; --white: #FFFFFF; --soft-red: rgba(255, 0, 0, 0.08); }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--white); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; }
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+        
+        /* پاراستنا دیزاینێ تە یێ کەڤن */
+        .content { position: relative; z-index: 10; text-align: center; }
         h1 { 
-            font-size: 3.5rem; color: var(--gold); letter-spacing: 12px; margin: 0; 
-            text-transform: uppercase; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-        }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            color: var(--gold); font-size: 4rem; letter-spacing: 15px; margin: 0; 
+            text-transform: uppercase; position: relative;
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); 
         }
 
-        /* تیشکا سۆر یا زۆر خەفیف ل پشت ناڤی */
-        .bg-glow {
-            position: absolute; width: 300px; height: 300px;
-            background: radial-gradient(circle, var(--soft-red) 0%, transparent 70%);
-            z-index: -1; filter: blur(30px); animation: pulseGlow 6s infinite;
+        /* زێدەکرنا سێبەرا سۆر یا خەفیف کو چاڤی نائێشینیت */
+        h1::before {
+            content: 'ARJAN'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            color: transparent; text-shadow: 0 0 40px var(--soft-red);
+            z-index: -1; animation: pulseRed 4s infinite ease-in-out;
         }
-        @keyframes pulseGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+        @keyframes pulseRed { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        p { color: #888; letter-spacing: 4px; font-size: 0.8rem; margin-top: 10px; text-transform: uppercase; }
-
-        /* دوگمەیا دەربازبوونێ */
-        .enter-btn {
-            margin-top: 50px; background: transparent; color: var(--gold);
-            border: 1px solid var(--gold); padding: 15px 40px; border-radius: 50px;
-            font-weight: bold; cursor: pointer; letter-spacing: 2px;
-            transition: 0.5s; box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+        .btn-enter { 
+            margin-top: 40px; padding: 20px 60px; background: var(--gold); color: white; 
+            text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.2rem; 
+            display: inline-block; transition: 0.5s; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4); 
+            border: none; cursor: pointer; 
         }
-        .enter-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); transform: scale(1.1); }
+        .btn-enter:hover { transform: scale(1.1); background: white; color: var(--gold); border: 2px solid var(--gold); }
     </style>
 </head>
 <body>
-
-    <div class="bg-glow"></div>
-
-    <div class="brand-container">
+    <div id="particles-js"></div>
+    <div class="content">
         <h1>ARJAN</h1>
-        <p>AI & Cyber Security System</p>
+        <p style="color: #555; letter-spacing: 5px;">AI & CYBER SECURITY SYSTEM</p>
+        <a href="profile.html" class="btn-enter">ACTIVATE SYSTEM</a>
     </div>
 
-    <button class="enter-btn" onclick="location.href='profile.html'">ACTIVATE SYSTEM</button>
-
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#D4AF37" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#D4AF37", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 3 }
+            }
+        });
+    </script>
 </body>
 </html>
