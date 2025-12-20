@@ -9,13 +9,13 @@ function showForgotForm() {
     document.getElementById('forgot-form').classList.remove('hidden');
 }
 
-function sendOTP() {
-    alert("کۆد هاتە ناردن! 📩");
+function validateLogin() {
+    // بکارئینەری دزڤڕینیتە لاپەرێ سەرەکی
+    window.location.href = "index.html"; 
 }
 
-function validateLogin() {
-    // بۆ تاقی کرنێ بکارئینەر دچیتە لاپەرێ پرۆفایلێ
-    window.location.href = "profile.html";
+function sendOTP() {
+    alert("کۆدێ پشتراستکرنێ هاتە ناردن! 📩");
 }
 
 function sendResetCode() {
