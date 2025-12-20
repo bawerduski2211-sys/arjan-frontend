@@ -3,75 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIAMOND PREMIUM | ARJAN</title>
+    <title>ARJAN | PREMIUM HUB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --red: #ff0000; --dark: #050505; --card: #111; --gold: #D4AF37; }
-        body { background: var(--dark); color: white; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        
-        /* هێما و دیزاینێ سەرەکی */
-        .header { margin: 40px 0; text-align: center; }
-        .diamond-icon { width: 80px; height: 80px; border: 3px solid var(--red); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px var(--red); margin: 0 auto 15px; animation: glow 3s infinite; }
-        @keyframes glow { 0%, 100% { box-shadow: 0 0 10px var(--red); } 50% { box-shadow: 0 0 30px var(--red); } }
-        
-        h1 { color: var(--red); letter-spacing: 3px; font-size: 1.6rem; margin: 0; text-shadow: 0 0 10px var(--red); }
-        .user-status { color: var(--gold); font-size: 0.8rem; margin-top: 5px; letter-spacing: 1px; }
+        :root { --gold: #D4AF37; --red: #FF0000; --dark: #050505; --soft-red: rgba(255, 0, 0, 0.15); }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; overflow-x: hidden; display: flex; flex-direction: column; align-items: center; }
 
-        /* کارتێن خزمەتگۆزاریێ */
-        .container { width: 90%; max-width: 450px; padding-bottom: 50px; }
-        .card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 25px; margin-bottom: 20px; position: relative; overflow: hidden; transition: 0.3s; text-align: right; }
-        .card:hover { border-color: var(--red); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1); }
-        .card::before { content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--red); }
-        
-        .card h2 { color: white; margin: 0 0 10px; font-size: 1.2rem; }
-        .card p { color: #888; font-size: 0.85rem; line-height: 1.5; margin-bottom: 20px; }
-        
-        .btn-action { background: var(--red); color: white; border: none; padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
-        .btn-action:active { transform: scale(0.95); opacity: 0.8; }
+        /* ئەنیمییشنا سێبەرا لڤۆک بۆ ناڤی */
+        .header { margin-top: 40px; text-align: center; position: relative; }
+        h1 { 
+            color: var(--gold); letter-spacing: 6px; font-size: 2.2rem; margin: 0; 
+            text-transform: uppercase; animation: glowText 4s infinite ease-in-out;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        @keyframes glowText {
+            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+            50% { transform: translateY(-5px); text-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+        }
 
-        /* نیشانا پاراستنا داتابەیسێ */
-        .db-status { font-size: 0.7rem; color: #444; margin-top: 20px; border-top: 1px solid #222; padding-top: 10px; width: 100%; text-align: center; }
+        /* تیشکا سۆر یا خەفیف ل پشت لاپەڕەی */
+        body::before {
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, var(--soft-red) 0%, transparent 70%);
+            z-index: -1; animation: moveLight 10s infinite linear;
+        }
+        @keyframes moveLight { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* سندوقا دوگمەیان */
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; max-width: 450px; margin-top: 40px; }
+        .btn-box {
+            background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.1); 
+            padding: 25px 10px; border-radius: 20px; text-align: center; backdrop-filter: blur(5px);
+            transition: 0.5s; cursor: pointer;
+        }
+        .btn-box:hover { border-color: var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        .btn-box i { font-size: 1.6rem; color: var(--gold); margin-bottom: 12px; display: block; }
+
+        /* دوگمەیا دایمۆندێ ب ستایلێ خەفیف و گرانبها */
+        .diamond-card {
+            grid-column: span 2; position: relative;
+            background: linear-gradient(135deg, #100, #400);
+            border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 25px; padding: 35px;
+            margin-top: 25px; cursor: pointer; overflow: hidden; transition: 0.6s;
+        }
+        .diamond-card:hover { border-color: var(--red); box-shadow: 0 0 30px rgba(255, 0, 0, 0.4); }
+        .diamond-card h2 { color: white; margin: 0; font-size: 1.5rem; letter-spacing: 3px; }
+        
+        /* تیشکا ئەڵماسی (Shine) */
+        .diamond-shine {
+            position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: fastShine 4s infinite ease-in-out;
+        }
+        @keyframes fastShine { 0% { left: -150%; } 100% { left: 150%; } }
+
+        /* ستایلێ نامەیا Coming Soon */
+        #alert-box {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(10, 10, 10, 0.95); border: 1px solid var(--red); padding: 40px; border-radius: 30px;
+            z-index: 1000; text-align: center; backdrop-filter: blur(15px); width: 85%; max-width: 380px;
+        }
+        .close-btn { margin-top: 25px; background: transparent; border: 1px solid #333; color: #888; padding: 10px 25px; border-radius: 12px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="diamond-icon"><span style="color:var(--red); font-size: 2rem;">💎</span></div>
-        <h1>DIAMOND RED</h1>
-        <div class="user-status">STATUS: SECURE ACCESS</div>
+        <h1>ARJAN</h1>
+        <div style="color: var(--gold); font-size: 0.7rem; letter-spacing: 5px; margin-top: 5px;">PREMIUM HUB</div>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <h2>ARJAN SONO</h2>
-            <p>سیستەمێ زیرەک یێ دروستکرنا میوزیکێ. سترانێن ب کوالیتییا بلند ل ڤێرێ دروست بکە.</p>
-            <button class="btn-action" onclick="location.href='ai-index.html'">ڤەکرنا ستۆدیۆیێ</button>
-        </div>
+    <div class="grid-container">
+        <div class="btn-box" onclick="location.href='werger.html'"><i class="fas fa-language"></i><span>WERGER AI</span></div>
+        <div class="btn-box" onclick="location.href='wene.html'"><i class="fas fa-image"></i><span>WENE AI</span></div>
+        <div class="btn-box" onclick="location.href='ai-index.html'"><i class="fas fa-music"></i><span>SONO STUDIO</span></div>
+        <div class="btn-box" onclick="location.href='profile.html'"><i class="fas fa-user-shield"></i><span>PROFILE</span></div>
 
-        <div class="card">
-            <h2>ARKAN GAMES</h2>
-            <p>یارییێن پریمیم ب سیستەمێ Cloud Save. هەمی پێشڤەچوونێن تە یێن پاراستینە.</p>
-            <button class="btn-action">دەستپێکرنا یاریێ</button>
+        <div class="diamond-card" onclick="showDiamondAlert()">
+            <div class="diamond-shine"></div>
+            <i class="fas fa-gem" style="color: var(--red); font-size: 2rem; margin-bottom: 12px; filter: drop-shadow(0 0 10px red);"></i>
+            <h2>DIAMOND RED</h2>
+            <p style="color: #666; font-size: 0.7rem; margin-top: 8px;">THE ULTIMATE SECURITY EXPERIENCE</p>
         </div>
+    </div>
 
-        <div class="card">
-            <h2>ARKAN AI IMAGE</h2>
-            <p>وێنەیێن خەیالی ب زیرەکیا دەستکرد دروست بکە. تەنێ بۆ ئەندامێن دایمۆند.</p>
-            <button class="btn-action">دروستکرنا وێنەی</button>
-        </div>
-
-        <div class="db-status">SUPABASE SECURED | PROJECT: ARJAN-AI</div>
+    <div id="alert-box">
+        <i class="fas fa-shield-alt" style="color: var(--red); font-size: 2.5rem; margin-bottom: 20px;"></i>
+        <h3 style="color: white; margin: 0; letter-spacing: 2px;">SYSTEM ENCRYPTED</h3>
+        <p style="color: #aaa; font-size: 0.95rem; margin: 20px 0; line-height: 1.6;">This high-security diamond sector is currently under development.</p>
+        <h4 style="color: var(--red); margin: 0; font-style: italic;">COMING VERY SOON</h4>
+        <button class="close-btn" onclick="closeAlert()">ACKNOWLEDGE</button>
     </div>
 
     <script>
-        // دوماهیک قوفڵ: ئەگەر کەسەک ب دزی ڤە بێتە ڤێرێ بێی لاگین، دێ زڤڕیتە سەر لاپەڕێ تومارکرنێ
-        window.onload = function() {
-            // ئەگەر تە ڤیا ئەکاونت توند قوفڵ بیت، ئەڤ کۆدێ خوارێ کارا بکە
-            const isVerified = sessionStorage.getItem('diamond_verified');
-            if (isVerified !== 'true') {
-                console.log("Security Check: Access Restricted");
-                // window.location.href = "index.html"; 
-            }
-        }
+        function showDiamondAlert() { document.getElementById('alert-box').style.display = 'block'; }
+        function closeAlert() { document.getElementById('alert-box').style.display = 'none'; }
     </script>
 </body>
 </html>
