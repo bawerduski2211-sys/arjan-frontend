@@ -3,37 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN DUSKÎ - System Entry</title>
+    <title>ARJAN | DIAMOND RED LOGIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --gold: #D4AF37; --white: #FFFFFF; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--white); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; }
-        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
-        .content { position: relative; z-index: 10; text-align: center; }
-        h1 { color: var(--gold); font-size: 4rem; letter-spacing: 15px; margin: 0; text-transform: uppercase; text-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
-        .btn-enter { margin-top: 40px; padding: 20px 60px; background: var(--gold); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.2rem; display: inline-block; transition: 0.5s; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4); border: none; cursor: pointer; }
-        .btn-enter:hover { transform: scale(1.1); background: white; color: var(--gold); border: 2px solid var(--gold); }
+        :root { --red-neon: #ff0000; --white: #FFFFFF; --dark-bg: #050505; --card-bg: #111; }
+        body { background: var(--dark-bg); font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: white; overflow-x: hidden; }
+        
+        /* حەرەکەت و دیزاینێ سندوقێ */
+        .box { width: 90%; max-width: 400px; padding: 40px; border-radius: 30px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); border: 1px solid #300; text-align: center; background: var(--card-bg); animation: fadeIn 1s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: var(--red-neon); letter-spacing: 3px; margin-bottom: 30px; font-size: 1.8rem; text-shadow: 0 0 10px var(--red-neon); }
+        
+        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #222; background: #000; color: white; text-align: right; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--red-neon); box-shadow: 0 0 10px var(--red-neon); transform: scale(1.02); }
+        
+        .btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #800000, #ff0000); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 15px; font-size: 1rem; text-transform: uppercase; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--red-neon); }
+        
+        .links { margin-top: 20px; font-size: 0.9rem; color: #888; }
+        .links a { color: var(--red-neon); text-decoration: none; font-weight: bold; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <div class="content">
-        <h1>ARJAN</h1>
-        <p style="color: #555; letter-spacing: 5px;">AI & CYBER SECURITY SYSTEM</p>
-        <a href="profile.html" class="btn-enter">ACTIVATE SYSTEM</a>
+
+<div class="box" id="login-form">
+    <h2>DIAMOND LOGIN</h2>
+    <input type="email" id="login-email" placeholder="ئیمەیل">
+    <input type="password" id="login-pass" placeholder="پاسوورد">
+    <button class="btn" onclick="handleLogin()">پشکنینا ئەمنی</button>
+    <div class="links">
+        <a href="#" onclick="alert('پەیوەندیێ ب Arjan AI بکە بۆ گوهۆڕینا پاسووردی')">پاسوورد ژ بیر کرییە؟</a><br><br>
+        ئەکاونت نینە؟ <a href="#" onclick="toggle()">دروست بکە</a>
     </div>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 80 },
-                "color": { "value": "#D4AF37" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5 },
-                "size": { "value": 3 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#D4AF37", "opacity": 0.4, "width": 1 },
-                "move": { "enable": true, "speed": 3 }
-            }
-        });
-    </script>
+</div>
+
+<div class="box hidden" id="signup-form">
+    <h2>NEW DIAMOND</h2>
+    <input type="text" placeholder="ناڤێ تەمام">
+    <input type="email" id="reg-email" placeholder="ئیمەیل">
+    <input type="tel" placeholder="رقمێ مۆبایلێ">
+    <input type="password" id="reg-pass" placeholder="پاسوورد">
+    <button class="btn" onclick="handleSignup()">تۆمارکرن و وەرگرتنا کۆدی</button>
+    <div class="links">تە ئەکاونت یێ هەی؟ <a href="#" onclick="toggle()">بچۆ ژوورێ</a></div>
+</div>
+
+<script>
+    function toggle() {
+        document.getElementById('login-form').classList.toggle('hidden');
+        document.getElementById('signup-form').classList.toggle('hidden');
+    }
+
+    // گرێدان ب لاپەڕێ OTP ڤە
+    function handleLogin() {
+        // پشکنینا پاسووردی ل ڤێرێ دهێتە کرن
+        window.location.href = 'otp-verify.html'; 
+    }
+
+    function handleSignup() {
+        // سەیڤکرن د داتابەیسێ دا و فرێکرن بۆ OTP
+        window.location.href = 'otp-verify.html';
+    }
+</script>
 </body>
 </html>
