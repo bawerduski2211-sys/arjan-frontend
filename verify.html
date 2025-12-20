@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Verification</title>
+    <style>
+        :root { --gold: #D4AF37; }
+        body { background: #fff; font-family: 'Orbitron', sans-serif; text-align: center; padding-top: 100px; }
+        .otp-container { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
+        .otp-i { width: 45px; height: 55px; font-size: 24px; text-align: center; border: 2px solid #eee; border-radius: 10px; font-weight: bold; color: var(--gold); }
+        .btn { background: var(--gold); color: white; border: none; padding: 15px 40px; border-radius: 30px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2 style="color: var(--gold);">VERIFY EMAIL</h2>
+    <p>کۆدێ ٦ ژماری بنڤێسە</p>
+    <div class="otp-container">
+        <input type="number" class="otp-i" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1); if(this.value)document.querySelectorAll('.otp-i')[1].focus();">
+        <input type="number" class="otp-i" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1); if(this.value)document.querySelectorAll('.otp-i')[2].focus();">
+        <input type="number" class="otp-i" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1); if(this.value)document.querySelectorAll('.otp-i')[3].focus();">
+        <input type="number" class="otp-i" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1); if(this.value)document.querySelectorAll('.otp-i')[4].focus();">
+        <input type="number" class="otp-i" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1); if(this.value)document.querySelectorAll('.otp-i')[5].focus();">
+        <input type="number" class="otp-i" maxlength="1" oninput="if(this.value.length>1)this.value=this.value.slice(0,1);">
+    </div>
+    <button class="btn" onclick="alert('VIP Activated!'); location.href='profile.html';">ACTIVATE VIP</button>
+</body>
+</html>
