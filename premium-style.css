@@ -71,3 +71,14 @@ input:focus { border-color: #D4AF37; box-shadow: 0 0 8px rgba(212,175,55,0.2); }
 
 .switch-text { margin-top: 20px; font-size: 15px; }
 .switch-text span { color: #D4AF37; font-weight: bold; cursor: pointer; text-decoration: underline; }
+/* ئەڤە د ناڤ premium-style.css دا زێدە بکە */
+.btn-diamond {
+    position: relative;
+    overflow: hidden;
+    animation: goldGlow 2s infinite alternate;
+}
+
+@keyframes goldGlow {
+    from { box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
+    to { box-shadow: 0 0 20px rgba(212, 175, 55, 0.9); }
+}
