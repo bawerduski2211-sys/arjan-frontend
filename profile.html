@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
         :root {
             --gold: #D4AF37;
@@ -27,6 +24,7 @@
             position: relative;
         }
 
+        /* دوگمەیا BACK ل زاویا چەپێ */
         .back-home {
             position: absolute;
             top: 20px;
@@ -51,6 +49,7 @@
             margin-bottom: 5px;
         }
 
+        /* ستایلێ وێنا پڕۆفایلێ و نیۆنێ چەرخاو */
         .profile-wrapper {
             position: relative;
             width: 210px;
@@ -112,6 +111,25 @@
             font-weight: bold;
         }
 
+        /* بەشێ سۆشیال میدیا */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            font-size: 1.8rem;
+            color: var(--gold);
+            transition: 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-8px);
+            color: var(--black);
+        }
+
         .contact-form {
             max-width: 500px;
             margin: 40px auto;
@@ -128,20 +146,6 @@
             border-radius: 10px;
             border: 1px solid #eee;
             text-align: right;
-            box-sizing: border-box;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            font-size: 1.8rem;
-            color: var(--gold);
-            transition: 0.3s;
         }
     </style>
 </head>
@@ -173,13 +177,13 @@
 
         <div class="contact-form">
             <h3 style="color: var(--gold); font-family: 'Orbitron';">CONNECT</h3>
-            <div id="arjan-secure-form">
-                <input type="text" id="full-name" placeholder="Full Name (ناڤ)" required>
-                <input type="email" id="user-email" placeholder="Email Address (ئیمەیل)" required>
-                <input type="tel" id="user-phone" placeholder="Phone Number (رقمێ مۆبایلێ)" required>
-                <textarea id="user-message" rows="3" placeholder="Message (پەیام)"></textarea>
-                <button type="button" onclick="sendToArjanDB()" style="width:100%; padding:12px; background:var(--gold); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold; margin-top:10px;">SEND MESSAGE</button>
-            </div>
+            <form action="https://formspree.io/f/xbjnvnve" method="POST">
+                <input type="text" name="name" placeholder="Full Name (ناڤ)" required>
+                <input type="email" name="email" placeholder="Email Address (ئیمەیل)" required>
+                <input type="tel" name="phone" placeholder="Phone Number (رقمێ مۆبایلێ)" required>
+                <textarea name="message" rows="3" placeholder="Message (پەیام)"></textarea>
+                <input type="submit" value="SEND MESSAGE" style="background:var(--gold); color:white; border:none; cursor:pointer; font-weight:bold;">
+            </form>
         </div>
 
         <div class="social-links">
@@ -188,14 +192,13 @@
             <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
             <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
         </div>
+
+        <footer style="margin-top: 30px; color: #bbb; font-size: 0.8rem;">
+            Copyright © 2025 ARJAN DUSKÎ
+        </footer>
     </main>
 
     <script>
-        // لێرە کلیلێن خۆ یێن Supabase دانی
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL'; 
-        const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
         function updateClock() {
             document.getElementById('saet').textContent = new Date().toLocaleTimeString('en-GB');
         }
@@ -204,32 +207,6 @@
 
         function toggleNeonMode() {
             document.body.classList.toggle('neon-active');
-        }
-
-        async function sendToArjanDB() {
-            const name = document.getElementById('full-name').value;
-            const email = document.getElementById('user-email').value;
-            const phone = document.getElementById('user-phone').value;
-            const message = document.getElementById('user-message').value;
-
-            if(!name || !email || !message) {
-                alert("تکایە خانێن سەرەکی پڕ بکە!");
-                return;
-            }
-
-            const { data, error } = await supabase
-                .from('messages')
-                .insert([{ full_name: name, email: email, phone: phone, message_body: message }]);
-
-            if (error) {
-                alert("ئاریشەک هەبوو: " + error.message);
-            } else {
-                alert("نامەیا تە ب سەرکەفتی گەهشتە دەستێ ئارژانی!");
-                document.getElementById('full-name').value = "";
-                document.getElementById('user-email').value = "";
-                document.getElementById('user-phone').value = "";
-                document.getElementById('user-message').value = "";
-            }
         }
     </script>
 </body>
