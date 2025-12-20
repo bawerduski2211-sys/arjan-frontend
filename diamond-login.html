@@ -13,34 +13,30 @@
         <div id="login-form" class="auth-card">
             <div class="diamond-icon">💎</div>
             <h2>Diamond Login</h2>
-            <div class="input-group">
-                <input type="email" id="log-user" placeholder="ئیمەیڵ">
-                <input type="password" id="log-pass" placeholder="پاسۆرد">
-            </div>
+            <input type="email" placeholder="ئیمەیڵ">
+            <input type="password" placeholder="پاسۆرد">
             <p class="forgot-btn" onclick="showForm('forgot-form')">پاسۆرد ژ بیر کرییە؟</p>
             <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p class="switch-text">ئەکاونت نینە؟ <span onclick="showForm('signup-form')">دروست بکە</span></p>
+            <p class="switch-text">ئەکاونت تە نینە؟ <span onclick="showForm('signup-form')">دروست بکە</span></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
             <div class="diamond-icon">🚀</div>
             <h2>Create Account</h2>
-            <div class="input-group">
-                <input type="text" id="sign-name" placeholder="ناڤێ تەمام">
-                <input type="email" id="sign-email" placeholder="ئیمەیڵ">
-                <input type="tel" id="sign-phone" placeholder="ژمارا مۆبایلێ">
-                <input type="password" id="new-pass" placeholder="پاسۆرد">
-            </div>
-            <button onclick="sendOTP()" class="btn-diamond" style="margin-top: 10px;">SEND CODE</button>
-            <p class="switch-text">ئەکاونت هەین؟ <span onclick="showForm('login-form')">بچۆ ژۆر</span></p>
+            <input type="text" placeholder="ناڤێ تەمام">
+            <input type="email" placeholder="ئیمەیڵ">
+            <input type="tel" placeholder="ژمارا مۆبایلێ">
+            <input type="password" placeholder="پاسۆرد">
+            <button class="btn-diamond">SEND CODE</button>
+            <p class="switch-text">ئەکاونت تە هەین؟ <span onclick="showForm('login-form')">بچۆ ژۆر</span></p>
         </div>
 
         <div id="forgot-form" class="auth-card hidden">
             <div class="diamond-icon">🔑</div>
             <h2>Reset Password</h2>
-            <p style="font-size: 13px; color: #666; margin-bottom: 5px;">ئیمەیڵا خۆ بنڤیسە بۆ وەرگرتنا کـۆدی</p>
-            <input type="email" id="reset-email" placeholder="ئیمەیڵ">
-            <button onclick="sendResetCode()" class="btn-diamond" style="margin-top: 15px;">SEND RESET LINK</button>
+            <p style="font-size: 14px; color: #666;">ئیمەیڵا خۆ بنڤیسە بۆ کـۆدی</p>
+            <input type="email" placeholder="ئیمەیڵ">
+            <button class="btn-diamond" style="margin-top: 10px;">SEND RESET LINK</button>
             <p class="switch-text"><span onclick="showForm('login-form')">زڤڕین بۆ چوونەژۆر</span></p>
         </div>
     </div>
