@@ -1,5 +1,4 @@
-/* ARJAN ULTIMATE GOLD - DIAMOND SHINE FULL CODE */
-
+/* ARJAN ULTIMATE GOLD - FULL PREMIUM STYLE */
 :root {
     --gold: #D4AF37;
     --gold-bright: #FBF5B7;
@@ -14,13 +13,25 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
+    overflow-x: hidden;
 }
 
-.auth-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
+/* تیشکا زێڕین یا خەفیف ل دەسپێکا هاتنێ */
+.gold-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+    z-index: 9999;
+    pointer-events: none;
+    animation: fadeOutGold 2.5s forwards;
 }
+
+@keyframes fadeOutGold {
+    0% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1); }
+}
+
+.auth-container { width: 100%; max-width: 400px; padding: 20px; z-index: 10; }
 
 .auth-card {
     background: var(--white);
@@ -34,38 +45,25 @@ body {
     gap: 15px;
 }
 
-.diamond-icon { font-size: 50px; margin-bottom: 5px; }
+.diamond-icon { font-size: 50px; filter: drop-shadow(0 0 10px rgba(212,175,55,0.3)); }
 
 h2 { color: #333; margin-bottom: 20px; font-size: 1.8rem; }
 
-.input-group { width: 100%; display: flex; flex-direction: column; gap: 15px; }
-
 input {
-    width: 100%;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    outline: none;
-    text-align: center;
-    box-sizing: border-box;
-    font-size: 16px;
+    width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #ddd;
+    outline: none; text-align: center; box-sizing: border-box; font-size: 16px;
 }
 
 input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
 
-/* ستایلێ دوگمەیا الماسا زێڕین کو دزڤڕیت */
+/* دوگمەیا الماسا زێڕین - زڤڕینا هێدی و ڕاقی */
 .btn-diamond {
-    width: 100%;
-    padding: 18px;
+    width: 100%; padding: 18px;
     background: linear-gradient(90deg, #D4AF37, #FBF5B7, #D4AF37, #ffffff, #D4AF37);
     background-size: 300% auto;
-    color: #000;
-    border: none;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 17px;
-    cursor: pointer;
-    animation: diamondShine 2s linear infinite, buttonPulse 2s infinite;
+    color: #000; border: none; border-radius: 12px;
+    font-weight: bold; font-size: 17px; cursor: pointer;
+    animation: diamondShine 5s linear infinite, buttonPulse 2s infinite;
     transition: 0.5s;
 }
 
@@ -75,22 +73,18 @@ input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.
 }
 
 @keyframes buttonPulse {
-    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
-    70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
     100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
 }
 
-/* ستایلێ نڤێسینا زێڕین یا پاسۆرد ژ بیر کرییە */
 .forgot-btn {
-    font-size: 14px;
-    color: var(--gold);
-    cursor: pointer;
-    text-align: right;
-    font-weight: bold;
-    margin-top: -5px;
+    font-size: 14px; color: var(--gold); cursor: pointer;
+    text-align: right; font-weight: bold; margin-top: -5px; transition: 0.3s;
 }
 
-.forgot-btn:hover { text-decoration: underline; }
+.forgot-btn:hover { text-decoration: underline; color: #b8952e; }
 
 .hidden { display: none !important; }
+.switch-text { margin-top: 15px; }
 .switch-text span { color: var(--gold); font-weight: bold; cursor: pointer; }
