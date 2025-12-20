@@ -1,52 +1,39 @@
-<div class="contact-form">
-    <h3 style="color: var(--gold); font-family: 'Orbitron';">SECURE DATABASE CONNECT</h3>
-    <form id="secureArjanForm">
-        <input type="text" id="name" placeholder="Full Name (ناڤ)" required>
-        <input type="email" id="email" placeholder="Email Address (ئیمەیل)" required>
-        <p id="sec-alert" style="color: red; font-size: 0.7rem; display: none;">SECURITY ALERT: FAKE EMAIL BLOCKED</p>
-        
-        <input type="tel" id="phone" placeholder="Phone Number (رقمێ مۆبایلێ)" required>
-        <textarea id="message" rows="3" placeholder="Message (پەیام)"></textarea>
-        <button type="submit" style="background:var(--gold); color:white; border:none; cursor:pointer; font-weight:bold; width:100%; padding:12px; border-radius:10px;">SEND TO DATABASE</button>
-    </form>
-</div>
-
-<script>
-    const form = document.getElementById('secureArjanForm');
-    const secAlert = document.getElementById('sec-alert');
-
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        
-        const emailValue = document.getElementById('email').value.toLowerCase();
-        const blockedDomains = ['test.com', 'abc.com', 'fake.com', 'tempmail.com'];
-        const domain = emailValue.split('@')[1];
-
-        // 1. پشکنینا ئەمنی: بلۆککرنا ئیمەیلێن فەیک
-        if (blockedDomains.includes(domain) || emailValue.startsWith('test@')) {
-            secAlert.style.display = 'block';
-            document.getElementById('email').style.borderColor = 'red';
-            return;
-        }
-
-        // 2. فرێکرنا داتایێ بۆ Database (ب ڕێکا API یان Formspree Database)
-        const data = {
-            name: document.getElementById('name').value,
-            email: emailValue,
-            phone: document.getElementById('phone').value,
-            message: document.getElementById('message').value
-        };
-
-        // ل ڤێرێ داتایێ تە دچیتە د ناڤ داتابەیسەکا پاراستی دا
-        fetch("https://formspree.io/f/xbjnvnve", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                alert("MESSAGE SECURELY STORED IN DATABASE");
-                form.reset();
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARJAN DUSKÎ - System Entry</title>
+    <style>
+        :root { --gold: #D4AF37; --white: #FFFFFF; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--white); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; }
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+        .content { position: relative; z-index: 10; text-align: center; }
+        h1 { color: var(--gold); font-size: 4rem; letter-spacing: 15px; margin: 0; text-transform: uppercase; text-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
+        .btn-enter { margin-top: 40px; padding: 20px 60px; background: var(--gold); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.2rem; display: inline-block; transition: 0.5s; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4); border: none; cursor: pointer; }
+        .btn-enter:hover { transform: scale(1.1); background: white; color: var(--gold); border: 2px solid var(--gold); }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1>ARJAN</h1>
+        <p style="color: #555; letter-spacing: 5px;">AI & CYBER SECURITY SYSTEM</p>
+        <a href="profile.html" class="btn-enter">ACTIVATE SYSTEM</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#D4AF37" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#D4AF37", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 3 }
             }
         });
-    };
-</script>
+    </script>
+</body>
+</html>
