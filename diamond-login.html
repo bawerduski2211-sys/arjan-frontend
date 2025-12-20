@@ -1,57 +1,50 @@
-/* چارەسەرکرنا درێژبوونا لاپەرەی و ڕێکخستنا ناڤان */
-body {
-    background-color: #f4f7f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* تنی قەبارێ شاشێ */
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    overflow: hidden; /* ناهێلیت لاپەرە بچیتە خوارێ */
-}
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Login | ARJAN</title>
+    <link rel="stylesheet" href="premium-style.css">
+</head>
+<body>
+    <div class="gold-overlay"></div>
 
-.auth-container {
-    width: 100%;
-    max-width: 380px;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
+    <div class="auth-container">
+        <div id="login-form" class="auth-card">
+            <div class="diamond-icon">💎</div>
+            <h2>Diamond Login</h2>
+            <div class="input-group">
+                <input type="email" id="log-user" placeholder="ئیمەیڵ">
+                <input type="password" id="log-pass" placeholder="پاسۆرد">
+            </div>
+            <p class="forgot-btn" onclick="showForm('forgot-form')">پاسۆرد ژ بیر کرییە؟</p>
+            <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
+            <p class="switch-text">ئەکاونت نینە؟ <span onclick="showForm('signup-form')">دروست بکە</span></p>
+        </div>
 
-.auth-card {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 20px;
-    border: 2px solid #D4AF37;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* بۆشاییا د ناڤبەرا خانەیێن ناڤ و پاسۆردێ */
-    width: 100%;
-    animation: fadeIn 0.4s ease-out;
-}
+        <div id="signup-form" class="auth-card hidden">
+            <div class="diamond-icon">🚀</div>
+            <h2>Create Account</h2>
+            <div class="input-group">
+                <input type="text" id="sign-name" placeholder="ناڤێ تەمام">
+                <input type="email" id="sign-email" placeholder="ئیمەیڵ">
+                <input type="tel" id="sign-phone" placeholder="ژمارا مۆبایلێ">
+                <input type="password" id="new-pass" placeholder="پاسۆرد">
+            </div>
+            <button onclick="sendOTP()" class="btn-diamond" style="margin-top: 10px;">SEND CODE</button>
+            <p class="switch-text">ئەکاونت هەین؟ <span onclick="showForm('login-form')">بچۆ ژۆر</span></p>
+        </div>
 
-/* بۆ هندێ فۆڕمێن بەرزە جهێ زێدە نەگرن */
-.hidden {
-    display: none !important;
-}
+        <div id="forgot-form" class="auth-card hidden">
+            <div class="diamond-icon">🔑</div>
+            <h2>Reset Password</h2>
+            <p style="font-size: 13px; color: #666; margin-bottom: 5px;">ئیمەیڵا خۆ بنڤیسە بۆ وەرگرتنا کـۆدی</p>
+            <input type="email" id="reset-email" placeholder="ئیمەیڵ">
+            <button onclick="sendResetCode()" class="btn-diamond" style="margin-top: 15px;">SEND RESET LINK</button>
+            <p class="switch-text"><span onclick="showForm('login-form')">زڤڕین بۆ چوونەژۆر</span></p>
+        </div>
+    </div>
 
-/* قەبارێ خانەیێن ناڤ و ئیمەیڵێ */
-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    outline: none;
-    text-align: center;
-    box-sizing: border-box;
-    font-size: 15px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    <script src="Premium.Script.js"></script>
+</body>
+</html>
