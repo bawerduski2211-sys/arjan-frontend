@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN DUSKÎ - Profile</title>
+    <title>ARJAN DUSKÎ - Entry</title>
     <style>
         :root { --gold: #D4AF37; --white: #FFFFFF; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--white); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; }
-        .profile-container { text-align: center; z-index: 10; }
-        h1 { color: var(--gold); font-size: 2.5rem; margin-bottom: 5px; text-transform: uppercase; }
-        p { color: #777; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; }
-        .profile-img { width: 200px; height: 200px; border-radius: 50%; border: 4px solid var(--gold); margin-bottom: 20px; object-fit: cover; }
-        .timer { color: var(--gold); font-size: 2rem; margin-bottom: 30px; letter-spacing: 5px; }
-        .btn { display: block; width: 250px; margin: 10px auto; padding: 15px; border-radius: 30px; border: 2px solid var(--gold); text-decoration: none; font-weight: bold; transition: 0.4s; }
-        .btn-gold { background: var(--gold); color: white; }
-        .btn-outline { background: transparent; color: var(--gold); }
-        .btn:hover { transform: scale(1.05); background: #b8962d; color: white; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--white); overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; }
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+        .content { position: relative; z-index: 10; text-align: center; }
+        h1 { color: var(--gold); font-size: 4rem; letter-spacing: 15px; margin: 0; text-transform: uppercase; }
+        .btn-enter { margin-top: 40px; padding: 18px 50px; background: var(--gold); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block; transition: 0.5s; cursor: pointer; border: none; }
+        .btn-enter:hover { transform: scale(1.1); background: white; color: var(--gold); border: 2px solid var(--gold); }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>ARJAN DUSKÎ</h1>
-        <p>AI & CYBER SECURITY SPECIALIST</p>
-        
-        <img src="profile.jpg" alt="Arjan" class="profile-img">
-
-        <div class="timer">00:00:00</div>
-
-        <a href="#" class="btn btn-outline">ACTIVATE NEON SYSTEM</a>
-        <a href="premium.html" class="btn btn-gold">👑 VIP ACCESS</a>
-        <a href="ai-index.html" class="btn btn-gold">🤖 ARJAN AI</a>
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1>ARJAN</h1>
+        <p style="color: #555; letter-spacing: 5px;">AI & CYBER SECURITY SYSTEM</p>
+        <a href="profile.html" class="btn-enter">ACTIVATE SYSTEM</a>
     </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#D4AF37" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#D4AF37", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 3 }
+            }
+        });
+    </script>
 </body>
 </html>
