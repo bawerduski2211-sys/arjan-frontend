@@ -12,41 +12,32 @@
             <div class="diamond-icon">💎</div>
             <h2>Diamond Login</h2>
             <div class="input-group">
-                <input type="email" id="log-user" placeholder="ئیمەیڵ" required>
-                <input type="password" id="log-pass" placeholder="پاسۆرد" required>
+                <input type="email" id="log-user" placeholder="ئیمەیڵ">
+                <input type="password" id="log-pass" placeholder="پاسۆرد">
             </div>
             <p class="forgot-btn" onclick="showForgotForm()">پاسۆرد ژ بیر کرییە؟</p>
-            
             <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p class="switch-text">ئەکاونتێ تە نینە؟ <span onclick="toggleAuth()">دروست بکە</span></p>
+            <p class="switch-text">ئەکاونت نینە؟ <span onclick="toggleAuth()">دروست بکە</span></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
             <div class="diamond-icon">🚀</div>
             <h2>Create Account</h2>
             <div id="step-1" class="input-group">
-                <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
-                <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
-                <input type="tel" id="sign-phone" placeholder="ژمارا مۆبایلێ" required>
-                <input type="password" id="new-pass" placeholder="پاسۆرد" required>
+                <input type="text" id="sign-name" placeholder="ناڤێ تەمام">
+                <input type="email" id="sign-email" placeholder="ئیمەیڵ">
+                <input type="tel" id="sign-phone" placeholder="ژمارا مۆبایلێ">
+                <input type="password" id="new-pass" placeholder="پاسۆرد">
                 <button onclick="sendOTP()" class="btn-diamond">SEND CODE (6 DIGITS)</button>
             </div>
-            
-            <div id="otp-section" class="input-group hidden">
-                <p style="color: #2196F3; font-weight: bold;">کۆد بۆ مۆبایل و ئیمەیڵا تە هات 📩</p>
-                <input type="number" id="otp-input" placeholder="------" required>
-                <button onclick="handleSignUp()" class="btn-diamond">VERIFY & REGISTER</button>
-                <p onclick="backToSignUp()" style="color: #ff4d4d; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 10px;">زڤڕین بۆ پاش</p>
-            </div>
-            <p class="switch-text">ئەکاونتێ تە هەین؟ <span onclick="toggleAuth()">بچۆ ژۆر</span></p>
+            <p class="switch-text">ئەکاونت هەین؟ <span onclick="toggleAuth()">بچۆ ژۆر</span></p>
         </div>
 
         <div id="forgot-form" class="auth-card hidden">
             <div class="diamond-icon">🔑</div>
             <h2>Reset Password</h2>
-            <p style="font-size: 14px; color: #666; margin-bottom: 10px;">ئیمەیڵا خۆ بنڤیسە دا کـۆد بێتە ناردن</p>
             <div class="input-group">
-                <input type="email" id="reset-email" placeholder="ئیمەیڵ" required>
+                <input type="email" id="reset-email" placeholder="ئیمەیڵا خۆ بنڤیسە">
                 <button onclick="sendResetCode()" class="btn-diamond">SEND RESET LINK</button>
             </div>
             <p class="switch-text"><span onclick="toggleAuth()">زڤڕین بۆ چوونەژۆر</span></p>
