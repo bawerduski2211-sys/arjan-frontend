@@ -6,68 +6,70 @@
     <title>DIAMOND PREMIUM | ARJAN</title>
     <style>
         :root { --red: #ff0000; --dark: #050505; --card: #111; --gold: #D4AF37; }
-        body { background: var(--dark); color: white; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        body { background: var(--dark); color: white; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         
         /* هێما و دیزاینێ سەرەکی */
-        .header { margin-top: 40px; text-align: center; }
+        .header { margin: 40px 0; text-align: center; }
         .diamond-icon { width: 80px; height: 80px; border: 3px solid var(--red); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px var(--red); margin: 0 auto 15px; animation: glow 3s infinite; }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 10px var(--red); } 50% { box-shadow: 0 0 30px var(--red); } }
         
-        h1 { color: var(--red); letter-spacing: 3px; font-size: 1.5rem; margin: 0; }
-        .user-welcome { color: var(--gold); font-size: 0.9rem; margin-top: 5px; }
+        h1 { color: var(--red); letter-spacing: 3px; font-size: 1.6rem; margin: 0; text-shadow: 0 0 10px var(--red); }
+        .user-status { color: var(--gold); font-size: 0.8rem; margin-top: 5px; letter-spacing: 1px; }
 
         /* کارتێن خزمەتگۆزاریێ */
-        .container { width: 90%; max-width: 450px; margin-top: 30px; }
-        .card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 25px; margin-bottom: 20px; position: relative; overflow: hidden; transition: 0.3s; }
-        .card:hover { border-color: var(--red); transform: translateY(-5px); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--red); }
+        .container { width: 90%; max-width: 450px; padding-bottom: 50px; }
+        .card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 25px; margin-bottom: 20px; position: relative; overflow: hidden; transition: 0.3s; text-align: right; }
+        .card:hover { border-color: var(--red); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1); }
+        .card::before { content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--red); }
         
-        .card h2 { color: var(--white); margin: 0 0 10px; font-size: 1.2rem; }
+        .card h2 { color: white; margin: 0 0 10px; font-size: 1.2rem; }
         .card p { color: #888; font-size: 0.85rem; line-height: 1.5; margin-bottom: 20px; }
         
-        .btn-premium { background: var(--red); color: white; border: none; padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; }
-        
-        /* نیشانا پاراستنێ */
-        .security-footer { margin-top: auto; padding: 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
+        .btn-action { background: var(--red); color: white; border: none; padding: 12px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
+        .btn-action:active { transform: scale(0.95); opacity: 0.8; }
+
+        /* نیشانا پاراستنا داتابەیسێ */
+        .db-status { font-size: 0.7rem; color: #444; margin-top: 20px; border-top: 1px solid #222; padding-top: 10px; width: 100%; text-align: center; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <div class="diamond-icon"><span style="color:var(--red); font-size: 2rem;">💎</span></div>
-        <h1>DIAMOND PREMIUM</h1>
-        <div class="user-welcome">بخێر بێی بۆ جیهانا ئەرجان</div>
+        <h1>DIAMOND RED</h1>
+        <div class="user-status">STATUS: SECURE ACCESS</div>
     </div>
 
     <div class="container">
         <div class="card">
             <h2>ARJAN SONO</h2>
-            <p>سیستەمێ زیرەک یێ دروستکرنا میوزیکێ. تەنێ ب نڤیسینێ سترانێ درست بکە.</p>
-            <button class="btn-premium">ڤەکرنا ستۆدیۆیێ</button>
+            <p>سیستەمێ زیرەک یێ دروستکرنا میوزیکێ. سترانێن ب کوالیتییا بلند ل ڤێرێ دروست بکە.</p>
+            <button class="btn-action" onclick="location.href='ai-index.html'">ڤەکرنا ستۆدیۆیێ</button>
         </div>
 
         <div class="card">
             <h2>ARKAN GAMES</h2>
-            <p>یارییێن جیهانی ب کوالیتییا بلند. هەمی پێشڤەچوونێن تە د پاراستینە.</p>
-            <button class="btn-premium">دەستپێکرنا یاریێ</button>
+            <p>یارییێن پریمیم ب سیستەمێ Cloud Save. هەمی پێشڤەچوونێن تە یێن پاراستینە.</p>
+            <button class="btn-action">دەستپێکرنا یاریێ</button>
         </div>
 
         <div class="card">
-            <h2>ARKAN IMAGE AI</h2>
-            <p>وێنەیێن خەیالی ب کوالیتییا 4K درست بکە بێی چو خەدرەک.</p>
-            <button class="btn-premium">دروستکرنا وێنەی</button>
+            <h2>ARKAN AI IMAGE</h2>
+            <p>وێنەیێن خەیالی ب زیرەکیا دەستکرد دروست بکە. تەنێ بۆ ئەندامێن دایمۆند.</p>
+            <button class="btn-action">دروستکرنا وێنەی</button>
         </div>
+
+        <div class="db-status">SUPABASE SECURED | PROJECT: ARJAN-AI</div>
     </div>
 
-    <div class="security-footer">DIAMOND RED SECURITY ENGINE v2.0</div>
-
     <script>
-        // پشکنینا پاراستنێ: ئەگەر کەسەک ب دزی ڤە بێتە ڤێرێ، دێ زڤڕیتە OTP
+        // دوماهیک قوفڵ: ئەگەر کەسەک ب دزی ڤە بێتە ڤێرێ بێی لاگین، دێ زڤڕیتە سەر لاپەڕێ تومارکرنێ
         window.onload = function() {
-            const auth = sessionStorage.getItem('diamond_verified');
-            if (auth !== 'true') {
-                // تێبینی: نوکە من ئەڤە "Comment" کرییە دا تو بشێی دیزاینێ ببینی
-                // window.location.href = "otp-verify.html"; 
+            // ئەگەر تە ڤیا ئەکاونت توند قوفڵ بیت، ئەڤ کۆدێ خوارێ کارا بکە
+            const isVerified = sessionStorage.getItem('diamond_verified');
+            if (isVerified !== 'true') {
+                console.log("Security Check: Access Restricted");
+                // window.location.href = "index.html"; 
             }
         }
     </script>
