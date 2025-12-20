@@ -1,103 +1,62 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN | PREMIUM HUB</title>
+    <title>ARJAN | PREMIUM VIP ZONE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --gold: #D4AF37; --red: #FF0000; --dark: #050505; --soft-red: rgba(255, 0, 0, 0.15); }
-        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; overflow-x: hidden; display: flex; flex-direction: column; align-items: center; }
+        :root { --red-neon: #ff0000; --dark-bg: #050505; --card-bg: #111; }
+        body { background: var(--dark-bg); color: white; font-family: sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
 
-        /* ئەنیمییشنا سێبەرا لڤۆک بۆ ناڤی */
-        .header { margin-top: 40px; text-align: center; position: relative; }
-        h1 { 
-            color: var(--gold); letter-spacing: 6px; font-size: 2.2rem; margin: 0; 
-            text-transform: uppercase; animation: glowText 4s infinite ease-in-out;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-        }
-        @keyframes glowText {
-            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
-            50% { transform: translateY(-5px); text-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
-        }
-
-        /* تیشکا سۆر یا خەفیف ل پشت لاپەڕەی */
-        body::before {
-            content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, var(--soft-red) 0%, transparent 70%);
-            z-index: -1; animation: moveLight 10s infinite linear;
-        }
-        @keyframes moveLight { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* سندوقا دوگمەیان */
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; max-width: 450px; margin-top: 40px; }
-        .btn-box {
-            background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(212, 175, 55, 0.1); 
-            padding: 25px 10px; border-radius: 20px; text-align: center; backdrop-filter: blur(5px);
-            transition: 0.5s; cursor: pointer;
-        }
-        .btn-box:hover { border-color: var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        .btn-box i { font-size: 1.6rem; color: var(--gold); margin-bottom: 12px; display: block; }
-
-        /* دوگمەیا دایمۆندێ ب ستایلێ خەفیف و گرانبها */
-        .diamond-card {
-            grid-column: span 2; position: relative;
-            background: linear-gradient(135deg, #100, #400);
-            border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 25px; padding: 35px;
-            margin-top: 25px; cursor: pointer; overflow: hidden; transition: 0.6s;
-        }
-        .diamond-card:hover { border-color: var(--red); box-shadow: 0 0 30px rgba(255, 0, 0, 0.4); }
-        .diamond-card h2 { color: white; margin: 0; font-size: 1.5rem; letter-spacing: 3px; }
+        /* ستایلێ کارتێن پرێمیەم */
+        .premium-container { padding: 50px 20px; animation: fadeIn 1s; }
+        .diamond-header { color: var(--red-neon); font-size: 2.5rem; text-shadow: 0 0 15px var(--red-neon); margin-bottom: 10px; font-family: 'Orbitron', sans-serif; }
         
-        /* تیشکا ئەڵماسی (Shine) */
-        .diamond-shine {
-            position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: fastShine 4s infinite ease-in-out;
-        }
-        @keyframes fastShine { 0% { left: -150%; } 100% { left: 150%; } }
+        .vip-status { display: inline-block; padding: 5px 20px; border: 1px solid var(--red-neon); border-radius: 50px; color: var(--red-neon); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px; }
 
-        /* ستایلێ نامەیا Coming Soon */
-        #alert-box {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(10, 10, 10, 0.95); border: 1px solid var(--red); padding: 40px; border-radius: 30px;
-            z-index: 1000; text-align: center; backdrop-filter: blur(15px); width: 85%; max-width: 380px;
-        }
-        .close-btn { margin-top: 25px; background: transparent; border: 1px solid #333; color: #888; padding: 10px 25px; border-radius: 12px; cursor: pointer; }
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--card-bg); border: 1px solid #222; padding: 30px; border-radius: 20px; transition: 0.3s; position: relative; overflow: hidden; }
+        .card:hover { border-color: var(--red-neon); box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); transform: translateY(-5px); }
+        
+        .card i { font-size: 2.5rem; color: var(--red-neon); margin-bottom: 15px; }
+        .card h3 { margin: 10px 0; font-size: 1.2rem; }
+        .card p { color: #888; font-size: 0.9rem; }
+
+        .back-btn { margin-top: 50px; display: inline-block; padding: 12px 35px; border: 2px solid var(--red-neon); color: var(--red-neon); text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.4s; }
+        .back-btn:hover { background: var(--red-neon); color: white; box-shadow: 0 0 20px var(--red-neon); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>ARJAN</h1>
-        <div style="color: var(--gold); font-size: 0.7rem; letter-spacing: 5px; margin-top: 5px;">PREMIUM HUB</div>
-    </div>
+    <div class="premium-container">
+        <h1 class="diamond-header">DIAMOND ACCESS</h1>
+        <div class="vip-status"><i class="fas fa-crown"></i> PREMIUM ACTIVATED</div>
+        
+        <p style="color: #bbb; margin-bottom: 40px;">ب خێر هاتی بۆ بەشێ نهێنی یێ سیستەمێ ARJAN DUSKÎ</p>
 
-    <div class="grid-container">
-        <div class="btn-box" onclick="location.href='werger.html'"><i class="fas fa-language"></i><span>WERGER AI</span></div>
-        <div class="btn-box" onclick="location.href='wene.html'"><i class="fas fa-image"></i><span>WENE AI</span></div>
-        <div class="btn-box" onclick="location.href='ai-index.html'"><i class="fas fa-music"></i><span>SONO STUDIO</span></div>
-        <div class="btn-box" onclick="location.href='profile.html'"><i class="fas fa-user-shield"></i><span>PROFILE</span></div>
-
-        <div class="diamond-card" onclick="showDiamondAlert()">
-            <div class="diamond-shine"></div>
-            <i class="fas fa-gem" style="color: var(--red); font-size: 2rem; margin-bottom: 12px; filter: drop-shadow(0 0 10px red);"></i>
-            <h2>DIAMOND RED</h2>
-            <p style="color: #666; font-size: 0.7rem; margin-top: 8px;">THE ULTIMATE SECURITY EXPERIENCE</p>
+        <div class="content-grid">
+            <div class="card">
+                <i class="fas fa-user-shield"></i>
+                <h3>سیستەمێ پاراستنێ</h3>
+                <p>هەمی داتایێن تە ب کۆدێن Diamond Red یێن پاراستی نە.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-database"></i>
+                <h3>داتابەیسا VIP</h3>
+                <p>دەستهەلاتا تە نوکە یا زیندۆیە ل سەر هەمی فایلان.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-microchip"></i>
+                <h3>ARJAN AI</h3>
+                <p>پەیوەندییا ڕاستەوخۆ دگەل ژیرییا دەستکرد.</p>
+            </div>
         </div>
+
+        <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i> زڤڕین بۆ پڕۆفایلی</a>
     </div>
 
-    <div id="alert-box">
-        <i class="fas fa-shield-alt" style="color: var(--red); font-size: 2.5rem; margin-bottom: 20px;"></i>
-        <h3 style="color: white; margin: 0; letter-spacing: 2px;">SYSTEM ENCRYPTED</h3>
-        <p style="color: #aaa; font-size: 0.95rem; margin: 20px 0; line-height: 1.6;">This high-security diamond sector is currently under development.</p>
-        <h4 style="color: var(--red); margin: 0; font-style: italic;">COMING VERY SOON</h4>
-        <button class="close-btn" onclick="closeAlert()">ACKNOWLEDGE</button>
-    </div>
-
-    <script>
-        function showDiamondAlert() { document.getElementById('alert-box').style.display = 'block'; }
-        function closeAlert() { document.getElementById('alert-box').style.display = 'none'; }
-    </script>
 </body>
 </html>
