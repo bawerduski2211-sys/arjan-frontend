@@ -1,62 +1,44 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN | PREMIUM VIP ZONE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --red-neon: #ff0000; --dark-bg: #050505; --card-bg: #111; }
-        body { background: var(--dark-bg); color: white; font-family: sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
-
-        /* ستایلێ کارتێن پرێمیەم */
-        .premium-container { padding: 50px 20px; animation: fadeIn 1s; }
-        .diamond-header { color: var(--red-neon); font-size: 2.5rem; text-shadow: 0 0 15px var(--red-neon); margin-bottom: 10px; font-family: 'Orbitron', sans-serif; }
-        
-        .vip-status { display: inline-block; padding: 5px 20px; border: 1px solid var(--red-neon); border-radius: 50px; color: var(--red-neon); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px; }
-
-        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
-        .card { background: var(--card-bg); border: 1px solid #222; padding: 30px; border-radius: 20px; transition: 0.3s; position: relative; overflow: hidden; }
-        .card:hover { border-color: var(--red-neon); box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); transform: translateY(-5px); }
-        
-        .card i { font-size: 2.5rem; color: var(--red-neon); margin-bottom: 15px; }
-        .card h3 { margin: 10px 0; font-size: 1.2rem; }
-        .card p { color: #888; font-size: 0.9rem; }
-
-        .back-btn { margin-top: 50px; display: inline-block; padding: 12px 35px; border: 2px solid var(--red-neon); color: var(--red-neon); text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.4s; }
-        .back-btn:hover { background: var(--red-neon); color: white; box-shadow: 0 0 20px var(--red-neon); }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    </style>
+    <title>Diamond AI - Premium Access</title>
+    <link rel="stylesheet" href="premium-style.css">
 </head>
 <body>
-
-    <div class="premium-container">
-        <h1 class="diamond-header">DIAMOND ACCESS</h1>
-        <div class="vip-status"><i class="fas fa-crown"></i> PREMIUM ACTIVATED</div>
-        
-        <p style="color: #bbb; margin-bottom: 40px;">ب خێر هاتی بۆ بەشێ نهێنی یێ سیستەمێ ARJAN DUSKÎ</p>
-
-        <div class="content-grid">
-            <div class="card">
-                <i class="fas fa-user-shield"></i>
-                <h3>سیستەمێ پاراستنێ</h3>
-                <p>هەمی داتایێن تە ب کۆدێن Diamond Red یێن پاراستی نە.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-database"></i>
-                <h3>داتابەیسا VIP</h3>
-                <p>دەستهەلاتا تە نوکە یا زیندۆیە ل سەر هەمی فایلان.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-microchip"></i>
-                <h3>ARJAN AI</h3>
-                <p>پەیوەندییا ڕاستەوخۆ دگەل ژیرییا دەستکرد.</p>
-            </div>
+    <div class="auth-container">
+        <div id="login-form" class="auth-card">
+            <div class="diamond-icon">💎</div>
+            <h2>Diamond Login</h2>
+            <input type="email" id="log-user" placeholder="ئیمەیڵ" required>
+            <input type="password" id="log-pass" placeholder="پاسۆرد" required>
+            <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
+            <p class="switch-text">ئەکاونتێ تە نینە؟ <span onclick="toggleAuth()">دروست بکە</span></p>
         </div>
 
-        <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i> زڤڕین بۆ پڕۆفایلی</a>
+        <div id="signup-form" class="auth-card hidden">
+            <div class="diamond-icon">🚀</div>
+            <h2>Create New Account</h2>
+            <div id="step-1">
+                <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
+                <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
+                <input type="password" id="new-pass" placeholder="پاسۆرد" required>
+                <input type="password" id="confirm-pass" placeholder="دووبارەکرنا پاسۆردی" required>
+                <button onclick="sendOTP()" class="btn-diamond">SEND CODE (6 DIGITS)</button>
+            </div>
+            <div id="otp-section" class="hidden">
+                <p style="font-size: 13px; color: #00d2ff; margin-bottom: 10px;">کۆد بۆ ئیمەیڵێ تە هاتە ناردن 📩</p>
+                <input type="number" id="otp-input" placeholder="------" required>
+                <div class="otp-actions">
+                    <button onclick="handleSignUp()" class="btn-diamond">VERIFY & REGISTER</button>
+                    <p class="resend-text" onclick="sendOTP()">Resend Code</p>
+                    <p class="back-text" onclick="backToSignUp()">زڤڕین و گوهۆڕینا زانیاریان</p>
+                </div>
+            </div>
+            <p class="switch-text">ئەکاونتێ تە یێ هەین؟ <span onclick="toggleAuth()">بچۆ ژۆر</span></p>
+        </div>
     </div>
-
+    <script src="Premium.Script.js"></script>
 </body>
 </html>
