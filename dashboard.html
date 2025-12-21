@@ -6,6 +6,42 @@
     <title>Diamond Dashboard | ARJAN AI SYSTEM</title>
     <link rel="stylesheet" href="premium-style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* ستایلێ دۆکمه‌یا سۆرا تایبەت */
+        .red-vault-container {
+            margin-top: 40px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-red-box {
+            background: linear-gradient(145deg, #ff0000, #990000);
+            color: white;
+            border: 2px solid #ff4d4d;
+            padding: 15px 45px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            transition: 0.3s;
+            display: none; /* ب تنێ پشتی Login دیار دبیت */
+            animation: pulseRed 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulseRed {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 0, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+        }
+
+        .btn-red-box:hover {
+            background: #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+        }
+    </style>
 </head>
 <body>
     <div class="gold-overlay"></div>
@@ -21,32 +57,38 @@
                     <div style="font-size: 40px;">🎮</div>
                     <h4>یاریا کلیلان</h4>
                     <p style="font-size: 11px;">کلیلان کۆم بکە و پارا بەرهەڤ بکە</p>
-                    <button class="btn-diamond" style="padding: 10px; font-size: 14px;" onclick="location.href='game.html'">GO GAME</button>
+                    <button class="btn-diamond" onclick="location.href='game.html'">GO GAME</button>
                 </div>
 
                 <div class="hub-card">
                     <div style="font-size: 40px;">🖼️</div>
                     <h4>AI ARJAN IMAGE</h4>
                     <p style="font-size: 11px;">دروستکرنا وێنەیێن جەلکێن کوردی</p>
-                    <button class="btn-diamond" style="padding: 10px; font-size: 14px;" onclick="location.href='ai-image.html'">START AI</button>
+                    <button class="btn-diamond" onclick="location.href='ai-image.html'">START AI</button>
                 </div>
 
                 <div class="hub-card">
                     <div style="font-size: 40px;">🎵</div>
                     <h4>ARJAN MUSIC</h4>
-                    <p style="font-size: 11px;">تنێ میوزیکا ڕەسەنا کوردی</p>
-                    <button class="btn-diamond" style="padding: 10px; font-size: 14px;" onclick="location.href='arjan-music.html'">CREATE</button>
+                    <p style="font-size: 11px;">میوزیکا ڕەسەنا کوردی</p>
+                    <button class="btn-diamond" onclick="location.href='arjan-music.html'">CREATE</button>
                 </div>
 
                 <div class="hub-card">
                     <div style="font-size: 40px;">🎙️</div>
                     <h4>ARKAN MUSIC</h4>
-                    <p style="font-size: 11px;">هەمی جۆرێن میوزیکا جیهانی</p>
-                    <button class="btn-diamond" style="padding: 10px; font-size: 14px;" onclick="location.href='arkan-music.html'">CREATE</button>
+                    <p style="font-size: 11px;">میوزیکا جیهانی</p>
+                    <button class="btn-diamond" onclick="location.href='arkan-music.html'">CREATE</button>
                 </div>
             </div>
 
-            <button onclick="handleLogout()" class="btn-diamond" style="margin-top: 25px; background: #333; border-color: #555; width: auto; align-self: center; padding: 10px 30px;">دەرکەفتن (Logout)</button>
+            <div class="red-vault-container">
+                <button id="red-box-btn" class="btn-red-box" onclick="location.href='profile.html'">
+                    📦 صندوقا سور
+                </button>
+            </div>
+
+            <button onclick="handleLogout()" class="btn-diamond" style="margin-top: 25px; background: #222; border-color: #444; width: auto; align-self: center; padding: 10px 30px;">دەرکەفتن (Logout)</button>
         </div>
     </div>
 
