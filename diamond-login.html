@@ -7,12 +7,27 @@
     <link rel="stylesheet" href="premium-style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* ئەڤە پێتڤیە دا فۆرم ب دروستی بڤەشارن و دیزاین تێک نەچیت */
+        /* ئەڤ بەشە بۆ ڤەشارتنا فۆرمان و کارکرنا دۆکمانە بێی تێکدانا دیزاینێ */
         .hidden { display: none !important; }
-        .forgot-link { color: #888; font-size: 12px; cursor: pointer; display: block; margin-top: 10px; }
+        
+        /* درستکرنا شێوازێ لینکێن کلیک ل سەر دهێتە کرن */
+        .forgot-link { 
+            color: #888; 
+            font-size: 12px; 
+            cursor: pointer; 
+            display: block; 
+            margin-top: 10px; 
+            text-decoration: underline;
+        }
         .forgot-link:hover { color: #D4AF37; }
-        /* ستایلێ تایبەت بۆ لینکێ گۆڕینێ */
-        .btn-link { color:#D4AF37; cursor:pointer; font-weight:bold; text-decoration: underline; padding: 5px; }
+
+        .btn-link { 
+            color: #D4AF37; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: underline; 
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -24,8 +39,11 @@
             <h2>Diamond Login</h2>
             <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
             <input type="password" id="log-pass" placeholder="پاسۆرد" required>
+            
             <button type="button" onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
+            
             <span class="forgot-link" onclick="handleForgotPassword()">پاسۆردت ژبیر کرییە؟</span>
+            
             <p>ئەکاونت نینە؟ <span class="btn-link" onclick="toggleForms('signup-form')">دروست بکە</span></p>
         </div>
 
@@ -37,7 +55,9 @@
             <input type="tel" id="sign-phone" placeholder="ژمارا موبایلی" required>
             <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
             <input type="password" id="sign-pass-confirm" placeholder="دووبارە پاسۆرد" required>
+            
             <button type="button" onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
+            
             <p>ئەکاونت هەین؟ <span class="btn-link" onclick="toggleForms('login-form')">بچۆ ژۆر</span></p>
         </div>
     </div>
