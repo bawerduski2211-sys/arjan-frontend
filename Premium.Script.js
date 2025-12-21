@@ -2,11 +2,11 @@
 const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
 const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
 
-// درستکرنا گرێدانێ ب شێوەیەکێ درست
+// درستکرنا گرێدانێ (مە supabasejs کرە supabase دا کار بکەت)
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // --- ٢. گۆڕینا فۆرمان (Toggle Forms) ---
-// ئەڤ پشکە دۆکمەیا "دروست بکە" کارپێ دکەت بێی تێکدانا دیزاینێ
+// ئەڤ پشکە بەرپرسە ژ گۆڕینا پەیجی دەمێ تو کلیکێ ل سەر "دروست بکە" دکەی
 function toggleForms(formId) {
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
