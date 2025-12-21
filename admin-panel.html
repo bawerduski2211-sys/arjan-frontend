@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ARJAN AI | Admin Panel 🛡️</title>
+    <link rel="stylesheet" href="premium-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; padding: 20px; }
+        .admin-box { border: 2px solid #D4AF37; padding: 20px; border-radius: 15px; max-width: 800px; margin: auto; background: #111; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: center; }
+        th { background: #D4AF37; color: #000; }
+        .btn-refresh { background: #D4AF37; color: #000; padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-box">
+        <h2 style="color: #D4AF37;">سیستەمێ چاڤدێرییا هاکەران 🛡️</h2>
+        <p>تنێ ئەدمین دشێت ئیمەیڵێن هاتییە بلۆککرن ببێنت.</p>
+        <button class="btn-refresh" onclick="loadHackers()">نووکرنا لیستێ 🔄</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ئیمەیڵا هاکەری</th>
+                    <th>کات و ڕێکەفت</th>
+                    <th>بارودۆخ</th>
+                </tr>
+            </thead>
+            <tbody id="hackerList">
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        // زانیاریێن خۆ یێن Supabase لێرە دانێ
+        const supabaseUrl = 'YOUR_SUPABASE_URL';
+        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
+
+        async function loadHackers() {
+            const { data, error } = await supabase
+                .from('hack_logs')
+                .select('*')
+                .order('attempt_date', { ascending: false });
+
+            if (error) {
+                alert("ئیرۆر: تنێ Bawerduski دشێت ڤێ ببینیت! ❌");
+                return;
+            }
+
+            const list = document.getElementById('hackerList');
+            list.innerHTML = '';
+
+            data.forEach(h => {
+                list.innerHTML += `
+                    <tr>
+                        <td>${h.hacker_email}</td>
+                        <td>${new Date(h.attempt_date).toLocaleString('ku-IQ')}</td>
+                        <td style="color: #ff0000;">Blocked 🚫</td>
+                    </tr>`;
+            });
+        }
+
+        window.onload = loadHackers;
+    </script>
+</body>
+</html>
