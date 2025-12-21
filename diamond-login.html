@@ -1,46 +1,81 @@
-<!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN AI | Diamond System</title>
-    <link rel="stylesheet" href="premium-style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-    <div class="gold-overlay"></div>
+// --- ١. گرێدانا داتابەیسێ (Supabase Setup) ---
+const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
+const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
 
-    <div class="auth-container">
-        <div id="login-form" class="auth-card">
-            <div class="diamond-icon">💎</div>
-            <h2>Diamond Login</h2>
-            <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
-            <input type="password" id="log-pass" placeholder="پاسۆرد" required>
-            <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p>ئەکاونت نینە؟ <span onclick="showForm('signup-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">دروست بکە</span></p>
-        </div>
+// بکارئیناناsupabasejs بۆ دروستکرنا کلاینتی
+const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
-        <div id="signup-form" class="auth-card hidden">
-            <div class="diamond-icon">🚀</div>
-            <h2>Create Account</h2>
-            <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
-            <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
-            <input type="tel" id="sign-phone" placeholder="ژمارا موبایلی" required>
-            <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
-            <input type="password" id="sign-pass-confirm" placeholder="دووبارە پاسۆرد" required>
-            <button onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
-            <p>ئەکاونت هەین؟ <span onclick="showForm('login-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">بچۆ ژۆر</span></p>
-        </div>
+// --- ٢. فەنکشنا تومارکرنا ئەکاونتێ نوی (Sign Up) ---
+async function handleSignUp() {
+    console.log("هەوڵا تومارکرنێ دهێتە دان..."); // بۆ پشکنین د کنسۆڵێ دا
 
-        <div id="dashboard-hub" class="auth-card hidden" style="max-width: 600px;">
-            <h2 style="color:#D4AF37;">DIAMOND HUB</h2>
-            <div class="hub-grid">
-                <div class="hub-card"><div>🎮</div><h4>یاریا کلیلان</h4><button class="btn-diamond">Go Game</button></div>
-                <div class="hub-card"><div>🤖</div><h4>AI ARJAN</h4><button class="btn-diamond" onclick="showForm('ai-section')">Go AI</button></div>
-            </div>
-        </div>
-    </div>
+    // وەرگرتنا داتایان ژ ئەو ناسنامەیێن (IDs) تە د HTML دا نڤێسین
+    const name = document.getElementById('sign-name').value;
+    const email = document.getElementById('sign-email').value;
+    const phone = document.getElementById('sign-phone').value;
+    const pass = document.getElementById('sign-pass').value;
+    const passConfirm = document.getElementById('sign-pass-confirm').value;
 
-    <script src="Premium.Script.js"></script>
-</body>
-</html>
+    if (pass !== passConfirm) {
+        alert("خەلەتی: پاسۆرد وەک ئێک نینن! ❌");
+        return;
+    }
+
+    try {
+        // ١. تومارکرن د سیستەمێ ئەکاونتان دا
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+            email: email,
+            password: pass
+        });
+
+        if (authError) throw authError;
+
+        // ٢. سەیڤکرنا ناڤ و ژمارێ د خشتێ 'users' دا
+        const { error: dbError } = await supabase
+            .from('users')
+            .insert([{ 
+                full_name: name, 
+                phone: phone, 
+                email: email 
+            }]);
+
+        if (dbError) throw dbError;
+
+        alert("پیرۆزە! ئەکاونت ب سەرکەفتی هاتە تومارکرن ✅");
+        
+        // برن بۆ داشبۆردێ دا کو "سندوقا سور" ببینیت
+        window.location.href = "dashboard.html"; 
+
+    } catch (error) {
+        console.error("ئیرۆر:", error.message);
+        alert("ئیرۆر د تومارکرنێ دا: " + error.message);
+    }
+}
+
+// --- ٣. فەنکشنا چوونەژۆرێ (Login) ---
+async function validateLogin() {
+    const email = document.getElementById('log-email').value;
+    const pass = document.getElementById('log-pass').value;
+
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: pass
+        });
+
+        if (error) throw error;
+
+        alert("ب خێر بێی! چوونەژۆر ب سەرکەفتی بوو 💎");
+        window.location.href = "dashboard.html"; 
+
+    } catch (error) {
+        alert("ئیرۆر: ئیمێڵ یان پاسۆرد شاشە! ❌");
+    }
+}
+
+// --- ٤. فەنکشنا گوهۆڕینا فۆڕمان (Toggle Forms) ---
+function showForm(formId) {
+    document.querySelectorAll('.auth-card').forEach(card => card.classList.add('hidden'));
+    const target = document.getElementById(formId);
+    if (target) target.classList.remove('hidden');
+}
