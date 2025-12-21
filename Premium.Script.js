@@ -3,7 +3,14 @@ const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
 const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
 const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
-// --- ٢. تومارکرن (Sign Up) ---
+// --- ٢. فەنکشنا گوهۆڕینا فۆڕمان ---
+function toggleForms(formId) {
+    document.getElementById('login-form').classList.add('hidden');
+    document.getElementById('signup-form').classList.add('hidden');
+    document.getElementById(formId).classList.remove('hidden');
+}
+
+// --- ٣. تومارکرنا ئەکاونتێ نوی (Sign Up) ---
 async function handleSignUp() {
     const name = document.getElementById('sign-name').value;
     const email = document.getElementById('sign-email').value;
@@ -17,7 +24,7 @@ async function handleSignUp() {
     }
 
     try {
-        const { data, error: authError } = await supabase.auth.signUp({
+        const { data: authData, error: authError } = await supabase.auth.signUp({
             email: email,
             password: pass
         });
@@ -32,12 +39,12 @@ async function handleSignUp() {
 
         alert("پیرۆزە! ئەکاونت ب سەرکەفتی هاتە تومارکرن ✅");
         window.location.href = "dashboard.html"; 
-    } catch (e) {
-        alert("ئیرۆر: " + e.message);
+    } catch (error) {
+        alert("ئیرۆر: " + error.message);
     }
 }
 
-// --- ٣. چوونەژۆر (Login) ---
+// --- ٤. چوونەژۆر (Login) ---
 async function validateLogin() {
     const email = document.getElementById('log-email').value;
     const pass = document.getElementById('log-pass').value;
@@ -47,15 +54,8 @@ async function validateLogin() {
         if (error) throw error;
 
         alert("ب خێر بێی! 💎");
-        window.location.href = "dashboard.html";
-    } catch (e) {
+        window.location.href = "dashboard.html"; 
+    } catch (error) {
         alert("ئیرۆر: ئیمێڵ یان پاسۆرد شاشە! ❌");
     }
-}
-
-// --- ٤. گوهۆڕینا فۆڕمان ---
-function toggleForms(formId) {
-    document.getElementById('login-form').classList.add('hidden');
-    document.getElementById('signup-form').classList.add('hidden');
-    document.getElementById(formId).classList.remove('hidden');
 }
