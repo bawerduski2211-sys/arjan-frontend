@@ -1,9 +1,10 @@
-// --- ١. گرێدانا داتابەیسێ (Supabase Setup) ---
+// --- ١. گرێدانا داتابه‌یسێ (Supabase Setup) ---
+// ئه‌ڤ به‌شه یێ گرنگه بۆ هندێ دۆکمه كار بكهت
 const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
 const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// --- ٢. فەنکشنا تومارکرنا بکارئینەرێن نوی (Sign Up) ---
+// --- ٢. فه‌نكشنا توماركرنا ئه‌كاونتێ نوی ---
 async function handleSignUp() {
     const name = document.getElementById('sign-name').value;
     const email = document.getElementById('sign-email').value;
@@ -12,12 +13,12 @@ async function handleSignUp() {
     const passConfirm = document.getElementById('sign-pass-confirm').value;
 
     if (pass !== passConfirm) {
-        alert("خەلەتی: پاسۆرد وەک ئێک نینن! ❌");
+        alert("خه‌له‌تی: پاسۆرد وه‌ك ئێك نینن! ❌");
         return;
     }
 
     try {
-        // دروستکرنا ئەکاونتی د بەشێ Auth دا
+        // دروستكرنا ئه‌كاونتی د به‌شێ Auth دا
         const { data: authData, error: authError } = await supabase.auth.signUp({
             email: email,
             password: pass
@@ -25,7 +26,7 @@ async function handleSignUp() {
 
         if (authError) throw authError;
 
-        // سەیڤکرنا زانیارییان د خشتێ users دا (ب پیتا بچووک)
+        // سه‌یڤكرنا زانیارییان د خشتێ users دا
         const { error: dbError } = await supabase
             .from('users')
             .insert([
@@ -38,7 +39,7 @@ async function handleSignUp() {
 
         if (dbError) throw dbError;
 
-        alert("پیرۆزە! ئەکاونت ب سەرکەفتی هاتە تومارکرن ✅");
+        alert("پیرۆزه! ئه‌كاونت ب سه‌ركه‌فتی هاته‌ توماركرن ✅");
         showForm('login-form');
 
     } catch (error) {
@@ -46,28 +47,7 @@ async function handleSignUp() {
     }
 }
 
-// --- ٣. فەنکشنا چوونەژۆرێ (Login) ---
-async function validateLogin() {
-    const email = document.getElementById('log-email').value;
-    const pass = document.getElementById('log-pass').value;
-
-    try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: pass
-        });
-
-        if (error) throw error;
-
-        alert("ب خێر بێی! چوونەژۆر ب سەرکەفتی بوو 💎");
-        showForm('dashboard-hub');
-
-    } catch (error) {
-        alert("خەلەتی: ئیمێڵ یان پاسۆرد شاشە! ❌");
-    }
-}
-
-// --- ٤. فەنکشنا گوهۆڕینا فۆرمان ---
+// فه‌نكشنا گوهۆڕینا فۆرمان
 function showForm(formId) {
     document.querySelectorAll('.auth-card').forEach(card => card.classList.add('hidden'));
     const target = document.getElementById(formId);
