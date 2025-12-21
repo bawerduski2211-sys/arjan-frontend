@@ -17,7 +17,7 @@
             <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
             <input type="password" id="log-pass" placeholder="پاسۆرد" required>
             <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p onclick="showForm('signup-form')">ئەکاونت نینە؟ <span style="color:#D4AF37;">دروست بکە</span></p>
+            <p>ئەکاونت نینە؟ <span onclick="showForm('signup-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">دروست بکە</span></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
@@ -29,7 +29,7 @@
             <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
             <input type="password" id="sign-pass-confirm" placeholder="دووبارە پاسۆرد" required>
             <button onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
-            <p onclick="showForm('login-form')">ئەکاونت هەین؟ <span style="color:#D4AF37;">بچۆ ژۆر</span></p>
+            <p>ئەکاونت هەین؟ <span onclick="showForm('login-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">بچۆ ژۆر</span></p>
         </div>
 
         <div id="dashboard-hub" class="auth-card hidden" style="max-width: 600px;">
@@ -38,18 +38,6 @@
                 <div class="hub-card"><div>🎮</div><h4>یاریا کلیلان</h4><button class="btn-diamond">Go Game</button></div>
                 <div class="hub-card"><div>🤖</div><h4>AI ARJAN</h4><button class="btn-diamond" onclick="showForm('ai-section')">Go AI</button></div>
             </div>
-            <div class="hub-grid">
-                <div class="hub-card"><div>🎵</div><h4>ARJAN (کوردی)</h4><button class="btn-diamond">Create</button></div>
-                <div class="hub-card"><div>🎙️</div><h4>ARKAN (گشتی)</h4><button class="btn-diamond">Create</button></div>
-            </div>
-        </div>
-
-        <div id="ai-section" class="auth-card hidden">
-            <div class="diamond-icon">🖼️</div>
-            <h2>Kurdish AI Image</h2>
-            <textarea id="image-prompt" placeholder="وەسفەکێ بنڤیسە... (تنێ جەلکێن کوردی)"></textarea>
-            <button class="btn-diamond" onclick="generateKurdishImage()">✨ دروستکرن</button>
-            <button class="btn-diamond" style="background:#444;" onclick="showForm('dashboard-hub')">زڤڕین</button>
         </div>
     </div>
 
