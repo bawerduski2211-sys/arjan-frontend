@@ -62,7 +62,7 @@ body {
     position: relative;
 }
 
-/* --- ئه‌ڤ پشكه‌ یا گرنگه‌ بۆ كاركرنا دكمێ --- */
+/* --- پشکا ڤەشارتنا فۆرمان (زۆر گرنگە بۆ کارکرنا دۆکمێ) --- */
 .hidden {
     display: none !important;
 }
@@ -106,7 +106,7 @@ input:focus, textarea:focus {
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
 
-/* دوگمەیا ڕەش و زێڕین */
+/* دوگمەیا ڕەش و زێڕین کو دەمێ کلیکێ سۆر دبیت */
 .btn-diamond {
     width: 100%;
     padding: 18px;
@@ -151,4 +151,36 @@ p span {
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
+}
+
+/* ستایلێ Dashboard Hub */
+.hub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.hub-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.hub-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.hub-card h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
 }
