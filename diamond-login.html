@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond Login | ARJAN</title>
+    <title>ARJAN AI | Diamond System</title>
     <link rel="stylesheet" href="premium-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="gold-overlay"></div>
@@ -13,31 +14,40 @@
         <div id="login-form" class="auth-card">
             <div class="diamond-icon">💎</div>
             <h2>Diamond Login</h2>
-            <input type="email" placeholder="ئیمەیڵ">
-            <input type="password" placeholder="پاسۆرد">
-            <p class="forgot-btn" onclick="showForm('forgot-form')">پاسۆرد ژ بیر کرییە؟</p>
+            <input type="email" id="log-email" placeholder="ئیمەیڵ">
+            <input type="password" id="log-pass" placeholder="پاسۆرد">
             <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p class="switch-text">ئەکاونت تە نینە؟ <span onclick="showForm('signup-form')">دروست بکە</span></p>
+            <p onclick="showForm('signup-form')">ئەکاونت نینە؟ <span style="color:#D4AF37;">دروست بکە</span></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
             <div class="diamond-icon">🚀</div>
             <h2>Create Account</h2>
-            <input type="text" placeholder="ناڤێ تەمام">
-            <input type="email" placeholder="ئیمەیڵ">
-            <input type="tel" placeholder="ژمارا مۆبایلێ">
-            <input type="password" placeholder="پاسۆرد">
-            <button class="btn-diamond">SEND CODE</button>
-            <p class="switch-text">ئەکاونت تە هەین؟ <span onclick="showForm('login-form')">بچۆ ژۆر</span></p>
+            <input type="text" id="sign-name" placeholder="ناڤێ تەمام">
+            <input type="email" id="sign-email" placeholder="ئیمەیڵ">
+            <input type="password" id="sign-pass" placeholder="پاسۆرد">
+            <button onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
+            <p onclick="showForm('login-form')">ئەکاونت هەین؟ <span style="color:#D4AF37;">بچۆ ژۆر</span></p>
         </div>
 
-        <div id="forgot-form" class="auth-card hidden">
-            <div class="diamond-icon">🔑</div>
-            <h2>Reset Password</h2>
-            <p style="font-size: 14px; color: #666;">ئیمەیڵا خۆ بنڤیسە بۆ کـۆدی</p>
-            <input type="email" placeholder="ئیمەیڵ">
-            <button class="btn-diamond" style="margin-top: 10px;">SEND RESET LINK</button>
-            <p class="switch-text"><span onclick="showForm('login-form')">زڤڕین بۆ چوونەژۆر</span></p>
+        <div id="dashboard-hub" class="auth-card hidden" style="max-width: 600px;">
+            <h2 style="color:#D4AF37;">DIAMOND HUB</h2>
+            <div class="hub-grid">
+                <div class="hub-card"><div>🎮</div><h4>یاریا کلیلان</h4><button class="btn-diamond">Go Game</button></div>
+                <div class="hub-card"><div>🤖</div><h4>AI ARJAN</h4><button class="btn-diamond" onclick="showForm('ai-section')">Go AI</button></div>
+            </div>
+            <div class="hub-grid">
+                <div class="hub-card"><div>🎵</div><h4>ARJAN (کوردی)</h4><button class="btn-diamond">Create</button></div>
+                <div class="hub-card"><div>🎙️</div><h4>ARKAN (گشتی)</h4><button class="btn-diamond">Create</button></div>
+            </div>
+        </div>
+
+        <div id="ai-section" class="auth-card hidden">
+            <div class="diamond-icon">🖼️</div>
+            <h2>Kurdish AI Image</h2>
+            <textarea id="image-prompt" placeholder="وەسفەکێ بنڤیسە... (تنێ جەلکێن کوردی)"></textarea>
+            <button class="btn-diamond" onclick="generateKurdishImage()">✨ دروستکرن</button>
+            <button class="btn-diamond" style="background:#444;" onclick="showForm('dashboard-hub')">زڤڕین</button>
         </div>
     </div>
 
