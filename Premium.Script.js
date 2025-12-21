@@ -1,26 +1,25 @@
 // --- ١. Setup Supabase ---
 const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
 const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
+
+// درستکرنا گرێدانێ ب داتابەیسێ ڤە
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// --- ٢. پشکنینا بکارئینەری و دیارکرنا "سندوقا سۆر" ---
+// --- ٢. پشکنینا بکارئینەری (بۆ دیارکرنا سندوقا سۆر) ---
 async function checkUserStatus() {
     const { data: { user } } = await supabase.auth.getUser();
     const redBox = document.getElementById('red-box-btn');
 
     if (user) {
-        // ئەگەر بکارئینەر یێ چوویتە ژۆر، سندوقا سۆر نیشان بدە
         if (redBox) redBox.style.display = 'inline-block';
-    } else {
-        // ئەگەر یێ نەچوویتە ژۆر و ل سەر لاپەرێ Dashboard بیت، بیزە سەر لاپەرێ لۆگین
-        if (window.location.pathname.includes("dashboard.html")) {
-            window.location.href = "Diamond-login.html";
-        }
+    } else if (window.location.pathname.includes("dashboard.html")) {
+        window.location.href = "Diamond-login.html";
     }
 }
 document.addEventListener('DOMContentLoaded', checkUserStatus);
 
 // --- ٣. گۆڕینا فۆرمان (Toggle Forms) ---
+// ئەڤە ئەو پشکە یا کو "دروست بکە" و "بچۆ ژۆر" پێ کار دکەن
 function toggleForms(formId) {
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
@@ -46,6 +45,7 @@ async function handleSignUp() {
         alert("هیڤییە هەمی خانەیان پڕ بکە! ⚠️");
         return;
     }
+
     if (pass !== passConfirm) {
         alert("خەلەتی: پاسۆرد وەک ئێک نینن! ❌");
         return;
@@ -55,12 +55,17 @@ async function handleSignUp() {
         const { data, error: authError } = await supabase.auth.signUp({ email, password: pass });
         if (authError) throw authError;
 
-        const { error: dbError } = await supabase.from('users').insert([{ full_name: name, phone: phone, email: email }]);
+        const { error: dbError } = await supabase
+            .from('users') 
+            .insert([{ full_name: name, phone: phone, email: email }]);
+            
         if (dbError) throw dbError;
 
-        alert("پیرۆزە! ئەکاونت دروست بوو ✅");
-        window.location.href = "dashboard.html";
-    } catch (e) { alert("ئیرۆر: " + e.message); }
+        alert("پیرۆزە! ئەکاونت ب سەرکەفتی هاتە دروستکرن ✅");
+        window.location.href = "dashboard.html"; 
+    } catch (e) { 
+        alert("ئیرۆر: " + e.message); 
+    }
 }
 
 // --- ٥. چوونەژۆر (Login) ---
@@ -68,14 +73,32 @@ async function validateLogin() {
     const email = document.getElementById('log-email').value;
     const pass = document.getElementById('log-pass').value;
 
+    if (!email || !pass) {
+        alert("ئیمەیڵ و پاسۆردی بنڤێسە! 🔑");
+        return;
+    }
+
     try {
         const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
         if (error) throw error;
         window.location.href = "dashboard.html";
-    } catch (e) { alert("ئیرۆر: ئیمێڵ یان پاسۆرد شاشە! ❌"); }
+    } catch (e) { 
+        alert("ئیرۆر: ئیمێڵ یان پاسۆرد شاشە! ❌"); 
+    }
 }
 
-// --- ٦. دەرکەفتن (Logout) ---
+// --- ٦. پاسۆردێ ژبیرکری (Forgot Password) ---
+async function handleForgotPassword() {
+    const email = document.getElementById('log-email').value;
+    if (!email) { 
+        alert("هیڤییە ئیمەیڵێ خۆ ل خانەیا لۆگینێ بنڤێسە 📧"); 
+        return; 
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) alert(error.message); else alert("لینکێ گۆڕینا پاسۆردی بۆ ئیمەیڵا تە هات 📩");
+}
+
+// --- ٧. دەرکەفتن (Logout) ---
 async function handleLogout() {
     await supabase.auth.signOut();
     window.location.href = "Diamond-login.html";
