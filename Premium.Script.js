@@ -1,77 +1,48 @@
-// ARJAN AI - PREMIUM MASTER SCRIPT
-// 1. گرێدان ب داتابەیسا Supabase (زانیاریێن خۆ لێرە دانێ)
-const supabaseUrl = 'YOUR_SUPABASE_URL'; // URL یا پڕۆژەیێ خۆ لێرە دانێ
+// ==========================================
+// ARJAN AI - PREMIUM MASTER SCRIPT (V2.0)
+// ==========================================
+
+// 1. گرێدان ب داتابەیسا Supabase
+const supabaseUrl = 'YOUR_SUPABASE_URL'; // URL لێرە دانێ
 const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'; // Anon Key لێرە دانێ
 const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
-// 2. فۆنکشنا گوهۆڕینا لاپەرەیان ب شێوەیەکێ سادە
-function showForm(formId) {
-    // هەمی کارتان بەرزە بکە
-    document.querySelectorAll('.auth-card').forEach(card => {
-        card.classList.add('hidden');
-    });
+// 2. متغیرێن سەکەیوریتی و سزادانێ
+let loginAttempts = 0;
+let isLocked = false;
+const LOCK_TIME = 5 * 60 * 1000; // ٥ خۆلەک سزا
 
-    // ئەو کارتا تە دڤێت دیار بکە
-    const targetForm = document.getElementById(formId);
-    if (targetForm) {
-        targetForm.classList.remove('hidden');
+// 3. فۆنکشنا تومارکرنا زانیاریێن هاکەری (سیخوڕی)
+async function reportHacker(email) {
+    try {
+        const { data, error } = await supabase
+            .from('hack_attempts')
+            .insert([
+                { 
+                    target_email: email, 
+                    attempt_time: new Date(),
+                    details: "هەوڵدانا توند: ٤ جاران پاسۆرد خەلەت لێدایە" 
+                }
+            ]);
+        if (error) throw error;
+        console.log("Hacker reported to Admin! ✅");
+    } catch (err) {
+        console.error("Error reporting hacker:", err.message);
     }
-
-    // لێدانا تیشکا زێڕین یا ئاسایی
-    playFlash('gold');
 }
 
-// 3. فۆنکشنا تیشکا زێڕین و سۆر (Visual Effects)
-function playFlash(type) {
-    const overlay = document.querySelector('.gold-overlay');
-    if (!overlay) return;
-
-    // ئەگەر چوونەژۆر سەرکەفتی بیت تیشکا سۆر و زێڕین تێکەڵ دبن
-    if (type === 'success') {
-        overlay.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(212, 175, 55, 0.4) 100%)';
-    } else {
-        overlay.style.background = 'radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%)';
-    }
-
-    overlay.style.animation = 'none';
-    overlay.offsetHeight; // Trigger reflow
-    overlay.style.animation = 'fadeOutGold 1.5s forwards';
-}
-
-// 4. سیستەمێ دروستکرنا ئیمەیڵا نوی (SignUp)
-async function handleSignUp() {
-    const email = document.getElementById('sign-email').value;
-    const password = document.getElementById('sign-pass').value;
-    const name = document.getElementById('sign-name').value;
-
-    if (!email || !password) {
-        alert("تکایە ئیمەیڵ و پاسۆردی بنڤیسە! ⚠️");
+// 4. فۆنکشنا چوونەژۆرێ (Login) دگەل پاراستنا فوول
+async function validateLogin() {
+    if (isLocked) {
+        alert("سیستم یا قوفڵکرییە! تکایە ٥ خۆلەکان ل هیڤیێ بە. ⏳");
         return;
     }
 
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-            data: { full_name: name }
-        }
-    });
-
-    if (error) {
-        alert("خەلەتی د دروستکرنێ دا: " + error.message);
-    } else {
-        alert("پیرۆزە برا! ئیمەیڵ ب سەرکەفتی دروست بوو 🎉");
-        showForm('login-form'); // زڤڕین بۆ لاپەرێ چوونەژۆرێ
-    }
-}
-
-// 5. سیستەمێ چوونەژۆرێ (Login) ب تیشکا سۆر و زێڕین
-async function validateLogin() {
     const email = document.getElementById('log-email').value;
     const password = document.getElementById('log-pass').value;
 
     if (!email || !password) {
-        alert("تکایە زانیارییان پر بکە! ⚠️");
+        alert("تکایە هەمی خانەیان پر بکە! ⚠️");
         return;
     }
 
@@ -81,24 +52,78 @@ async function validateLogin() {
     });
 
     if (error) {
-        alert("ئیمەیڵ یان پاسۆرد خەلەتە! ❌");
-    } else {
-        // لێدانا تیشکا سۆر و زێڕین وەک نیشانا سەرکەفتنێ
-        playFlash('success');
+        loginAttempts++;
         
+        // ئەگەر گەهشتە ٤ جاران، هاکەری ئاشکەرا بکە و سزا بدە
+        if (loginAttempts >= 4) {
+            isLocked = true;
+            await reportHacker(email); // ناردنا زانیارییان بۆ داتابەیسێ
+            
+            alert("سزا! ٤ جاران خەلەت بوو. زانیاریێن تە بۆ ئەدمینی هاتنە فرێکرن و سیستم بۆ ٥ خۆلەکان قوفڵ بوو. 🚫");
+            
+            setTimeout(() => {
+                isLocked = false;
+                loginAttempts = 0;
+                console.log("System Unlocked");
+            }, LOCK_TIME); 
+            
+        } else {
+            alert(`پاسۆرد خەلەتە! هەوڵدانا ${loginAttempts} ژ ٤. ئاگاداربە! ⚠️`);
+        }
+    } else {
+        // سەرکەفتن: لێدانا تیشکا سۆر و زێڕین
+        loginAttempts = 0;
+        playFlash('success');
         setTimeout(() => {
-            // چوون بۆ ناڤ پڕۆژەی (Dashboard)
             showForm('dashboard-hub');
         }, 1500);
     }
 }
 
-// 6. فۆنکشنا دروستکرنا وێنەیێن کوردی (AI Preview)
-function generateKurdishImage() {
-    const prompt = document.getElementById('image-prompt').value;
-    if (!prompt) return alert("تکایە وەسفەکێ بنڤیسە!");
+// 5. سیستەمێ تومارکرنا بکارئینەرێن نوی (SignUp)
+async function handleSignUp() {
+    const email = document.getElementById('sign-email').value;
+    const password = document.getElementById('sign-pass').value;
+    const name = document.getElementById('sign-name').value;
 
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: { data: { full_name: name } }
+    });
+
+    if (error) {
+        alert("خەلەتی: " + error.message);
+    } else {
+        alert("ئەکاونت ب سەرکەفتی دروست بوو! 🎉 نوکە دشێی بچی ژۆر.");
+        showForm('login-form');
+    }
+}
+
+// 6. ئەنیمەیشن و گوهۆڕینا لاپەرەیان
+function showForm(formId) {
+    document.querySelectorAll('.auth-card').forEach(card => card.classList.add('hidden'));
+    document.getElementById(formId).classList.remove('hidden');
     playFlash('gold');
-    alert("تیشکا زێڕین یا کار دکەت... AI ARJAN یێ وێنەیێ تە ب جەلکێن کوردی دروست دکەت ✨");
-    // لێرە دێ بەستن ب API یا وێنەیان هێتە کرن
+}
+
+function playFlash(type) {
+    const overlay = document.querySelector('.gold-overlay');
+    if (!overlay) return;
+
+    if (type === 'success') {
+        overlay.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(212, 175, 55, 0.4) 100%)';
+    } else {
+        overlay.style.background = 'radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%)';
+    }
+
+    overlay.style.animation = 'none';
+    overlay.offsetHeight; 
+    overlay.style.animation = 'fadeOutGold 1.5s forwards';
+}
+
+// 7. دەرکەفتن (Logout)
+async function handleLogout() {
+    await supabase.auth.signOut();
+    location.reload();
 }
