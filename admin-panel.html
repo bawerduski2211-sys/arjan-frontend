@@ -1,24 +1,30 @@
 async function loadUsers() {
-    // خویندنا داتایان ژ خشتێ users
-    const { data, error } = await supabase
-        .from('users') 
-        .select('full_name, email, phone, created_at');
+    try {
+        // خویندنا داتایان ژ ستوونێن تە ب پیتا بچووک
+        const { data, error } = await supabase
+            .from('users') 
+            .select('full_name, email, phone, created_at');
 
-    if (error) {
-        console.error("Error:", error);
-        return;
+        if (error) throw error;
+
+        const list = document.getElementById('userList');
+        if (!list) return;
+
+        list.innerHTML = '';
+        
+        data.forEach(u => {
+            list.innerHTML += `
+                <tr>
+                    <td>${u.full_name || '---'}</td>
+                    <td>${u.email || '---'}</td>
+                    <td style="color: #D4AF37; font-weight: bold;">${u.phone || '---'}</td>
+                    <td>${new Date(u.created_at).toLocaleDateString('ku-IQ')}</td>
+                </tr>`;
+        });
+    } catch (err) {
+        console.error("Error:", err.message);
     }
-
-    const list = document.getElementById('userList');
-    list.innerHTML = '';
-    
-    data.forEach(u => {
-        list.innerHTML += `
-            <tr>
-                <td>${u.full_name || '---'}</td>
-                <td>${u.email || '---'}</td>
-                <td style="color: #D4AF37;">${u.phone || '---'}</td>
-                <td>${new Date(u.created_at).toLocaleDateString('ku-IQ')}</td>
-            </tr>`;
-    });
 }
+
+// بارکرنا ئۆتۆماتیکی دەمێ لاپەڕە ڤەدبیت
+document.addEventListener('DOMContentLoaded', loadUsers);
