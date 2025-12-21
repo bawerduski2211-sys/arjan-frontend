@@ -62,13 +62,14 @@ body {
     position: relative;
 }
 
+/* --- ئه‌ڤ پشكه‌ یا گرنگه‌ بۆ كاركرنا دكمێ --- */
+.hidden {
+    display: none !important;
+}
+
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-.hidden {
-    display: none !important;
 }
 
 .diamond-icon {
@@ -105,7 +106,7 @@ input:focus, textarea:focus {
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
 
-/* دوگمەیا ڕەش و زێڕین کو دەمێ کلیکێ سۆر دبیت */
+/* دوگمەیا ڕەش و زێڕین */
 .btn-diamond {
     width: 100%;
     padding: 18px;
@@ -136,38 +137,6 @@ input:focus, textarea:focus {
     box-shadow: 0 0 25px var(--red-glow);
     transform: scale(0.92);
     border-color: #fff;
-}
-
-/* ستایلێ Dashboard Hub */
-.hub-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.hub-card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.hub-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.hub-card h4 {
-    margin: 0;
-    font-size: 14px;
-    color: #444;
 }
 
 /* نڤێسینێن لینک */
