@@ -1,22 +1,22 @@
-// --- ١. گرێدانا داتابەیسێ ---
+// --- ١. Setup Supabase ---
 const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
 const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
-
-// ئاگاداری: لێرە دێ (supabasejs) ب کار ئینین وەک تە د وێنەیێ کۆدی دا هەی
 const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
-// --- ٢. فەنکشنا گوهۆڕینا فۆڕمان (Toggle) ---
-function toggleForms(formId) {
-    console.log("گوهۆڕین بۆ: " + formId);
-    document.getElementById('login-form').classList.add('hidden');
-    document.getElementById('signup-form').classList.add('hidden');
-    document.getElementById(formId).classList.remove('hidden');
+// --- ٢. پشکنینا بکارئینەری و دۆکمه‌یا سۆر ---
+async function checkUserStatus() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+        const redBox = document.getElementById('red-box-btn');
+        if (redBox) redBox.style.display = 'inline-block';
+    } else if (window.location.pathname.includes("dashboard.html")) {
+        window.location.href = "Diamond-login.html";
+    }
 }
+window.onload = checkUserStatus;
 
-// --- ٣. تومارکرنا ئەکاونتێ نوی (Sign Up) ---
+// --- ٣. تومارکرن (Sign Up) ---
 async function handleSignUp() {
-    console.log("دەست ب تومارکرنێ هاتە کرن...");
-    
     const name = document.getElementById('sign-name').value;
     const email = document.getElementById('sign-email').value;
     const phone = document.getElementById('sign-phone').value;
@@ -29,32 +29,15 @@ async function handleSignUp() {
     }
 
     try {
-        // ١. دروستکرنا ئەکاونتی د Auth دا
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-            email: email,
-            password: pass
-        });
-
+        const { data, error: authError } = await supabase.auth.signUp({ email, password: pass });
         if (authError) throw authError;
 
-        // ٢. سەیڤکرن د خشتێ 'users' دا
-        const { error: dbError } = await supabase
-            .from('users')
-            .insert([{ 
-                full_name: name, 
-                phone: phone, 
-                email: email 
-            }]);
-
+        const { error: dbError } = await supabase.from('users').insert([{ full_name: name, phone, email }]);
         if (dbError) throw dbError;
 
-        alert("پیرۆزە! ئەکاونت ب سەرکەفتی هاتە تومارکرن ✅");
-        window.location.href = "dashboard.html"; // برن بۆ داشبۆردێ
-
-    } catch (error) {
-        console.error("Error details:", error);
-        alert("ئیرۆر د تومارکرنێ دا: " + error.message);
-    }
+        alert("پیرۆزە! ئەکاونت دروست بوو ✅");
+        window.location.href = "dashboard.html"; 
+    } catch (e) { alert("ئیرۆر: " + e.message); }
 }
 
 // --- ٤. چوونەژۆر (Login) ---
@@ -65,10 +48,21 @@ async function validateLogin() {
     try {
         const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
         if (error) throw error;
+        window.location.href = "dashboard.html";
+    } catch (e) { alert("ئیرۆر: ئیمێڵ یان پاسۆرد شاشە! ❌"); }
+}
 
-        alert("ب خێر بێی! 💎");
-        window.location.href = "dashboard.html"; 
-    } catch (error) {
-        alert("ئیرۆر: ئیمێڵ یان پاسۆرد شاشە! ❌");
-    }
+// --- ٥. Forgot Password ---
+async function handleForgotPassword() {
+    const email = document.getElementById('log-email').value;
+    if (!email) { alert("ئیمەیڵێ خۆ بنڤێسە 📧"); return; }
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) alert(error.message); else alert("لینک بۆ ئیمەیڵا تە هات 📩");
+}
+
+// --- ٦. Toggle Forms ---
+function toggleForms(formId) {
+    document.getElementById('login-form').classList.add('hidden');
+    document.getElementById('signup-form').classList.add('hidden');
+    document.getElementById(formId).classList.remove('hidden');
 }
