@@ -62,7 +62,7 @@ body {
     position: relative;
 }
 
-/* --- ئه‌ڤه‌ ئه‌و پشكا نوویه‌ یا من زێده‌ كرى دا دۆكمه‌ كار بكه‌ت --- */
+/* --- ئه‌ڤ هێله‌ زۆر گرنگه‌ بۆ ڤه‌شارتنا فۆرمان --- */
 .hidden {
     display: none !important;
 }
@@ -139,18 +139,30 @@ input:focus, textarea:focus {
     border-color: #fff;
 }
 
-/* نڤێسینێن لینک */
+/* نڤێسینێن لینک و دۆکمان */
 p {
     font-size: 14px;
     color: #666;
     margin: 10px 0 0;
 }
 
-p span {
-    color: var(--gold);
-    font-weight: bold;
+/* ستایلێ دۆكمه‌یا "دروست بكه‌" و "بچۆ ژۆر" */
+.btn-text-link {
+    background: none;
+    border: none;
+    color: #D4AF37;
     cursor: pointer;
+    font-weight: bold;
     text-decoration: underline;
+    font-size: 14px;
+    padding: 5px;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.btn-text-link:hover {
+    color: #000;
+    text-shadow: 0 0 5px #D4AF37;
 }
 
 /* ستایلێ Dashboard Hub */
@@ -177,10 +189,4 @@ p span {
     border-color: var(--gold);
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.hub-card h4 {
-    margin: 0;
-    font-size: 14px;
-    color: #444;
 }
