@@ -3,98 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJAN AI | Diamond System</title>
+    <title>Diamond Login | ARJAN</title>
     <link rel="stylesheet" href="premium-style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        /* کلاسەک بۆ ڤەشارتنا فۆڕمان */
-        .hidden { display: none !important; }
-        
-        body {
-            background-color: #0a0a0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .auth-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-        }
-
-        .auth-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 10px;
-            color: white;
-            text-align: center;
-        }
-
-        .btn-diamond {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #D4AF37, #996515);
-            border: none;
-            border-radius: 10px;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        p {
-            color: #888;
-            font-size: 14px;
-            margin-top: 20px;
-            cursor: pointer;
-        }
-
-        p span {
-            color: #D4AF37;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <div class="gold-overlay"></div>
 
     <div class="auth-container">
         <div id="login-form" class="auth-card">
-            <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
-            <h2 style="color: white; margin-bottom: 20px;">Diamond Login</h2>
-            <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
-            <input type="password" id="log-pass" placeholder="پاسۆرد" required>
-            <button type="button" onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            <p onclick="toggleForms('signup-form')">ئەکاونت نینە؟ <span>دروست بکە</span></p>
+            <div class="diamond-icon">💎</div>
+            <h2>Diamond Login</h2>
+            <input type="email" id="login-email" placeholder="ئیمەیڵ">
+            <input type="password" id="login-pass" placeholder="پاسۆرد">
+            <p class="forgot-btn" onclick="showForm('forgot-form')">پاسۆرد ژ بیر کرییە؟</p>
+            <button onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
+            <p class="switch-text">ئەکاونت تە نینە؟ <span onclick="showForm('signup-form')">دروست بکە</span></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
-            <div style="font-size: 50px; margin-bottom: 10px;">🚀</div>
-            <h2 style="color: white; margin-bottom: 20px;">Create Account</h2>
-            <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
-            <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
-            <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
-            <button type="button" onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
-            <p onclick="toggleForms('login-form')">ئەکاونت هەین؟ <span>بچۆ ژۆر</span></p>
+            <div class="diamond-icon">🚀</div>
+            <h2>Create Account</h2>
+            <input type="text" id="reg-name" placeholder="ناڤێ تەمام">
+            <input type="email" id="reg-email" placeholder="ئیمەیڵ">
+            <input type="tel" id="reg-phone" placeholder="ژمارا مۆبایلێ">
+            <input type="password" id="reg-pass" placeholder="پاسۆرد">
+            <button onclick="handleSignUp()" class="btn-diamond">SEND CODE</button>
+            <p class="switch-text">ئەکاونت تە هەین؟ <span onclick="showForm('login-form')">بچۆ ژۆر</span></p>
+        </div>
+
+        <div id="forgot-form" class="auth-card hidden">
+            <div class="diamond-icon">🔑</div>
+            <h2>Reset Password</h2>
+            <p style="font-size: 14px; color: #666;">ئیمەیڵا خۆ بنڤیسە بۆ کـۆدی</p>
+            <input type="email" id="reset-email" placeholder="ئیمەیڵ">
+            <button onclick="handleReset()" class="btn-diamond" style="margin-top: 10px;">SEND RESET LINK</button>
+            <p class="switch-text"><span onclick="showForm('login-form')">زڤڕین بۆ چوونەژۆر</span></p>
         </div>
     </div>
 
-    <script src="Premium.Script.js"></script>
+    <script>
+        // کلیلێن تە یێن داتابەیسێ
+        const supabaseUrl = 'https://bawerduski2211-sys-s-project.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhd2VyZHVza2kyMjExLXN5cy1zLXByb2plY3QiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTczNDgxNDI4MCwiZXhwIjoyMDUwMzkwMjgwfQ.qR5q8z_1Xq3Xm-yN-4N9yN-yN-yN-yN-yN-yN-yN';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        function showForm(formId) {
+            document.querySelectorAll('.auth-card').forEach(card => card.classList.add('hidden'));
+            document.getElementById(formId).classList.remove('hidden');
+        }
+
+        async function handleSignUp() {
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-pass').value;
+            const { error } = await supabase.auth.signUp({ email, password });
+            if (error) alert(error.message);
+            else alert("سەرکەفتی بوو! ئیمەیڵا خۆ پشکنین بکە.");
+        }
+
+        async function validateLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-pass').value;
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) alert("ئیمەیڵ یان پاسۆرد خەلەتە!");
+            else alert("بخێر بێی!");
+        }
+
+        async function handleReset() {
+            const email = document.getElementById('reset-email').value;
+            const { error } = await supabase.auth.resetPasswordForEmail(email);
+            if (error) alert(error.message);
+            else alert("لینک بۆ تە هاتە فرێکرن.");
+        }
+    </script>
 </body>
 </html>
