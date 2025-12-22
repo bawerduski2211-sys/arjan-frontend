@@ -4,25 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARJAN AI | Diamond System</title>
+    
     <link rel="stylesheet" href="premium-style.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
+        /* کلاسێک بۆ شاردنەوەی فۆرمەکان کاتێک پێویست نین */
         .hidden { display: none !important; }
-        .forgot-link { display: block; margin-top: 10px; color: #888; cursor: pointer; font-size: 13px; }
+        
+        /* ستایلی لینکی پاسۆردت بیرچووە */
+        .forgot-link {
+            display: block;
+            margin-top: 15px;
+            color: #888;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
         .forgot-link:hover { color: #D4AF37; }
     </style>
 </head>
 <body>
     <div class="gold-overlay"></div>
+
     <div class="auth-container">
+        
         <div id="login-form" class="auth-card">
             <div class="diamond-icon">💎</div>
             <h2>Diamond Login</h2>
             <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
             <input type="password" id="log-pass" placeholder="پاسۆرد" required>
+            
             <button type="button" onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
+            
             <span class="forgot-link" onclick="handleForgotPassword()">پاسۆردت ژبیر کرییە؟</span>
-            <p>ئەکاونت نینە؟ <span onclick="toggleForms('signup-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">دروست بکە</span></p>
+
+            <p style="margin-top: 25px;">ئەکاونت نینە؟ 
+                <span onclick="toggleForms('signup-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">دروست بکە</span>
+            </p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
@@ -33,10 +54,16 @@
             <input type="tel" id="sign-phone" placeholder="ژمارا موبایلی" required>
             <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
             <input type="password" id="sign-pass-confirm" placeholder="دووبارە پاسۆرد" required>
+            
             <button type="button" onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
-            <p>ئەکاونت هەین؟ <span onclick="toggleForms('login-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">بچۆ ژۆر</span></p>
+            
+            <p style="margin-top: 25px;">ئەکاونت هەین؟ 
+                <span onclick="toggleForms('login-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">بچۆ ژۆر</span>
+            </p>
         </div>
+
     </div>
+
     <script src="Premium.Script.js"></script>
 </body>
 </html>
