@@ -4,64 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARJAN AI | Diamond System</title>
-    
     <link rel="stylesheet" href="premium-style.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <style>
-        /* کلاسێک بۆ شاردنەوەی فۆرمەکان کاتێک پێویست نین */
+        /* کلاسەک بۆ ڤەشارتنا فۆڕمان */
         .hidden { display: none !important; }
         
-        /* ستایلی لینکی پاسۆردت بیرچووە */
-        .forgot-link {
-            display: block;
-            margin-top: 15px;
-            color: #888;
-            font-size: 13px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
+        body {
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .forgot-link:hover { color: #D4AF37; }
+
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        .btn-diamond {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #D4AF37, #996515);
+            border: none;
+            border-radius: 10px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        p {
+            color: #888;
+            font-size: 14px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        p span {
+            color: #D4AF37;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="gold-overlay"></div>
 
     <div class="auth-container">
-        
         <div id="login-form" class="auth-card">
-            <div class="diamond-icon">💎</div>
-            <h2>Diamond Login</h2>
+            <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
+            <h2 style="color: white; margin-bottom: 20px;">Diamond Login</h2>
             <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
             <input type="password" id="log-pass" placeholder="پاسۆرد" required>
-            
             <button type="button" onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
-            
-            <span class="forgot-link" onclick="handleForgotPassword()">پاسۆردت ژبیر کرییە؟</span>
-
-            <p style="margin-top: 25px;">ئەکاونت نینە؟ 
-                <span onclick="toggleForms('signup-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">دروست بکە</span>
-            </p>
+            <p onclick="toggleForms('signup-form')">ئەکاونت نینە؟ <span>دروست بکە</span></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
-            <div class="diamond-icon">🚀</div>
-            <h2>Create Account</h2>
+            <div style="font-size: 50px; margin-bottom: 10px;">🚀</div>
+            <h2 style="color: white; margin-bottom: 20px;">Create Account</h2>
             <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
             <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
-            <input type="tel" id="sign-phone" placeholder="ژمارا موبایلی" required>
             <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
-            <input type="password" id="sign-pass-confirm" placeholder="دووبارە پاسۆرد" required>
-            
             <button type="button" onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
-            
-            <p style="margin-top: 25px;">ئەکاونت هەین؟ 
-                <span onclick="toggleForms('login-form')" style="color:#D4AF37; cursor:pointer; font-weight:bold;">بچۆ ژۆر</span>
-            </p>
+            <p onclick="toggleForms('login-form')">ئەکاونت هەین؟ <span>بچۆ ژۆر</span></p>
         </div>
-
     </div>
 
     <script src="Premium.Script.js"></script>
