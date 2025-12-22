@@ -4,46 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARJAN AI | Diamond System</title>
-    <link rel="stylesheet" href="premium-style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
-        .hidden { display: none !important; }
-        .forgot-link { color: #888; font-size: 12px; cursor: pointer; display: block; margin-top: 10px; text-decoration: underline; background: none; border: none; width: 100%; }
-        .forgot-link:hover { color: #D4AF37; }
-        .btn-text-link { background: none; border: none; color: #D4AF37; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 14px; padding: 5px; font-family: inherit; }
+        /* --- ١. ستایلێ تە یێ زێڕین (CSS) ل ڤێرە جێگیر کر --- */
+        :root {
+            --gold: #D4AF37;
+            --gold-gradient: linear-gradient(45deg, #000, #D4AF37, #000);
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .auth-container { width: 100%; max-width: 400px; padding: 20px; }
+
+        .auth-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 30px;
+            border: 2px solid var(--gold);
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .hidden { display: none !important; } /* ئەڤە فۆرمان دڤەشێریت */
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .btn-diamond {
+            width: 100%;
+            padding: 15px;
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            color: #fff;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .btn-diamond:hover { background-position: right center; }
+
+        /* ستایلێ دۆکما "دروست بکە" */
+        .btn-link {
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: underline;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <div class="gold-overlay"></div>
+
     <div class="auth-container">
         <div id="login-form" class="auth-card">
-            <div class="diamond-icon">💎</div>
+            <div style="font-size: 50px;">💎</div>
             <h2>Diamond Login</h2>
-            <input type="email" id="log-email" placeholder="ئیمەیڵ" required>
-            <input type="password" id="log-pass" placeholder="پاسۆرد" required>
+            <input type="email" id="log-email" placeholder="ئیمەیڵ">
+            <input type="password" id="log-pass" placeholder="پاسۆرد">
             <button type="button" onclick="validateLogin()" class="btn-diamond">چوونەژۆر</button>
             
-            <button type="button" class="forgot-link" onclick="handleForgotPassword()">پاسۆردت ژبیر کرییە؟</button>
+            <button type="button" onclick="handleForgotPassword()" class="btn-link" style="color: #888; text-decoration: none; font-size: 12px; margin-top: 5px;">پاسۆردت ژبیر کرییە؟</button>
             
-            <p>ئەکاونت نینە؟ 
-                <button type="button" class="btn-text-link" onclick="toggleForms('signup-form')">دروست بکە</button>
-            </p>
+            <p>ئەکاونت نینە؟ <button type="button" onclick="toggleForms('signup-form')" class="btn-link">دروست بکە</button></p>
         </div>
 
         <div id="signup-form" class="auth-card hidden">
-            <div class="diamond-icon">🚀</div>
+            <div style="font-size: 50px;">🚀</div>
             <h2>Create Account</h2>
-            <input type="text" id="sign-name" placeholder="ناڤێ تەمام" required>
-            <input type="email" id="sign-email" placeholder="ئیمەیڵ" required>
-            <input type="tel" id="sign-phone" placeholder="ژمارا موبایلی" required>
-            <input type="password" id="sign-pass" placeholder="پاسۆرد" required>
-            <input type="password" id="sign-pass-confirm" placeholder="دووبارە پاسۆرد" required>
+            <input type="text" id="sign-name" placeholder="ناڤێ تەمام">
+            <input type="email" id="sign-email" placeholder="ئیمەیڵ">
+            <input type="password" id="sign-pass" placeholder="پاسۆرد">
             <button type="button" onclick="handleSignUp()" class="btn-diamond">تۆمارکردن</button>
-            <p>ئەکاونت هەین؟ 
-                <button type="button" class="btn-text-link" onclick="toggleForms('login-form')">بچۆ ژۆر</button>
-            </p>
+            <p>ئەکاونت هەین؟ <button type="button" onclick="toggleForms('login-form')" class="btn-link">بچۆ ژۆر</button></p>
         </div>
     </div>
-    <script src="Premium.Script.js"></script>
+
+    <script>
+        /* --- ٢. کۆدێ JavaScript ل ڤێرە جێگیر کر --- */
+        const supabaseUrl = 'https://cepuvipasminpjcpgvrq.supabase.co';
+        const supabaseKey = 'EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNlcHV2aXBhc21pbnBqY3BndnJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU4ODM1NDQsImV4cCI6MjA4MTQ1OTU0NH0.FcLh2LgcxHhdtZdqCIu3ImN7T_Xp8a8hXGCZHRhcWuE';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // فرمان بۆ گۆڕینا فۆرمان
+        function toggleForms(formId) {
+            const login = document.getElementById('login-form');
+            const signup = document.getElementById('signup-form');
+            if (formId === 'signup-form') {
+                login.classList.add('hidden');
+                signup.classList.remove('hidden');
+            } else {
+                signup.classList.add('hidden');
+                login.classList.remove('hidden');
+            }
+        }
+
+        // فرمان بۆ پاسۆردێ ژبیرکری
+        async function handleForgotPassword() {
+            const email = document.getElementById('log-email').value;
+            if (!email) { alert("ئیمەیڵێ خۆ بنڤێسە!"); return; }
+            const { error } = await supabase.auth.resetPasswordForEmail(email);
+            if (error) alert(error.message); else alert("لینک بۆ ئیمەیڵا تە هات!");
+        }
+
+        // تۆمارکردن
+        async function handleSignUp() {
+            const email = document.getElementById('sign-email').value;
+            const pass = document.getElementById('sign-pass').value;
+            const name = document.getElementById('sign-name').value;
+            const { data, error } = await supabase.auth.signUp({ email, password: pass });
+            if (error) alert(error.message); 
+            else { 
+                await supabase.from('users').insert([{ full_name: name, email: email }]);
+                alert("سەرکەفتی بوو!"); 
+                window.location.href="dashboard.html"; 
+            }
+        }
+
+        // چوونەژۆر
+        async function validateLogin() {
+            const email = document.getElementById('log-email').value;
+            const pass = document.getElementById('log-pass').value;
+            const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
+            if (error) alert("ئیمەیڵ یان پاسۆرد شاشە!"); 
+            else window.location.href="dashboard.html";
+        }
+    </script>
 </body>
 </html>
