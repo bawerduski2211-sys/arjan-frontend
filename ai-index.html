@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="ku" dir="rtl">
 <head>
     <title>ARJAN AI - Global Professor</title>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
         body {
             background-color: var(--soft-white);
             color: var(--black);
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -27,13 +27,14 @@
         .back-btn {
             position: absolute;
             top: 20px;
-            left: 20px;
+            right: 20px; /* لایێ ڕاست چونکە RTL یە */
             text-decoration: none;
             color: var(--gold);
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 8px;
+            z-index: 100;
         }
 
         header { text-align: center; padding: 40px 20px; }
@@ -58,11 +59,12 @@
             flex-direction: column;
             gap: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            scroll-behavior: smooth;
         }
 
         .ai-group { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-        .msg { padding: 12px 18px; border-radius: 18px; font-size: 1rem; line-height: 1.5; max-width: 80%; }
-        .ai-msg { background: #FFFFFF; color: var(--black); border: 1px solid #DDD; }
+        .msg { padding: 12px 18px; border-radius: 18px; font-size: 1rem; line-height: 1.5; max-width: 80%; word-wrap: break-word; }
+        .ai-msg { background: #FFFFFF; color: var(--black); border: 1px solid #DDD; align-self: flex-start; }
         .user-msg { background: var(--gold); color: white; align-self: flex-end; }
 
         .speaker-btn {
@@ -88,6 +90,7 @@
             border: 1px solid #CCC; 
             outline: none;
             font-size: 1rem;
+            text-align: right;
         }
         .send-btn { 
             background: var(--gold); 
@@ -102,7 +105,7 @@
 </head>
 <body>
 
-    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
+    <a href="index.html" class="back-btn">BACK <i class="fas fa-arrow-right"></i></a>
 
     <header>
         <h1 class="gold-name">ARJAN</h1>
@@ -127,7 +130,7 @@
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ar-SA'; 
-            utterance.pitch = 1.4; 
+            utterance.pitch = 1.1; 
             utterance.rate = 1.0; 
             window.speechSynthesis.speak(utterance);
         }
@@ -138,38 +141,43 @@
             const text = input.value.trim();
             if (!text) return;
 
+            // ١. نامەیا بەکارهێنەری نیشان بدە
             container.innerHTML += `<div class="msg user-msg">${text}</div>`;
             input.value = "";
-            
+            container.scrollTop = container.scrollHeight;
+
+            // ٢. دروستکردنا شوێنەوارێ لۆدینگێ
             const loadingId = "ai-" + Date.now();
-            container.innerHTML += `<div id="${loadingId}" class="msg ai-msg">Arjan AI بیر دکەتەوە...</div>`;
+            container.innerHTML += `
+                <div id="${loadingId}" class="ai-group">
+                    <div class="msg ai-msg">پڕۆفیسۆر ئارجان یێ هزر دکەت...</div>
+                </div>`;
             container.scrollTop = container.scrollHeight;
 
             try {
-                // تێبینی: ل شوونا 'message' من کرە 'prompt' دا دگەل کۆدێ index.js بگونجیت
                 const response = await fetch('/api/chat', { 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt: text }) 
                 });
-                
+
                 const data = await response.json();
-                const aiRes = data.text || "ببوورە برا، مێشکێ من نوکە یێ مژوولە.";
+                
+                // پشکنینا وێ پەیڤا ژ سێرڤەری دهێت (reply یان text)
+                const aiRes = data.reply || data.text || "ببوورە برا، مێشکێ من نوکە یێ مژوولە.";
 
                 const loadingElement = document.getElementById(loadingId);
                 if (loadingElement) {
-                    loadingElement.outerHTML = `
-                        <div class="ai-group">
-                            <div class="msg ai-msg">${aiRes}</div>
-                            <button class="speaker-btn" onclick="speak(\`${aiRes.replace(/`/g, "\\`")}\`)">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                        </div>`;
+                    loadingElement.innerHTML = `
+                        <div class="msg ai-msg">${aiRes}</div>
+                        <button class="speaker-btn" onclick="speak(\`${aiRes.replace(/[`"']/g, "")}\`)">
+                            <i class="fas fa-volume-up"></i>
+                        </button>`;
                 }
 
             } catch (err) {
                 const loadingElement = document.getElementById(loadingId);
-                if (loadingElement) loadingElement.innerText = "کێشەیەک د گەهشتنا مێشکی دا هەبوو.";
+                if (loadingElement) loadingElement.innerHTML = `<div class="msg ai-msg">کێشەیەک د گەهشتنا مێشکی دا هەبوو.</div>`;
             }
             container.scrollTop = container.scrollHeight;
         }
