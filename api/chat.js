@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// بکارئینانا کلیلێ ژ فایلا .env
+// گرنگە: ل فایلا .env ناڤێ کلیلێ بکە GEMINI_API_KEY
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/api/chat', async (req, res) => {
@@ -16,7 +16,7 @@ app.post('/api/chat', async (req, res) => {
     if (!message) return res.status(400).json({ reply: "برا کێمەکێ بنڤێسە دا تێبگەهم." });
 
     try {
-        // دیارکرنا مودێلێ Gemini
+        // بکارئینانا مودێلێ گونجای بۆ چاتێ
         const model = genAI.getGenerativeModel({ 
             model: "gemini-1.5-flash",
             systemInstruction: `تۆ پڕۆفیسۆر ئارجانی، زانایەکی ژیر و هاوڕێیەکی نزیکی بەکارهێنەری.
@@ -36,7 +36,7 @@ app.post('/api/chat', async (req, res) => {
 
         res.json({ reply: text });
     } catch (error) {
-        console.error(error);
+        console.error("Error with Gemini API:", error);
         res.status(500).json({ reply: "ببوورە برا، مێشکێ من نوکە یێ مژوولە، کێمەکێ دی تاقی بکە." });
     }
 });
