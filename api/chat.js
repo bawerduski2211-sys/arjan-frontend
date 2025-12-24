@@ -1,43 +1,33 @@
-// فایلێ: api/chat.js
 const fetch = require('node-fetch');
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'تنێ داخوازیا POST قبوولە' });
-  }
+module.exports = async (req, res) => {
+    // ڕێکخستنا CORS بۆ ئەوەی ڕووکار بشێت نامان بنێریت
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const { prompt } = req.body;
+    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
-  try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        "model": "google/gemini-flash-1.5", 
-        "messages": [
-          {
-            "role": "system", 
-            "content": "تە وەک شارەزایەکێ زمانێ کوردی بادینی بەرسڤێ بدە. بەرسڤێن تە کورت و ب مفابن."
-          },
-          {
-            "role": "user", 
-            "content": prompt
-          }
-        ]
-      })
-    });
+    const { prompt } = req.body;
+    const apiKey = process.env.OPENROUTER_API_KEY;
 
-    const data = await response.json();
-    
-    if (data.error) {
-      return res.status(500).json({ error: data.error.message });
+    try {
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "model": "google/gemini-2.0-flash-exp:free",
+                "messages": [{ "role": "user", "content": prompt }]
+            })
+        });
+
+        const data = await response.json();
+        res.status(200).json({ text: data.choices[0].message.content });
+    } catch (error) {
+        res.status(500).json({ error: "کێشەیەک د سێرڤەری دا هەیە" });
     }
-
-    res.status(200).json({ text: data.choices[0].message.content });
-  } catch (error) {
-    res.status(500).json({ error: "کێشەیەک د پەیوەندیێ دا هەبوو" });
-  }
-}
+};
