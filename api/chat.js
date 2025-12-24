@@ -1,38 +1,44 @@
-const { Groq } = require("groq-sdk");
 const express = require("express");
-const cors = require("cors");
+const router = express.Router(); // مه‌ ئه‌ڤه‌ گوهۆڕى بۆ Router دا دگه‌ل index.js بگونجیت
+const { Groq } = require("groq-sdk");
 require("dotenv").config();
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const groq = new Groq({ 
+    apiKey: process.env.GROQ_API_KEY 
+});
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
-app.post('/api/chat', async (req, res) => {
+// ل ڤێره‌ مه‌ ناڤێ ڕێكێ كورت كر بۆ '/' چونكى د index.js دا مه‌ پێشگرێ '/api/chat' یێ داناى
+router.post('/', async (req, res) => {
     const { message } = req.body;
 
-    if (!message) return res.status(400).json({ reply: "برا کێمەکێ بنڤێسە." });
+    if (!message) {
+        return res.status(400).json({ reply: "برا پسیارەکێ بنڤێسە!" });
+    }
 
     try {
         const completion = await groq.chat.completions.create({
             messages: [
                 {
                     role: "system",
-                    content: `تۆ پڕۆفیسۆر ئارجانی، خەڵکی دهۆکی. زۆر کورت وەڵام بدەوە.
-                    یاساکان: ١. تەنها بە بادینی قسە بکە. ٢. وەڵام تەنها یەک ڕستە بێت. ٣. پەیڤی سۆرانی بەکارنەهێنە.`
+                    content: `تۆ پڕۆفیسۆر ئارجانی، خەڵکی دهۆکی. زۆر بە کورتی و تەنها بە یەک ڕستە وەڵام بدەوە. 
+                    یاسایێن توند: ١. تەنها ب بادینی باخڤە. ٢. ب چ ڕەنگەکی سۆرانی بەکارنەهێنە. ٣. بەرسڤێن درێژ نەدە.`
                 },
-                { role: "user", content: message }
+                {
+                    role: "user",
+                    content: message
+                }
             ],
-            model: "llama-3.3-70b-specdec", 
-            temperature: 0.1, 
-            max_tokens: 100 
+            model: process.env.MODEL_NAME || "llama-3.3-70b-specdec",
+            temperature: 0.1, // کێم کر بۆ هندێ بەرسڤ جێگیر و کورت بن
+            max_tokens: 100 // سنوردار کر دا بەرسڤێن درێژ نەدەت
         });
 
         res.json({ reply: completion.choices[0].message.content });
+
     } catch (error) {
-        res.status(500).json({ reply: "مێشکێ من مژوولە." });
+        console.error("Error Detail:", error);
+        res.status(500).json({ reply: "ببوورە برا، مێشکێ من نوکە یێ مژوولە." });
     }
 });
 
-module.exports = app;
+module.exports = router; // مه‌ ئه‌ڤه‌ گوهۆڕى دا index.js بشێت وێ بخوینیت
