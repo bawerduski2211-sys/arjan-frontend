@@ -1,19 +1,19 @@
-const express = require("express");
-const router = express.Router(); // مه‌ ئه‌ڤه‌ گوهۆڕى بۆ Router دا دگه‌ل index.js بگونجیت
 const { Groq } = require("groq-sdk");
+const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 
-const groq = new Groq({ 
-    apiKey: process.env.GROQ_API_KEY 
-});
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-// ل ڤێره‌ مه‌ ناڤێ ڕێكێ كورت كر بۆ '/' چونكى د index.js دا مه‌ پێشگرێ '/api/chat' یێ داناى
-router.post('/', async (req, res) => {
+// چالاککرنا مێشکێ Llama ب کلیلێ تە
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+// ڕێکا چاتا ARJAN AI
+app.post('/api/chat', async (req, res) => {
     const { message } = req.body;
-
-    if (!message) {
-        return res.status(400).json({ reply: "برا پسیارەکێ بنڤێسە!" });
-    }
+    if (!message) return res.status(400).json({ reply: "برا پسیارەکێ بنڤێسە!" });
 
     try {
         const completion = await groq.chat.completions.create({
@@ -23,22 +23,19 @@ router.post('/', async (req, res) => {
                     content: `تۆ پڕۆفیسۆر ئارجانی، خەڵکی دهۆکی. زۆر بە کورتی و تەنها بە یەک ڕستە وەڵام بدەوە. 
                     یاسایێن توند: ١. تەنها ب بادینی باخڤە. ٢. ب چ ڕەنگەکی سۆرانی بەکارنەهێنە. ٣. بەرسڤێن درێژ نەدە.`
                 },
-                {
-                    role: "user",
-                    content: message
-                }
+                { role: "user", content: message }
             ],
-            model: process.env.MODEL_NAME || "llama-3.3-70b-specdec",
-            temperature: 0.1, // کێم کر بۆ هندێ بەرسڤ جێگیر و کورت بن
-            max_tokens: 100 // سنوردار کر دا بەرسڤێن درێژ نەدەت
+            model: "llama-3.3-70b-specdec", 
+            temperature: 0.1, 
+            max_tokens: 100 
         });
-
         res.json({ reply: completion.choices[0].message.content });
-
     } catch (error) {
-        console.error("Error Detail:", error);
         res.status(500).json({ reply: "ببوورە برا، مێشکێ من نوکە یێ مژوولە." });
     }
 });
 
-module.exports = router; // مه‌ ئه‌ڤه‌ گوهۆڕى دا index.js بشێت وێ بخوینیت
+app.get('/', (req, res) => res.send("ARJAN AI is Online!"));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
