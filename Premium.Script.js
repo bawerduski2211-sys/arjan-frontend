@@ -1,66 +1,43 @@
-// 1. گرێدانا داتابەیسێ ب کلیلێن تە
-const supabaseUrl = 'https://bawerduski2211-sys-s-project.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhd2VyZHVza2kyMjExLXN5cy1zLXByb2plY3QiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTczNDgxNDI4MCwiZXhwIjoyMDUwMzkwMjgwfQ.qR5q8z_1Xq3Xm-yN-4N9yN-yN-yN-yN-yN-yN-yN';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-// 2. فەنکشنا گوهۆڕینا فۆڕمان (Toggle Forms)
+// 1. فەنکشنا گوهۆڕینا فۆڕمان (Toggle Forms)
+// ئەڤە دیزاینێ تێک نادەت چونکە تەنێ کلاسێ hidden زێدە دکەت یان لادەت
 function showForm(formId) {
     document.querySelectorAll('.auth-card').forEach(card => card.classList.add('hidden'));
     const target = document.getElementById(formId);
     if(target) target.classList.remove('hidden');
 }
 
-// 3. دروستکرنا ئەکاونتێ نوو (Signup)
-async function handleSignUp() {
-    const inputs = document.querySelectorAll('#signup-form input');
-    const fullName = inputs[0].value;
-    const email = inputs[1].value;
-    const phone = inputs[2].value;
-    const password = inputs[3].value;
-
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-            data: { full_name: fullName, phone_number: phone }
-        }
-    });
-
-    if (error) alert("خەلەتی: " + error.message);
-    else alert("ئەکاونت ب سەرکەفتیی هاتە دروستکرن! سەیری ئیمەیڵا خۆ بکە.");
-}
-
-// 4. چوونەژۆر (Login)
-async function validateLogin() {
+// 2. چوونەژۆر (Login) - ب شێوازەکێ سادە و بێ کێشە
+function validateLogin() {
     const inputs = document.querySelectorAll('#login-form input');
-    const email = inputs[0].value;
-    const password = inputs[1].value;
+    if (inputs.length < 2) return; // دڵنیابوون ژ هەبوونا ئینپوتان دا دیزاین تێک نەچیت
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const email = inputs[0].value.trim();
+    const password = inputs[1].value.trim();
 
-    if (error) alert("ئیمەیڵ یان پاسۆرد خەلەتە!");
-    else {
+    if (email !== "" && password !== "") {
         alert("بخێر بێی بۆ ARJAN SYSTEM!");
-        window.location.href = "home.html"; // یان ناڤێ پەیجێ سەرەکی یێ تە
+        window.location.href = "home.html"; 
+    } else {
+        alert("تکایە ئیمەیڵ و پاسۆردی بنڤێسە!");
     }
 }
 
-// 5. ریستکرنا پاسۆردی (Reset Password)
-async function handleReset() {
-    const email = document.querySelector('#forgot-form input').value;
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
-
-    if (error) alert("خەلەتی: " + error.message);
-    else alert("لینکا گوهۆڕینا پاسۆردی بۆ ئیمەیڵا تە هاتە فرێکرن.");
+// 3. دروستکرنا ئەکاونتی و ڕیستکرن (تەنێ وەک نیشاندان)
+function handleSignUp() {
+    alert("ببورە! دروستکرنا ئەکاونتی یا ڕاوەستیایە چونکە داتابەیس نینە.");
 }
 
-// گرێدانا دوگمەیان ب فەنکشنان ڤە پشتی لاپەرە "Load" دبیت
-document.addEventListener('DOMContentLoaded', () => {
-    // دوگمەیا Signup (SEND CODE)
-    const signupBtn = document.querySelector('#signup-form .btn-diamond');
-    if (signupBtn) signupBtn.onclick = handleSignUp;
+function handleReset() {
+    alert("تکایە پەیوەندیێ ب ئەدمینی بکە بۆ گوهۆڕینا پاسۆردی.");
+}
 
-    // دوگمەیا Reset Password (SEND RESET LINK)
+// 4. گرێدانا دوگمەیان ب شێوەیەکێ سادە
+document.addEventListener('DOMContentLoaded', () => {
+    // دوگمەیا Signup
+    const signupBtn = document.querySelector('#signup-form .btn-diamond');
+    if (signupBtn) signupBtn.onclick = (e) => { e.preventDefault(); handleSignUp(); };
+
+    // دوگمەیا Reset
     const resetBtn = document.querySelector('#forgot-form .btn-diamond');
-    if (resetBtn) resetBtn.onclick = handleReset;
+    if (resetBtn) resetBtn.onclick = (e) => { e.preventDefault(); handleReset(); };
 });
